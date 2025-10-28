@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1015502194632288526}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4, y: 0, z: 0}
+  m_LocalPosition: {x: -0.43, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 1192150266817290975}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 0, z: 0}
+  m_LocalPosition: {x: 0.43, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 4470557383316380678}
   - component: {fileID: 3874723821173773829}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -276,23 +276,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670c617da1c9c4a42ae78c22f256bebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AgileFormController
-  moveSpeed: 8
-  jumpForce: 9
   groundCheck: {fileID: 4719056739072069065}
-  groundRadius: 0.16
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 328
   wallCheckLeft: {fileID: 3589530392180437673}
   wallCheckRight: {fileID: 4718383708854129927}
-  wallCheckRadius: 0.12
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 72
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
-  wallSlideSpeed: 6
-  wallJumpPush: 7
-  wallJumpUp: 9
-  regrabDelay: 0.15
+  moveSpeed: 8
+  jumpForce: 11
+  gravityScale: 2.5
+  wallSlideSpeed: 1.8
+  wallStickTime: 2
+  wallJumpForceX: 11
+  wallJumpForceY: 10
+  groundRadius: 0.16
+  wallCheckRadius: 0.12
+  animator: {fileID: 0}
+  visualToFlip: {fileID: 4470557383316380678}
 --- !u!114 &9102194008609695928
 MonoBehaviour:
   m_ObjectHideFlags: 0

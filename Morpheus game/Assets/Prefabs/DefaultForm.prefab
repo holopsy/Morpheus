@@ -250,7 +250,7 @@ MonoBehaviour:
   attackCooldown: 0.5
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   attackLine: {fileID: -7985176891347430513}
   lineDuration: 0.1
 --- !u!120 &-7985176891347430513

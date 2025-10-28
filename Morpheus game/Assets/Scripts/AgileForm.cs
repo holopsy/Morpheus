@@ -3,117 +3,174 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class AgileFormController : MonoBehaviour
 {
-    [Header("Movement")]
-    public float moveSpeed = 8f;
-    public float jumpForce = 9f;
-
-    [Header("Ground Check")]
-    public Transform groundCheck;       
-    public float groundRadius = 0.15f;
-    public LayerMask groundLayer;
-
-    [Header("Wall Check")]
+    [Header("Refs")]
+    public Transform groundCheck;
     public Transform wallCheckLeft;
     public Transform wallCheckRight;
+
+    [Header("Layers")]
+    public LayerMask groundLayer;
+    public LayerMask wallLayer; // set to Ground if you don't use a separate wall layer
+
+    [Header("Balance")]
+    public float moveSpeed = 8f;
+    public float jumpForce = 7f;
+    public float gravityScale = 2.5f;
+
+    [Header("Wall")]
+    public float wallSlideSpeed = 2f;   // slow downward speed while sliding
+    public float wallStickTime = 1f;    // how long you keep the slow slide before falling normally
+    public float wallJumpForceX = 6f;   // horizontal push away from wall
+    public float wallJumpForceY = 7f;   // vertical push on wall jump
+
+    [Header("Checks")]
+    public float groundRadius = 0.15f;
     public float wallCheckRadius = 0.15f;
-    public LayerMask wallLayer;
 
-    [Header("Wall Slide & Jump")]
-    public float wallSlideSpeed = 0.5f;    // slow descent speed
-    public float wallJumpPush = 7f;        // horizontal push
-    public float wallJumpUp = 9f;          // vertical push
-    public float regrabDelay = 0.15f;      // delay before sticking again after wall jump
+    // Optional animator hooks (safe to leave null)
+    public Animator animator;
+    public Transform visualToFlip;// set Speed (float) & OnGround (bool) if provided
 
-    private Rigidbody2D rb;
-    private float moveInput;
-    private bool grounded;
-    private bool onLeftWall, onRightWall;
-    private bool wallSliding;
-    private float cantGrabUntil;
+    // --- internal ---
+    Rigidbody2D rb;
+    float moveInput;
+    bool grounded;
+    bool onLeftWall, onRightWall;
+    bool wallSliding;
+    float wallStickTimer;
 
-    // 🟦 Track last wall jumped from
-    private int lastWallDir = 0; // -1 = left, +1 = right, 0 = none
+    int lastFacing = 1;     // 1 right, -1 left
+    int lastWallJumpDir = 0;// remembers the wall we last jumped from: -1 left, +1 right
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = gravityScale;
     }
 
     void Update()
     {
+        // Input
         moveInput = Input.GetAxisRaw("Horizontal");
 
-        // 🟦 Ground jump
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        // Facing
+        if (moveInput > 0.01f) lastFacing = 1;
+        else if (moveInput < -0.01f) lastFacing = -1;
+
+        if (visualToFlip != null && lastFacing != 0)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            lastWallDir = 0; // reset wall memory when on ground
+            var s = visualToFlip.localScale;
+            s.x = Mathf.Abs(s.x) * lastFacing;
+            visualToFlip.localScale = s;
         }
 
-        // 🟦 Wall jump
-        else if (Input.GetKeyDown(KeyCode.Space) && wallSliding)
+        // Jump pressed
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            int dir = onLeftWall ? -1 : 1; // which wall we're on
+            TryJump();
+        }
 
-            // Only allow jump if it's a *different* wall than last time
-            if (dir != lastWallDir)
-            {
-                rb.linearVelocity = new Vector2(-dir * wallJumpPush, wallJumpUp);
-
-                wallSliding = false;
-                cantGrabUntil = Time.time + regrabDelay;
-
-                lastWallDir = dir; // remember this wall
-            }
+        // Animator (optional)
+        if (animator)
+        {
+            animator.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
+            animator.SetBool("OnGround", grounded);
         }
     }
 
     void FixedUpdate()
     {
-        // 🟦 Horizontal movement
+        // Horizontal move
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
+        if (onLeftWall && !onRightWall) Debug.Log("Left wall detected");
+        if (onRightWall && !onLeftWall) Debug.Log("Right wall detected");
 
-        // 🟦 Ground check
+        // Ground & wall checks
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
-
-        // 🟦 Wall check
-        onLeftWall  = Physics2D.OverlapCircle(wallCheckLeft.position, wallCheckRadius, wallLayer);
+        onLeftWall  = Physics2D.OverlapCircle(wallCheckLeft.position,  wallCheckRadius, wallLayer);
         onRightWall = Physics2D.OverlapCircle(wallCheckRight.position, wallCheckRadius, wallLayer);
         bool touchingWall = onLeftWall || onRightWall;
 
-        // 🟦 Reset last wall if grounded
-        if (grounded) lastWallDir = 0;
-
-        // 🟦 Wall slide (only if airborne, touching wall, not locked)
-        if (!grounded && touchingWall && Time.time >= cantGrabUntil)
+        if (grounded)
         {
-            wallSliding = true;
+            lastWallJumpDir = 0;
+            wallSliding = false;
+            wallStickTimer = 0f;
+        }
 
-            // clamp downward velocity
-            if (rb.linearVelocity.y < -wallSlideSpeed)
+        // ---- FIXED wall slide logic ----
+        bool holdingTowardLeft  = onLeftWall  && moveInput < 0;
+        bool holdingTowardRight = onRightWall && moveInput > 0;
+
+        // Only slide if airborne and pressing toward whichever wall you're touching
+        wallSliding = !grounded && (holdingTowardLeft || holdingTowardRight);
+
+        if (wallSliding)
+        {
+            // refresh timer when you first start sliding
+            if (wallStickTimer <= 0f)
+                wallStickTimer = wallStickTime;
+
+            if (wallStickTimer > 0f)
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed);
+                // Clamp vertical speed for both sides
+                if (rb.linearVelocity.y < -wallSlideSpeed)
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed);
+
+                wallStickTimer -= Time.fixedDeltaTime;
             }
         }
         else
         {
+            wallStickTimer = 0f;
+        }
+    }
+
+    void TryJump()
+    {
+        // Ground jump
+        if (grounded)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            return;
+        }
+
+        // Wall jump: only if sliding & input is toward that wall & not same wall as last jump
+        int currentWallDir = onLeftWall ? -1 : (onRightWall ? 1 : 0);
+        bool holdingTowardWall = (onLeftWall && moveInput < 0) || (onRightWall && moveInput > 0);
+
+        if (currentWallDir != 0 && holdingTowardWall && wallSliding)
+        {
+            // Prevent multiple jumps on the SAME wall
+            if (currentWallDir == lastWallJumpDir) return;
+
+            // Jump away from wall
+            Vector2 v = new Vector2(-currentWallDir * wallJumpForceX, wallJumpForceY);
+            rb.linearVelocity = v;
+
+            // Lock to this wall until you touch ground or switch walls
+            lastWallJumpDir = currentWallDir;
+
+            // Stop slide immediately after jump
             wallSliding = false;
+            wallStickTimer = 0f;
         }
     }
 
     void OnDrawGizmosSelected()
     {
-        if (groundCheck != null)
+        if (groundCheck)
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
         }
-        if (wallCheckLeft != null)
+        if (wallCheckLeft)
         {
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireSphere(wallCheckLeft.position, wallCheckRadius);
         }
-        if (wallCheckRight != null)
+        if (wallCheckRight)
         {
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireSphere(wallCheckRight.position, wallCheckRadius);

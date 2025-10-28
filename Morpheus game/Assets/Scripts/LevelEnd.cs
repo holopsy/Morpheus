@@ -1,26 +1,30 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class LevelEnd : MonoBehaviour
+[RequireComponent(typeof(Collider2D))]
+public class ExitGate : MonoBehaviour
 {
-    public GameObject winUI; // assign the Canvas with WinText + Button in Inspector
+    public string nextSceneName = ""; // optional, if you want to load next later
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void Reset()
     {
-        if (collision.CompareTag("Player"))
-        {
-            // Show Win Screen
-            winUI.SetActive(true);
-
-            // Pause the game (optional)
-            Time.timeScale = 0f;
-        }
+        GetComponent<Collider2D>().isTrigger = true;
     }
 
-    // Called by the Button OnClick
-    public void RestartLevel()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        Time.timeScale = 1f; // resume
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (!other.CompareTag("Player")) return;
+
+        var mgr = CollectibleManager.Instance;
+        if (mgr != null && mgr.AllCollected)
+        {
+            Debug.Log("Level complete! All essences collected.");
+            // TODO: load next scene or show victory UI
+            // if (!string.IsNullOrEmpty(nextSceneName)) SceneManager.LoadScene(nextSceneName);
+        }
+        else
+        {
+            Debug.Log("You must collect all essences first!");
+            // Optional: show UI prompt
+        }
     }
 }
