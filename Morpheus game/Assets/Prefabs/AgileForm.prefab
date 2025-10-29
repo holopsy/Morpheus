@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 5607447848740500151}
   - component: {fileID: 2441871291401647809}
   - component: {fileID: 9102194008609695928}
+  - component: {fileID: -5408916675214237160}
   m_Layer: 0
   m_Name: AgileForm
   m_TagString: Player
@@ -308,6 +309,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 137e42d64ffcdf54bb2b7ab6275cb121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDeath
+  dieTriggerName: Die
+  deathAnimDuration: 0.9
+  freezeDuringDeath: 1
+--- !u!114 &-5408916675214237160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3288355765436532145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb3deddcb37afd498d880a58ea3188f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 3
+  current: 0
+  invulnTime: 0.8
+  animator: {fileID: 0}
+  hurtTrigger: Hurt
 --- !u!1 &4569421126363374621
 GameObject:
   m_ObjectHideFlags: 0

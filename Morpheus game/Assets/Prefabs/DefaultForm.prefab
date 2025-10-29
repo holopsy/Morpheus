@@ -157,6 +157,8 @@ GameObject:
   - component: {fileID: 175913185948021406}
   - component: {fileID: 8574724753654708539}
   - component: {fileID: -1180387489963889396}
+  - component: {fileID: 6460902340919802127}
+  - component: {fileID: -1251001454106828432}
   m_Layer: 0
   m_Name: DefaultForm
   m_TagString: Player
@@ -242,7 +244,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.032336503, y: -0.04446268}
+  m_Offset: {x: -0.032336503, y: -0.001709938}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -252,7 +254,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.935327, y: 1.258692}
+  m_Size: {x: 0.935327, y: 1.2532465}
   m_EdgeRadius: 0
 --- !u!114 &8574724753654708539
 MonoBehaviour:
@@ -272,10 +274,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   attackBoxOffset: {x: 0.9, y: 0}
-  attackBoxSize: {x: 1.2, y: 1}
+  attackBoxSize: {x: 1.23, y: 1}
   attackDamage: 1
   visualToFlip: {fileID: 2687742780694654434}
   animator: {fileID: 777456734886825305}
+  spawnLockDuration: 0.6
+  spawnStateName: Spawn_Defaultform
 --- !u!114 &-1180387489963889396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,3 +292,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 137e42d64ffcdf54bb2b7ab6275cb121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDeath
+  dieTriggerName: Die
+  deathAnimDuration: 0.9
+  freezeDuringDeath: 1
+--- !u!114 &6460902340919802127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800484490117455257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 463b21c1c60355b46879abdc72aa95b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  maxHealth: 3
+--- !u!114 &-1251001454106828432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800484490117455257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb3deddcb37afd498d880a58ea3188f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 3
+  current: 0
+  invulnTime: 0.8
+  animator: {fileID: 0}
+  hurtTrigger: Hurt

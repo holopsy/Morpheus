@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2733989375780851103}
   - component: {fileID: 5349022176223920222}
+  - component: {fileID: 8122089560364520933}
+  - component: {fileID: 6099005630958283679}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -27,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 0.6, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8388339671835828567}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -79,8 +81,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.8207547, g: 0.3213332, b: 0.3213332, a: 1}
+  m_Sprite: {fileID: -8424800189492263345, guid: 3165d1fc2e3e2c740ad28834bf095acd, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -90,6 +92,41 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &8122089560364520933
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3471197083240465800}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7152d5fc387053842ba29f26d520fb6d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6099005630958283679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3471197083240465800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a1e6e60a0d1e64aa32c4db65901ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlyingFormAnimationEvents
+  controller: {fileID: 3410695130555250341}
 --- !u!1 &5800350877991432728
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,6 +140,7 @@ GameObject:
   - component: {fileID: 6551879261529124010}
   - component: {fileID: 3410695130555250341}
   - component: {fileID: -1329634725417627971}
+  - component: {fileID: -252550922468732415}
   m_Layer: 0
   m_Name: FlyingForm
   m_TagString: Player
@@ -160,7 +198,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0022708774, y: -0.0045417547}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -170,7 +208,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.2, y: 0.6}
+  m_Size: {x: 1.3498784, y: 1.263099}
   m_EdgeRadius: 0
 --- !u!50 &6551879261529124010
 Rigidbody2D:
@@ -212,7 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlyingMovement
   moveSpeed: 4
-  flapForce: 6
+  flapForce: 7.5
 --- !u!114 &-1329634725417627971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,3 +263,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 137e42d64ffcdf54bb2b7ab6275cb121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDeath
+  dieTriggerName: Die
+  deathAnimDuration: 0.9
+  freezeDuringDeath: 1
+--- !u!114 &-252550922468732415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800350877991432728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb3deddcb37afd498d880a58ea3188f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 3
+  current: 0
+  invulnTime: 0.8
+  animator: {fileID: 0}
+  hurtTrigger: Hurt

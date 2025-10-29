@@ -19,6 +19,11 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
+        // Drop collectible(s) if present
+        var dropper = GetComponent<EnemyDropper>();
+        if (dropper != null)
+            dropper.Drop();
+
         Destroy(gameObject);
     }
 }

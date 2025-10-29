@@ -2,31 +2,37 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 
-[DefaultExecutionOrder(-1000)] // Run BEFORE other scripts so the same key press reaches them too
+[DefaultExecutionOrder(-1000)]
 public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance;
 
     [Header("UI (TMP)")]
-    public GameObject promptPanel;   // assign your panel
-    public TMP_Text   promptText;    // assign your TMP text
+    public GameObject promptPanel;
+    public TMP_Text promptText;
 
     [Header("Timing")]
     [Range(0.05f, 1f)] public float slowTimeScale = 0.2f;
 
-    private bool   stepActive;
+    private bool stepActive;
     private KeyCode waitingFor;
-    private float  prevTimeScale = 1f;
-    private float  prevFixedDelta = 0.02f;
+    private KeyCode[] waitingForMultiple;
+    private bool multiMode;
 
-    // Freeze/unfreeze RB constraints safely (we do NOT disable scripts anymore)
+    private float prevTimeScale = 1f;
+    private float prevFixedDelta = 0.02f;
+
     private readonly List<Rigidbody2D> frozenRBs = new List<Rigidbody2D>();
     private readonly Dictionary<Rigidbody2D, RigidbodyConstraints2D> rbPrevConstraints =
         new Dictionary<Rigidbody2D, RigidbodyConstraints2D>();
 
     void Awake()
     {
-        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
 
         if (promptPanel) promptPanel.SetActive(false);
@@ -36,35 +42,98 @@ public class TutorialManager : MonoBehaviour
     {
         if (!stepActive) return;
 
-        // If required key pressed this frame:
-        if (Input.GetKeyDown(waitingFor))
+        if (multiMode)
         {
-            // End step NOW so other scripts (which run AFTER us) see the same key press.
-            CompleteStep();
-            return;
+            foreach (var key in waitingForMultiple)
+            {
+                if (Input.GetKeyDown(key))
+                {
+                    CompleteStep();
+                    return;
+                }
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(waitingFor))
+            {
+                CompleteStep();
+                return;
+            }
         }
 
-        // Otherwise block all other input for this frame (keeps only the required key meaningful)
         Input.ResetInputAxes();
     }
 
+    // === Single-key trigger (no custom layout) ===
     public void StartStep(KeyCode requiredKey, string message)
     {
+        StartStep(requiredKey, message, Vector2.zero, 1f, 36f);
+    }
+
+    // === Single-key trigger (with layout) ===
+    public void StartStep(KeyCode requiredKey, string message, Vector2 offset, float scale, float baseSize)
+    {
         if (stepActive) return;
-        stepActive  = true;
+        multiMode = false;
         waitingFor = requiredKey;
+        StartStepCommon(message, offset, scale, baseSize);
+    }
 
-        // Slow time but keep physics responsive
-        prevTimeScale   = Time.timeScale;
-        prevFixedDelta  = Time.fixedDeltaTime;
-        Time.timeScale  = slowTimeScale;
-        Time.fixedDeltaTime = 0.02f * Time.timeScale; // keep ~50 fixed steps per real second
+    // === Multi-key trigger (no custom layout) ===
+    public void StartStep(KeyCode[] acceptedKeys, string message)
+    {
+        StartStep(acceptedKeys, message, Vector2.zero, 1f, 36f);
+    }
 
-        // Show prompt
-        if (promptText)  promptText.text = message;
+    // === Multi-key trigger (with layout) ===
+    public void StartStep(KeyCode[] acceptedKeys, string message, Vector2 offset, float scale, float baseSize)
+    {
+        if (stepActive) return;
+        multiMode = true;
+        waitingForMultiple = acceptedKeys;
+        StartStepCommon(message, offset, scale, baseSize);
+    }
+
+    // === Shared setup logic for all versions ===
+    // === Shared setup logic for all versions ===
+    private void StartStepCommon(string message, Vector2 offset, float scale, float baseSize)
+    {
+        stepActive = true;
+
+        // slow motion setup
+        prevTimeScale = Time.timeScale;
+        prevFixedDelta = Time.fixedDeltaTime;
+        Time.timeScale = slowTimeScale;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+        // setup text layout and content
+        if (promptText)
+        {
+            // 1) Set text
+            promptText.text = message;
+
+            // 2) Make sure TMP obeys font size
+            // (Auto Size will override fontSize—turn it OFF)
+            var tmp = promptText; // TMP_Text
+            tmp.enableAutoSizing = false;
+            tmp.fontSize = baseSize * scale;
+
+            // 3) Position: force center anchors so anchoredPosition works
+            var rt = promptText.rectTransform; // RectTransform on the TMP object
+            if (rt)
+            {
+                rt.anchorMin = new Vector2(0.5f, 0.5f);
+                rt.anchorMax = new Vector2(0.5f, 0.5f);
+                rt.pivot     = new Vector2(0.5f, 0.5f);
+                rt.anchoredPosition = offset; // per-trigger position
+            }
+        }
+
+        // show the panel
         if (promptPanel) promptPanel.SetActive(true);
 
-        // Freeze all player rigidbodies so nothing moves while tip is active
+        // freeze all player rigidbodies (unchanged)
         frozenRBs.Clear();
         rbPrevConstraints.Clear();
         var players = GameObject.FindGameObjectsWithTag("Player");
@@ -82,13 +151,13 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    void CompleteStep()
+    private void CompleteStep()
     {
-        // Restore time/physics
-        Time.timeScale      = prevTimeScale;
+        // restore time
+        Time.timeScale = prevTimeScale;
         Time.fixedDeltaTime = prevFixedDelta;
 
-        // Unfreeze rigidbodies BEFORE other scripts run this frame
+        // unfreeze rigidbodies
         foreach (var rb in frozenRBs)
         {
             if (rb && rbPrevConstraints.TryGetValue(rb, out var prev))
@@ -97,7 +166,7 @@ public class TutorialManager : MonoBehaviour
         frozenRBs.Clear();
         rbPrevConstraints.Clear();
 
-        // Hide UI
+        // hide UI
         if (promptPanel) promptPanel.SetActive(false);
 
         stepActive = false;

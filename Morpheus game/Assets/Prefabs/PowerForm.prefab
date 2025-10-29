@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8310072844467306933}
   - component: {fileID: 3701659482561625258}
   - component: {fileID: 56589825254137888}
+  - component: {fileID: 767150308374918257}
   m_Layer: 0
   m_Name: PowerForm
   m_TagString: Player
@@ -139,6 +140,23 @@ MonoBehaviour:
   animator: {fileID: 3108639388479839592}
   spawnLockDuration: 0.6
   spawnStateName: Spawn_Powerform
+--- !u!114 &767150308374918257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603284063832582206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb3deddcb37afd498d880a58ea3188f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 3
+  current: 0
+  invulnTime: 0.8
+  animator: {fileID: 0}
+  hurtTrigger: Hurt
 --- !u!1 &3804163022236716994
 GameObject:
   m_ObjectHideFlags: 0
