@@ -1,0 +1,1336 @@
+fileFormatVersion: 2
+guid: 3165d1fc2e3e2c740ad28834bf095acd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8424800189492263345
+    second: Flight_Shape-Sheet_0
+  - first:
+      213: -1829457947773498316
+    second: Flight_Shape-Sheet_1
+  - first:
+      213: -7348185421130121486
+    second: Flight_Shape-Sheet_2
+  - first:
+      213: -1798428069263969925
+    second: Flight_Shape-Sheet_3
+  - first:
+      213: 61353056275870356
+    second: Flight_Shape-Sheet_4
+  - first:
+      213: 5803723382020377489
+    second: Flight_Shape-Sheet_5
+  - first:
+      213: 5176797788039881619
+    second: Flight_Shape-Sheet_6
+  - first:
+      213: -2659722264414923030
+    second: Flight_Shape-Sheet_7
+  - first:
+      213: 1794452058629739186
+    second: Flight_Shape-Sheet_8
+  - first:
+      213: 7700687216746685667
+    second: Flight_Shape-Sheet_9
+  - first:
+      213: -4897424550789969540
+    second: Flight_Shape-Sheet_10
+  - first:
+      213: 6067630904569674437
+    second: Flight_Shape-Sheet_11
+  - first:
+      213: 2084452812458768247
+    second: Flight_Shape-Sheet_12
+  - first:
+      213: -9130853221607196426
+    second: Flight_Shape-Sheet_13
+  - first:
+      213: 2685710617571136982
+    second: Flight_Shape-Sheet_14
+  - first:
+      213: 540250469928576447
+    second: Flight_Shape-Sheet_15
+  - first:
+      213: 3079113187038388673
+    second: Flight_Shape-Sheet_16
+  - first:
+      213: 553117950647695305
+    second: Flight_Shape-Sheet_17
+  - first:
+      213: -3967897325007876125
+    second: Flight_Shape-Sheet_18
+  - first:
+      213: -2775411753456561772
+    second: Flight_Shape-Sheet_19
+  - first:
+      213: -2346196920335722591
+    second: Flight_Shape-Sheet_20
+  - first:
+      213: 5319542016840877381
+    second: Flight_Shape-Sheet_21
+  - first:
+      213: -3810804163447290230
+    second: Flight_Shape-Sheet_22
+  - first:
+      213: -3077970638355119909
+    second: Flight_Shape-Sheet_23
+  - first:
+      213: -7666100064193779440
+    second: Flight_Shape-Sheet_24
+  - first:
+      213: -7204869246213886983
+    second: Flight_Shape-Sheet_25
+  - first:
+      213: -8213396502995266730
+    second: Flight_Shape-Sheet_26
+  - first:
+      213: -2139158246206214365
+    second: Flight_Shape-Sheet_27
+  - first:
+      213: 1872378299836303336
+    second: Flight_Shape-Sheet_28
+  - first:
+      213: -4256045299581785453
+    second: Flight_Shape-Sheet_29
+  - first:
+      213: -5838014852446711933
+    second: Flight_Shape-Sheet_30
+  - first:
+      213: 1230996126386178345
+    second: Flight_Shape-Sheet_31
+  - first:
+      213: 933312536673685164
+    second: Flight_Shape-Sheet_32
+  - first:
+      213: 8480727013295930036
+    second: Flight_Shape-Sheet_33
+  - first:
+      213: -3918977746506739121
+    second: Flight_Shape-Sheet_34
+  - first:
+      213: -2804394709127804629
+    second: Flight_Shape-Sheet_35
+  - first:
+      213: 7733299314265803210
+    second: Flight_Shape-Sheet_36
+  - first:
+      213: 6971936479292918624
+    second: Flight_Shape-Sheet_37
+  - first:
+      213: -7403863531063322835
+    second: Flight_Shape-Sheet_38
+  - first:
+      213: 4072402849950992853
+    second: Flight_Shape-Sheet_39
+  - first:
+      213: 3221231296187754647
+    second: Flight_Shape-Sheet_40
+  - first:
+      213: 2526592012731353297
+    second: Flight_Shape-Sheet_41
+  - first:
+      213: -8181557268186466572
+    second: Flight_Shape-Sheet_42
+  - first:
+      213: 6416164621837146365
+    second: Flight_Shape-Sheet_43
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 80
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f468ba93dd8151b80800000000000000
+      internalID: -8424800189492263345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 80
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43c027b70b57c96e0800000000000000
+      internalID: -1829457947773498316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 80
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2feb5d5ba40060a90800000000000000
+      internalID: -7348185421130121486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 80
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b71fd611333ba07e0800000000000000
+      internalID: -1798428069263969925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 80
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49235359748f9d000800000000000000
+      internalID: 61353056275870356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 80
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19b04ff9aa7fa8050800000000000000
+      internalID: 5803723382020377489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 393252e092ea7d740800000000000000
+      internalID: 5176797788039881619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 64
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae6d95c31b4c61bd0800000000000000
+      internalID: -2659722264414923030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b21811d3ac27e810800000000000000
+      internalID: 1794452058629739186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 64
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e4e39049365eda60800000000000000
+      internalID: 7700687216746685667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 64
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7903e7915ad80cb0800000000000000
+      internalID: -4897424550789969540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 50
+        width: 22
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cabe07f82e843450800000000000000
+      internalID: 6067630904569674437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 50
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7773badf9c67dec10800000000000000
+      internalID: 2084452812458768247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 51
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f83fdd4f51b84180800000000000000
+      internalID: -9130853221607196426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 49
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d592d1c39f854520800000000000000
+      internalID: 2685710617571136982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 51
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb5a4d5a0fa5f7700800000000000000
+      internalID: 540250469928576447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 51
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c1e4a831253bba20800000000000000
+      internalID: 3079113187038388673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_17
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 50
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c77f3778d11da700800000000000000
+      internalID: 553117950647695305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3efceadd7623fe8c0800000000000000
+      internalID: -3967897325007876125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_19
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49117c907b1cb79d0800000000000000
+      internalID: -2775411753456561772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_20
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 32
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a71646e452a07fd0800000000000000
+      internalID: -2346196920335722591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_21
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 32
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 545c099b74fc2d940800000000000000
+      internalID: 5319542016840877381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_22
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 33
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a860529cdcd4d1bc0800000000000000
+      internalID: -3810804163447290230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_23
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 36
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd0c2cf130ad845d0800000000000000
+      internalID: -3077970638355119909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_24
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 33
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 019612dbb9a8c9590800000000000000
+      internalID: -7666100064193779440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_25
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 32
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fbe846f799230c90800000000000000
+      internalID: -7204869246213886983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_26
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 36
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 653188f9567240e80800000000000000
+      internalID: -8213396502995266730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_27
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 0
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32fe788a8ee2052e0800000000000000
+      internalID: -2139158246206214365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_28
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 0
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e784e6b4260cf910800000000000000
+      internalID: 1872378299836303336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_29
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 19
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39ae47a795d7fe4c0800000000000000
+      internalID: -4256045299581785453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_30
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 18
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38f857e3c643bfea0800000000000000
+      internalID: -5838014852446711933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_31
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 17
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92941217470651110800000000000000
+      internalID: 1230996126386178345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_32
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cae8ad4aecac3fc00800000000000000
+      internalID: 933312536673685164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_33
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 16
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ba3098294891b570800000000000000
+      internalID: 8480727013295930036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_34
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 20
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f421ec0d08efc99c0800000000000000
+      internalID: -3918977746506739121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_35
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 19
+        width: 21
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b29c370ded9c419d0800000000000000
+      internalID: -2804394709127804629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_36
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 0
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac9c598e0c2325b60800000000000000
+      internalID: 7733299314265803210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_37
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 0
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06b87dcf94b41c060800000000000000
+      internalID: 6971936479292918624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_38
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 0
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2750898851304990800000000000000
+      internalID: -7403863531063322835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_39
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d90e95c0d4148830800000000000000
+      internalID: 4072402849950992853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_40
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79864ac0ccc14bc20800000000000000
+      internalID: 3221231296187754647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_41
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d801339c02401320800000000000000
+      internalID: 2526592012731353297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_42
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f6fa382305457e80800000000000000
+      internalID: -8181557268186466572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_44
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fb8946852091ad47bb8eb4b48a961b8
+      internalID: -2114797998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_45
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 19
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6f5f18341a7f00408352dc5744f124c
+      internalID: 1524966626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Flight_Shape-Sheet_46
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 19
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65de9a4ca8f6bc7439c05e9aace80f67
+      internalID: 681043233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: bba792ed13704de4c9560c5e905b7812
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Flight_Shape-Sheet_0: -8424800189492263345
+      Flight_Shape-Sheet_1: -1829457947773498316
+      Flight_Shape-Sheet_10: -4897424550789969540
+      Flight_Shape-Sheet_11: 6067630904569674437
+      Flight_Shape-Sheet_12: 2084452812458768247
+      Flight_Shape-Sheet_13: -9130853221607196426
+      Flight_Shape-Sheet_14: 2685710617571136982
+      Flight_Shape-Sheet_15: 540250469928576447
+      Flight_Shape-Sheet_16: 3079113187038388673
+      Flight_Shape-Sheet_17: 553117950647695305
+      Flight_Shape-Sheet_18: -3967897325007876125
+      Flight_Shape-Sheet_19: -2775411753456561772
+      Flight_Shape-Sheet_2: -7348185421130121486
+      Flight_Shape-Sheet_20: -2346196920335722591
+      Flight_Shape-Sheet_21: 5319542016840877381
+      Flight_Shape-Sheet_22: -3810804163447290230
+      Flight_Shape-Sheet_23: -3077970638355119909
+      Flight_Shape-Sheet_24: -7666100064193779440
+      Flight_Shape-Sheet_25: -7204869246213886983
+      Flight_Shape-Sheet_26: -8213396502995266730
+      Flight_Shape-Sheet_27: -2139158246206214365
+      Flight_Shape-Sheet_28: 1872378299836303336
+      Flight_Shape-Sheet_29: -4256045299581785453
+      Flight_Shape-Sheet_3: -1798428069263969925
+      Flight_Shape-Sheet_30: -5838014852446711933
+      Flight_Shape-Sheet_31: 1230996126386178345
+      Flight_Shape-Sheet_32: 933312536673685164
+      Flight_Shape-Sheet_33: 8480727013295930036
+      Flight_Shape-Sheet_34: -3918977746506739121
+      Flight_Shape-Sheet_35: -2804394709127804629
+      Flight_Shape-Sheet_36: 7733299314265803210
+      Flight_Shape-Sheet_37: 6971936479292918624
+      Flight_Shape-Sheet_38: -7403863531063322835
+      Flight_Shape-Sheet_39: 4072402849950992853
+      Flight_Shape-Sheet_4: 61353056275870356
+      Flight_Shape-Sheet_40: 3221231296187754647
+      Flight_Shape-Sheet_41: 2526592012731353297
+      Flight_Shape-Sheet_42: -8181557268186466572
+      Flight_Shape-Sheet_43: 6416164621837146365
+      Flight_Shape-Sheet_44: -2114797998
+      Flight_Shape-Sheet_45: 1524966626
+      Flight_Shape-Sheet_46: 681043233
+      Flight_Shape-Sheet_5: 5803723382020377489
+      Flight_Shape-Sheet_6: 5176797788039881619
+      Flight_Shape-Sheet_7: -2659722264414923030
+      Flight_Shape-Sheet_8: 1794452058629739186
+      Flight_Shape-Sheet_9: 7700687216746685667
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -9,11 +9,11 @@ public class MorphManager : MonoBehaviour
     public CameraFollow cameraFollow; // reference to camera follow script
 
     private GameObject currentForm;
+    private GameObject currentFormPrefab; // track which prefab is active
     private int lastFacingDir = 1; // 1 = right, -1 = left
 
     void Start()
     {
-        // Spawn default form at start
         MorphTo(defaultForm);
     }
 
@@ -24,20 +24,20 @@ public class MorphManager : MonoBehaviour
         if (inputX > 0.01f) lastFacingDir = 1;
         else if (inputX < -0.01f) lastFacingDir = -1;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            MorphTo(defaultForm);
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            MorphTo(agileForm);
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            MorphTo(powerForm);
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-            MorphTo(flyingForm);
+        if (Input.GetKeyDown(KeyCode.Alpha1)) MorphTo(defaultForm);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) MorphTo(agileForm);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) MorphTo(powerForm);
+        if (Input.GetKeyDown(KeyCode.Alpha4)) MorphTo(flyingForm);
     }
 
     void MorphTo(GameObject formPrefab)
     {
-        Vector3 spawnPos = transform.position;
+        if (formPrefab == null) return;
 
+        // ✋ Ignore morphs to the same form (prevents spam respawn)
+        if (currentForm != null && currentFormPrefab == formPrefab) return;
+
+        Vector3 spawnPos = transform.position;
         if (currentForm != null)
         {
             spawnPos = currentForm.transform.position;
@@ -46,23 +46,38 @@ public class MorphManager : MonoBehaviour
 
         // Spawn new form
         currentForm = Instantiate(formPrefab, spawnPos, Quaternion.identity);
+        currentFormPrefab = formPrefab;
 
-        // Apply last facing direction even if idle
-        Vector3 scale = currentForm.transform.localScale;
-        scale.x = Mathf.Abs(scale.x) * (lastFacingDir >= 0 ? 1 : -1);
-        currentForm.transform.localScale = scale;
+        // ✅ Initialize facing on the new form (no root flipping!)
+        TryInitializeFacing(currentForm, lastFacingDir);
 
-        // If this is the flying form, pass direction
+        // Flying form still needs direction info
         var flying = currentForm.GetComponent<FlyingFormController>();
-        if (flying != null)
+        if (flying != null) flying.InitializeDirection(lastFacingDir);
+
+        // Camera follow
+        if (cameraFollow != null) cameraFollow.target = currentForm.transform;
+    }
+
+    // Tries to pass facing to whatever controller the form uses
+    void TryInitializeFacing(GameObject form, int dir)
+    {
+        // Default form
+        var def = form.GetComponent<DefaultMovement>();
+        if (def != null) { def.InitializeFacing(dir); return; }
+
+        // Agile form
+        var agile = form.GetComponent<AgileFormController>();
+        if (agile != null)
         {
-            flying.InitializeDirection(lastFacingDir);
+            // Add a method InitializeFacing(int) to Agile if you want consistent spawn facing
+            var m = typeof(AgileFormController).GetMethod("InitializeFacing");
+            if (m != null) m.Invoke(agile, new object[] { dir });
+            return;
         }
 
-        // Update camera to follow new form
-        if (cameraFollow != null)
-        {
-            cameraFollow.target = currentForm.transform;
-        }
+        // Power form (if you have a controller and want facing on spawn, add the same method)
+        var power = form.GetComponent<MonoBehaviour>(); // placeholder if you make Power controller later
+        // Extend similarly if needed.
     }
 }
