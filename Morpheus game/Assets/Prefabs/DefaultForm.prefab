@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 8574724753654708539}
   - component: {fileID: -1180387489963889396}
   - component: {fileID: -1251001454106828432}
+  - component: {fileID: 493752488685336851}
   m_Layer: 0
   m_Name: DefaultForm
   m_TagString: Player
@@ -216,7 +217,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5800484490117455257}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 82d6441d4e56c4e4b976c07a7a61159b, type: 2}
@@ -311,3 +312,41 @@ MonoBehaviour:
   invulnTime: 0.8
   animator: {fileID: 0}
   hurtTrigger: Hurt
+  dieTrigger: Die
+--- !u!70 &493752488685336851
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800484490117455257}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.039907575, y: -0.004604697}
+  m_Size: {x: 0.9174948, y: 1.2486551}
+  m_Direction: 0

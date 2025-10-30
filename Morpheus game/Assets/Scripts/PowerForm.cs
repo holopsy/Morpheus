@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class PowerFormController : MonoBehaviour
@@ -7,7 +8,7 @@ public class PowerFormController : MonoBehaviour
     public float moveSpeed = 3f;
 
     [Header("Ground Check")]
-    public Transform groundCheck;       
+    public Transform groundCheck;
     public float groundRadius = 0.15f;
     public LayerMask groundLayer;
 
@@ -23,8 +24,8 @@ public class PowerFormController : MonoBehaviour
     public float placeForwardDistance = 0.6f;
 
     private GameObject carriedObject;
-    private Vector3 pickedWorldPosition;        // stored when picked
-    private Transform pickedOriginalParent;     // (just in case the block was parented)
+    private Vector3 pickedWorldPosition;
+    private Transform pickedOriginalParent;
 
     [Header("Visuals / Animator")]
     public Transform visualToFlip;              // "Visual" child
@@ -42,9 +43,15 @@ public class PowerFormController : MonoBehaviour
     private bool inSpawn;
     private float spawnUnlockTime;
 
+    // --- Carry collision bookkeeping ---
+    private Collider2D[] playerColliders;                                   // all colliders on player (root + children)
+    private readonly List<(Collider2D a, Collider2D b)> ignoredPairs = new(); // pairs we ignored to restore later
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        // cache all player colliders so we can safely ignore/restore
+        playerColliders = GetComponentsInChildren<Collider2D>(includeInactive: true);
     }
 
     void OnEnable()
@@ -72,9 +79,6 @@ public class PowerFormController : MonoBehaviour
             inSpawn = false;
 
         moveInput = inSpawn ? 0f : Input.GetAxisRaw("Horizontal");
-
-        // (Power form no jump)
-        // if (!inSpawn && Input.GetKeyDown(KeyCode.W) && isGrounded) { ... }  // removed
 
         if (!inSpawn && Input.GetKeyDown(KeyCode.Space))
         {
@@ -124,18 +128,32 @@ public class PowerFormController : MonoBehaviour
         pickedOriginalParent = carriedObject.transform.parent;
 
         var blockRb  = carriedObject.GetComponent<Rigidbody2D>();
-        var blockCol = carriedObject.GetComponent<Collider2D>();
-        var playerCol = GetComponent<Collider2D>();
+        // grab ALL colliders on the block (root + children)
+        var blockCols = carriedObject.GetComponentsInChildren<Collider2D>(includeInactive: true);
 
-        if (blockRb != null)
+        // 1) Disable collisions between player and this block (all collider pairs)
+        ignoredPairs.Clear();
+        foreach (var pc in playerColliders)
         {
-            blockRb.linearVelocity = Vector2.zero;
-            blockRb.bodyType = RigidbodyType2D.Kinematic;
+            if (!pc || !pc.enabled) continue;
+            foreach (var bc in blockCols)
+            {
+                if (!bc || !bc.enabled) continue;
+                Physics2D.IgnoreCollision(pc, bc, true);
+                ignoredPairs.Add((pc, bc));
+            }
         }
 
-        if (blockCol && playerCol)
-            Physics2D.IgnoreCollision(blockCol, playerCol, true);
+        // 2) Disable physics simulation on the BLOCK while carried (prevents solver from pushing the player)
+        if (blockRb)
+        {
+            blockRb.linearVelocity = Vector2.zero;
+            blockRb.angularVelocity = 0f;
+            blockRb.simulated = false;               // << key line (safer than only Kinematic)
+            // (No need to change bodyType when simulated=false)
+        }
 
+        // 3) Parent to carry point
         carriedObject.transform.SetParent(carryPoint, worldPositionStays: false);
         carriedObject.transform.localPosition = Vector3.zero;
         carriedObject.transform.localRotation = Quaternion.identity;
@@ -146,8 +164,7 @@ public class PowerFormController : MonoBehaviour
         if (carriedObject == null) return;
 
         var blockRb  = carriedObject.GetComponent<Rigidbody2D>();
-        var blockCol = carriedObject.GetComponent<Collider2D>();
-        var playerCol = GetComponent<Collider2D>();
+        var blockCols = carriedObject.GetComponentsInChildren<Collider2D>(includeInactive: true);
 
         // detach before positioning
         carriedObject.transform.SetParent(null);
@@ -155,46 +172,50 @@ public class PowerFormController : MonoBehaviour
         // Decide drop position
         if (returnToPickupPosition)
         {
-            // return to exact position we picked from
             carriedObject.transform.position = pickedWorldPosition;
         }
         else
         {
-            // place at feet in front, snapped to ground if possible
             Vector2 tryPos = (Vector2)transform.position + new Vector2(facing * placeForwardDistance, 0.0f);
-            Vector2 rayStart = tryPos + Vector2.up * 0.5f;      // start a bit above
+            Vector2 rayStart = tryPos + Vector2.up * 0.5f;
             float rayLen = 3f;
             var hit = Physics2D.Raycast(rayStart, Vector2.down, rayLen, groundLayer);
 
             if (hit.collider != null)
             {
-                // place the block so it rests on ground (account for its collider height)
                 float blockHalfHeight = 0.25f;
-                var bc = carriedObject.GetComponent<Collider2D>();
-                if (bc != null) blockHalfHeight = bc.bounds.extents.y;
+                var bcAny = carriedObject.GetComponent<Collider2D>();
+                if (bcAny != null) blockHalfHeight = bcAny.bounds.extents.y;
 
                 Vector2 placed = hit.point + Vector2.up * blockHalfHeight;
                 carriedObject.transform.position = placed;
             }
             else
             {
-                // fallback: just drop at tryPos
                 carriedObject.transform.position = tryPos;
             }
         }
 
-        // restore parent if it had one (optional)
+        // 1) Re-enable physics on the BLOCK
+        if (blockRb)
+        {
+            blockRb.simulated = true;                 // back to physics
+            blockRb.linearVelocity = Vector2.zero;
+            // small downward nudge so it settles
+            blockRb.AddForce(Vector2.down * 0.1f, ForceMode2D.Impulse);
+        }
+
+        // 2) Restore player ↔ block collisions
+        foreach (var pair in ignoredPairs)
+        {
+            if (pair.a && pair.b) Physics2D.IgnoreCollision(pair.a, pair.b, false);
+        }
+        ignoredPairs.Clear();
+
+        // 3) Restore parent if it had one (optional)
         if (pickedOriginalParent != null)
             carriedObject.transform.SetParent(pickedOriginalParent);
 
-        // restore collisions and physics
-        if (blockCol && playerCol)
-            Physics2D.IgnoreCollision(blockCol, playerCol, false);
-
-        if (blockRb != null)
-            blockRb.bodyType = RigidbodyType2D.Dynamic;
-
-        // clear refs
         carriedObject = null;
         pickedOriginalParent = null;
     }

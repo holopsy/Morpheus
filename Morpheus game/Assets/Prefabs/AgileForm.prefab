@@ -166,6 +166,7 @@ GameObject:
   - component: {fileID: 2441871291401647809}
   - component: {fileID: 9102194008609695928}
   - component: {fileID: -5408916675214237160}
+  - component: {fileID: 3765911829061155506}
   m_Layer: 0
   m_Name: AgileForm
   m_TagString: Player
@@ -226,7 +227,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3288355765436532145}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 82d6441d4e56c4e4b976c07a7a61159b, type: 2}
@@ -253,7 +254,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0038277805, y: -0.000000059604645}
+  m_Offset: {x: -0.0012061298, y: -0.0017478466}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -263,7 +264,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8315788, y: 0.83157885}
+  m_Size: {x: 0.8088576, y: 0.8036144}
   m_EdgeRadius: 0
 --- !u!114 &2441871291401647809
 MonoBehaviour:
@@ -282,7 +283,7 @@ MonoBehaviour:
   wallCheckRight: {fileID: 4718383708854129927}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 328
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -329,6 +330,44 @@ MonoBehaviour:
   invulnTime: 0.8
   animator: {fileID: 0}
   hurtTrigger: Hurt
+  dieTrigger: Die
+--- !u!70 &3765911829061155506
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3288355765436532145}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 82d6441d4e56c4e4b976c07a7a61159b, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -0.0011892319}
+  m_Size: {x: 0.8044462, y: 0.8073425}
+  m_Direction: 0
 --- !u!1 &4569421126363374621
 GameObject:
   m_ObjectHideFlags: 0

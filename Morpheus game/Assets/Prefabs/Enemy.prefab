@@ -258,8 +258,8 @@ MonoBehaviour:
   collectiblePrefab: {fileID: 5926418325492887282, guid: 797671d7ba8487d41bd34bf73ae6e17e, type: 3}
   minCount: 1
   maxCount: 1
-  spawnOffset: {x: 1, y: 0}
-  scatterRadius: 0.15
+  spawnOffset: {x: 0, y: 0}
+  scatterRadius: 0
   launchForce: 3
   launchDirectionBias: {x: 0.6, y: 1}
 --- !u!61 &-2891725324183583174

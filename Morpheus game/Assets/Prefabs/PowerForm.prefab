@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4839132868059329333}
   - component: {fileID: 8310072844467306933}
+  - component: {fileID: 1142160920036315963}
   - component: {fileID: 3701659482561625258}
   - component: {fileID: 56589825254137888}
   - component: {fileID: 767150308374918257}
+  - component: {fileID: -2800011090828014799}
   m_Layer: 0
   m_Name: PowerForm
   m_TagString: Player
@@ -45,7 +47,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1603284063832582206}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 82d6441d4e56c4e4b976c07a7a61159b, type: 2}
@@ -84,6 +86,43 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.3124995, y: 2.1913104}
   m_EdgeRadius: 0
+--- !u!70 &1142160920036315963
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603284063832582206}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.004965306, y: 0.00000011861739}
+  m_Size: {x: 2.2974412, y: 2.1832404}
+  m_Direction: 1
 --- !u!50 &3701659482561625258
 Rigidbody2D:
   serializedVersion: 5
@@ -135,7 +174,7 @@ MonoBehaviour:
     m_Bits: 256
   pickupRadius: 2
   returnToPickupPosition: 0
-  placeForwardDistance: 1
+  placeForwardDistance: 3
   visualToFlip: {fileID: 4645466042867423055}
   animator: {fileID: 3108639388479839592}
   spawnLockDuration: 0.6
@@ -157,6 +196,22 @@ MonoBehaviour:
   invulnTime: 0.8
   animator: {fileID: 0}
   hurtTrigger: Hurt
+  dieTrigger: Die
+--- !u!114 &-2800011090828014799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603284063832582206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1a491c63fcf5a94f9562f5a8e21e699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PowerFormPusher
+  strength: 20
+  animator: {fileID: 0}
+  pushingBool: IsPushing
 --- !u!1 &3804163022236716994
 GameObject:
   m_ObjectHideFlags: 0

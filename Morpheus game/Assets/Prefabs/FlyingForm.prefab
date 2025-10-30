@@ -198,7 +198,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0022708774, y: -0.0045417547}
+  m_Offset: {x: 0.0022708774, y: -0.061329424}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -208,7 +208,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.3498784, y: 1.263099}
+  m_Size: {x: 1.860968, y: 1.1381658}
   m_EdgeRadius: 0
 --- !u!50 &6551879261529124010
 Rigidbody2D:
@@ -251,6 +251,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FlyingMovement
   moveSpeed: 4
   flapForce: 7.5
+  visualToFlip: {fileID: 0}
+  useSpriteFlipX: 1
 --- !u!114 &-1329634725417627971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,3 +285,4 @@ MonoBehaviour:
   invulnTime: 0.8
   animator: {fileID: 0}
   hurtTrigger: Hurt
+  dieTrigger: Die
