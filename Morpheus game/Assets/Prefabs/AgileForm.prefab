@@ -289,10 +289,10 @@ MonoBehaviour:
   moveSpeed: 8
   jumpForce: 11
   gravityScale: 2.5
-  wallSlideSpeed: 1.8
+  wallSlideSpeed: 3.13
   wallStickTime: 2
-  wallJumpForceX: 11
-  wallJumpForceY: 10
+  wallJumpForceX: 14
+  wallJumpForceY: 12
   groundRadius: 0.16
   wallCheckRadius: 0.12
   animator: {fileID: 0}
