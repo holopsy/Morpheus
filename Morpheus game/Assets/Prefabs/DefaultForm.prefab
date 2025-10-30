@@ -157,7 +157,6 @@ GameObject:
   - component: {fileID: 175913185948021406}
   - component: {fileID: 8574724753654708539}
   - component: {fileID: -1180387489963889396}
-  - component: {fileID: 6460902340919802127}
   - component: {fileID: -1251001454106828432}
   m_Layer: 0
   m_Name: DefaultForm
@@ -295,19 +294,6 @@ MonoBehaviour:
   dieTriggerName: Die
   deathAnimDuration: 0.9
   freezeDuringDeath: 1
---- !u!114 &6460902340919802127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5800484490117455257}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 463b21c1c60355b46879abdc72aa95b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 3
 --- !u!114 &-1251001454106828432
 MonoBehaviour:
   m_ObjectHideFlags: 0

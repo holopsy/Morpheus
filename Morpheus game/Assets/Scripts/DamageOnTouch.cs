@@ -1,45 +1,37 @@
-// DamageOnTouch.cs
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 public class DamageOnTouch : MonoBehaviour
 {
-    [Header("Damage")]
+    [Header("Damage Settings")]
     public int damage = 1;
     public bool onlyAffectsPlayer = true;
-
-    [Header("Cooldown (per victim)")]
-    public float hitCooldown = 0.5f; // prevents rapid multi-hits on same frame
-
-    // Optional: small knockback
     public float knockbackForce = 6f;
+    public float hitCooldown = 0.5f; // prevents repeated damage per second
+
+    private float _nextHitTime;
 
     void Reset()
     {
-        var col = GetComponent<Collider2D>();
-        col.isTrigger = true; // typically hazards are triggers
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        TryHit(other);
+        GetComponent<Collider2D>().isTrigger = true; // must be trigger for contact
     }
 
     void OnTriggerStay2D(Collider2D other)
     {
-        // If you want “standing on spikes keeps hurting”, use Stay; else, delete this.
-        TryHit(other);
-    }
+        // ignore unless cooldown passed
+        if (Time.time < _nextHitTime) return;
 
-    void TryHit(Collider2D other)
-    {
+        // only damage player
         if (onlyAffectsPlayer && !other.CompareTag("Player")) return;
 
         var health = other.GetComponentInParent<PlayerHealth>();
-        if (health == null) return;
+        if (health != null)
+        {
+            _nextHitTime = Time.time + hitCooldown;
 
-        // Respect per-victim i-frames/cooldown inside PlayerHealth
-        Vector2 from = transform.position;
-        health.TakeDamage(damage, from, knockbackForce);
+            // hit from direction of enemy to player
+            Vector2 hitFrom = transform.position;
+            health.TakeDamage(damage, hitFrom, knockbackForce);
+        }
     }
 }
