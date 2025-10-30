@@ -15,6 +15,9 @@ GameObject:
   - component: {fileID: 56589825254137888}
   - component: {fileID: 767150308374918257}
   - component: {fileID: -2800011090828014799}
+  - component: {fileID: 4935642549591274591}
+  - component: {fileID: -3101697230402581222}
+  - component: {fileID: -8724151121092938319}
   m_Layer: 0
   m_Name: PowerForm
   m_TagString: Player
@@ -120,8 +123,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.004965306, y: 0.00000011861739}
-  m_Size: {x: 2.2974412, y: 2.1832404}
+  m_Offset: {x: 0.004965304, y: -0.017178299}
+  m_Size: {x: 2.2974415, y: 2.2175992}
   m_Direction: 1
 --- !u!50 &3701659482561625258
 Rigidbody2D:
@@ -162,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea23883743891eb498de064db24f9c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerFormController
-  moveSpeed: 3
+  moveSpeed: 5
   groundCheck: {fileID: 2956285162309455173}
   groundRadius: 0.15
   groundLayer:
@@ -212,6 +215,46 @@ MonoBehaviour:
   strength: 20
   animator: {fileID: 0}
   pushingBool: IsPushing
+--- !u!114 &4935642549591274591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603284063832582206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a5f00569ec37db47b3ba97f5f867a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActiveHealthBinder
+--- !u!114 &-3101697230402581222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603284063832582206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb77c0059d511d64993ccf55e4a693a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VisualReactivator
+  visualChildName: Visual
+--- !u!114 &-8724151121092938319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603284063832582206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 137e42d64ffcdf54bb2b7ab6275cb121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDeath
+  dieTriggerName: Die
+  deathAnimDuration: 0.9
+  freezeDuringDeath: 1
 --- !u!1 &3804163022236716994
 GameObject:
   m_ObjectHideFlags: 0

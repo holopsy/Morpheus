@@ -167,6 +167,8 @@ GameObject:
   - component: {fileID: 9102194008609695928}
   - component: {fileID: -5408916675214237160}
   - component: {fileID: 3765911829061155506}
+  - component: {fileID: -2894193016795773484}
+  - component: {fileID: 19016476910092784}
   m_Layer: 0
   m_Name: AgileForm
   m_TagString: Player
@@ -287,7 +289,7 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
-  moveSpeed: 8
+  moveSpeed: 10
   jumpForce: 11
   gravityScale: 2.5
   wallSlideSpeed: 3.13
@@ -368,6 +370,31 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.0011892319}
   m_Size: {x: 0.8044462, y: 0.8073425}
   m_Direction: 0
+--- !u!114 &-2894193016795773484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3288355765436532145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a5f00569ec37db47b3ba97f5f867a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActiveHealthBinder
+--- !u!114 &19016476910092784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3288355765436532145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb77c0059d511d64993ccf55e4a693a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VisualReactivator
+  visualChildName: Visual
 --- !u!1 &4569421126363374621
 GameObject:
   m_ObjectHideFlags: 0

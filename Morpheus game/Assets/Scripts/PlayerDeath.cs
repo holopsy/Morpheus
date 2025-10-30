@@ -8,7 +8,7 @@ public class PlayerDeath : MonoBehaviour
     public string dieTriggerName = "Die";
 
     [Header("Timing")]
-    [Tooltip("Used only if you don't use an Animation Event. Seconds to wait before reload.")]
+    [Tooltip("Used only if you don't use an Animation Event. Seconds to wait before respawn.")]
     public float deathAnimDuration = 0.9f;
 
     [Header("Physics")]
@@ -58,26 +58,36 @@ public class PlayerDeath : MonoBehaviour
         if (_anim && !string.IsNullOrEmpty(dieTriggerName))
             _anim.SetTrigger(dieTriggerName);
 
-        // If you don't use an animation event, fall back to a timed reload
-        Invoke(nameof(ReloadScene), deathAnimDuration);
+        // Wait for animation to finish, then respawn
+        Invoke(nameof(RespawnAfterDeath), deathAnimDuration);
     }
 
     // Optional Animation Event hook — call this at the end of the Death clip
     public void OnDeathAnimationComplete()
     {
-        // Cancel the timed fallback if it hasn't fired yet
-        CancelInvoke(nameof(ReloadScene));
-        ReloadScene();
+        CancelInvoke(nameof(RespawnAfterDeath));
+        RespawnAfterDeath();
     }
 
-    private void ReloadScene()
+    private void RespawnAfterDeath()
     {
-        // restore constraints so prefab isn't stuck if scene reload is async-delayed
+        // restore constraints so prefab isn't stuck
         if (_rb && freezeDuringDeath)
             _rb.constraints = _prevConstraints;
 
-        Scene active = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(active.buildIndex);
+        // NEW — call checkpoint respawn instead of reloading scene
+        if (CheckpointManager.Instance != null)
+        {
+            CheckpointManager.Instance.Respawn();
+        }
+        else
+        {
+            // fallback — reload scene if checkpoint system not found
+            Scene active = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(active.buildIndex);
+        }
+
+        _dying = false;
     }
 
     private void ToggleMovement(bool enabled)
@@ -90,6 +100,6 @@ public class PlayerDeath : MonoBehaviour
 
         var fly   = GetComponent<FlyingFormController>();  if (fly)   fly.enabled   = enabled;
 
-        // If you have other input/attack scripts, disable them here too.
+        // Add any other scripts that need disabling/enabling here.
     }
 }

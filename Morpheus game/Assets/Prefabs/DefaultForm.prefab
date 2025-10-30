@@ -159,6 +159,8 @@ GameObject:
   - component: {fileID: -1180387489963889396}
   - component: {fileID: -1251001454106828432}
   - component: {fileID: 493752488685336851}
+  - component: {fileID: 7980968037690916014}
+  - component: {fileID: -1084749995906851034}
   m_Layer: 0
   m_Name: DefaultForm
   m_TagString: Player
@@ -268,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb9aaf2b051567419f92c85f440626b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefaultMovement
-  moveSpeed: 5
+  moveSpeed: 7
   attackCooldown: 0.5
   enemyLayer:
     serializedVersion: 2
@@ -350,3 +352,28 @@ CapsuleCollider2D:
   m_Offset: {x: -0.039907575, y: -0.004604697}
   m_Size: {x: 0.9174948, y: 1.2486551}
   m_Direction: 0
+--- !u!114 &7980968037690916014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800484490117455257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a5f00569ec37db47b3ba97f5f867a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActiveHealthBinder
+--- !u!114 &-1084749995906851034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800484490117455257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb77c0059d511d64993ccf55e4a693a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VisualReactivator
+  visualChildName: Visual

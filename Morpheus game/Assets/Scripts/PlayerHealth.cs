@@ -15,10 +15,14 @@ public class PlayerHealth : MonoBehaviour
     [Header("Animator Hooks")]
     public Animator animator;                  // assign your form’s Animator (or leave null to auto-find)
     public string hurtTrigger = "Hurt";        // must match Animator parameter exactly (case-sensitive)
-    public string dieTrigger  = "Die";         // must match Animator parameter exactly
+    public string dieTrigger = "Die";          // must match Animator parameter exactly
 
     private Rigidbody2D rb;
     private PlayerDeath death;
+
+    // 🩸 NEW — events so UI can listen
+    public System.Action<int, int> OnHealthChanged; // (current, max)
+    public System.Action OnDeath;
 
     void Awake()
     {
@@ -31,6 +35,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (current <= 0 || current > maxHealth) current = maxHealth;
         Debug.Log($"Player HP initialized: {current}/{maxHealth}");
+        OnHealthChanged?.Invoke(current, maxHealth); // notify UI on spawn
     }
 
     public void TakeDamage(int amount, Vector2 hitFrom, float knockbackForce = 0f)
@@ -53,21 +58,53 @@ public class PlayerHealth : MonoBehaviour
 
         Debug.Log($"Player took {amount} damage. HP: {current}/{maxHealth}");
 
+        // 🩸 NEW — update UI
+        OnHealthChanged?.Invoke(current, maxHealth);
+
         if (current <= 0)
         {
-            // Death animation trigger (safe)
-            TrySetTrigger(animator, dieTrigger);
-
-            if (death != null) death.Die();
-            else Debug.LogWarning("PlayerHealth: No PlayerDeath on player to handle death.");
+            HandleDeath();
         }
+    }
+
+    // 🩸 NEW — allow instant kill (used by Flying form or lethal traps)
+    public void Kill()
+    {
+        current = 0;
+        OnHealthChanged?.Invoke(current, maxHealth);
+        HandleDeath();
+    }
+
+    // 🩸 NEW — allow morph manager to adjust max health
+    public void SetMaxHealth(int newMax, bool refill = true)
+    {
+        maxHealth = Mathf.Max(1, newMax);
+        if (refill) current = maxHealth;
+        else current = Mathf.Clamp(current, 0, maxHealth);
+
+        OnHealthChanged?.Invoke(current, maxHealth);
+        if (current <= 0) HandleDeath();
+    }
+
+    // 🩸 NEW — shared death handler
+    private void HandleDeath()
+    {
+        TrySetTrigger(animator, dieTrigger);
+        OnDeath?.Invoke();
+
+        // 🩸 Save this form’s current HP before it's destroyed
+        var morph = FindObjectOfType<MorphManager>();
+        if (morph != null)
+            morph.SaveCurrentFormHealthOnDeath(this);
+
+        if (death != null) death.Die();
+        else Debug.LogWarning("PlayerHealth: No PlayerDeath on player to handle death.");
     }
 
     // Safely fire a trigger only if it exists on the Animator
     private void TrySetTrigger(Animator anim, string triggerName)
     {
         if (!anim || string.IsNullOrEmpty(triggerName)) return;
-        // Check parameter exists to avoid console spam
         foreach (var p in anim.parameters)
         {
             if (p.type == AnimatorControllerParameterType.Trigger && p.name == triggerName)
@@ -76,7 +113,5 @@ public class PlayerHealth : MonoBehaviour
                 return;
             }
         }
-        // If you see this log, create the trigger in the Animator or update the name in this script
-        // Debug.LogWarning($"Animator trigger '{triggerName}' not found on {anim.gameObject.name}.");
     }
 }

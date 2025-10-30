@@ -141,6 +141,8 @@ GameObject:
   - component: {fileID: 3410695130555250341}
   - component: {fileID: -1329634725417627971}
   - component: {fileID: -252550922468732415}
+  - component: {fileID: -189330228205172069}
+  - component: {fileID: -2512402044320377552}
   m_Layer: 0
   m_Name: FlyingForm
   m_TagString: Player
@@ -198,7 +200,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0022708774, y: -0.061329424}
+  m_Offset: {x: -0.051907003, y: -0.061329424}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -208,7 +210,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.860968, y: 1.1381658}
+  m_Size: {x: 1.7526122, y: 1.1381658}
   m_EdgeRadius: 0
 --- !u!50 &6551879261529124010
 Rigidbody2D:
@@ -249,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13dc56888953104bb3fb278dd035f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlyingMovement
-  moveSpeed: 4
+  moveSpeed: 7
   flapForce: 7.5
   visualToFlip: {fileID: 0}
   useSpriteFlipX: 1
@@ -286,3 +288,28 @@ MonoBehaviour:
   animator: {fileID: 0}
   hurtTrigger: Hurt
   dieTrigger: Die
+--- !u!114 &-189330228205172069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800350877991432728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a5f00569ec37db47b3ba97f5f867a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActiveHealthBinder
+--- !u!114 &-2512402044320377552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800350877991432728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb77c0059d511d64993ccf55e4a693a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VisualReactivator
+  visualChildName: Visual
