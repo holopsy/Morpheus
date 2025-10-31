@@ -7,6 +7,16 @@ public class DefaultMovement : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 5f;
 
+    [Header("Tiny Jump")]
+    [Tooltip("Very small hop so Default doesn’t overlap Agile’s big jump.")]
+    public float jumpForceSmall = 3f;
+    public KeyCode jumpKey = KeyCode.Space;
+
+    [Header("Ground Check")]
+    public Transform groundCheck;                 // put an empty under the feet
+    public float groundRadius = 0.15f;
+    public LayerMask groundLayer = ~0;            // set to your Ground layer mask
+
     [Header("Attack")]
     public float attackCooldown = 0.35f;
     public LayerMask enemyLayer;
@@ -18,6 +28,10 @@ public class DefaultMovement : MonoBehaviour
     [Header("Visuals / Animator")]
     public Transform visualToFlip;   // assign the "Visual" child
     public Animator animator;        // assign Animator on Visual
+    [Tooltip("Animator trigger name for jump (optional).")]
+    public string jumpTriggerName = "Jump";
+    [Tooltip("Animator bool name for grounded state (optional).")]
+    public string onGroundBoolName = "OnGround";
 
     [Header("Spawn")]
     [Tooltip("Seconds to ignore input after spawn. Set to your spawn clip length. If you use an Animation Event to call EndSpawn(), set this to 0.")]
@@ -31,6 +45,7 @@ public class DefaultMovement : MonoBehaviour
     private float lastAttackTime = -999f;
     private float spawnUnlockTime = 0f;
     private bool inSpawn = false;
+    private bool grounded = false;
 
     void Awake()
     {
@@ -89,11 +104,24 @@ public class DefaultMovement : MonoBehaviour
         // Keep visual aligned with current facing every frame
         ApplyFacingVisual();
 
+        // --- Tiny jump (only when grounded & not in spawn) ---
+        if (!inSpawn && grounded && Input.GetKeyDown(jumpKey) && jumpForceSmall > 0.01f)
+        {
+            // soft hop: clear vertical first to get consistent jump height
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+            rb.AddForce(Vector2.up * jumpForceSmall, ForceMode2D.Impulse);
+
+            // animator hooks (safe if params don’t exist)
+            TrySetTrigger(animator, jumpTriggerName);
+            TrySetBool(animator, onGroundBoolName, false);
+        }
+
         // Animator params
         if (animator)
         {
             animator.SetBool("IsRunning", !inSpawn && Mathf.Abs(moveInput) > 0.01f);
             animator.SetFloat("Speed", Mathf.Abs(rb ? rb.linearVelocity.x : 0f));
+            TrySetBool(animator, onGroundBoolName, grounded);
         }
 
         // --- Attack input (ignored during spawn) ---
@@ -106,6 +134,11 @@ public class DefaultMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Ground check
+        grounded = groundCheck
+            ? Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer)
+            : false;
+
         // No horizontal motion during spawn
         float x = inSpawn ? 0f : moveInput * moveSpeed;
         rb.linearVelocity = new Vector2(x, rb.linearVelocity.y);
@@ -126,11 +159,35 @@ public class DefaultMovement : MonoBehaviour
         }
     }
 
+    // --- Animator safe setters (don’t spam if param missing) ---
+    void TrySetTrigger(Animator anim, string trigger)
+    {
+        if (!anim || string.IsNullOrEmpty(trigger)) return;
+        foreach (var p in anim.parameters)
+            if (p.type == AnimatorControllerParameterType.Trigger && p.name == trigger)
+            { anim.SetTrigger(trigger); return; }
+    }
+    void TrySetBool(Animator anim, string name, bool value)
+    {
+        if (!anim || string.IsNullOrEmpty(name)) return;
+        foreach (var p in anim.parameters)
+            if (p.type == AnimatorControllerParameterType.Bool && p.name == name)
+            { anim.SetBool(name, value); return; }
+    }
+
     void OnDrawGizmosSelected()
     {
+        // Attack gizmo
         Gizmos.color = Color.red;
         int f = Application.isPlaying ? facing : 1;
         Vector2 center = (Vector2)transform.position + new Vector2(attackBoxOffset.x * f, attackBoxOffset.y);
         Gizmos.DrawWireCube(center, attackBoxSize);
+
+        // Ground check gizmo
+        if (groundCheck)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
+        }
     }
 }

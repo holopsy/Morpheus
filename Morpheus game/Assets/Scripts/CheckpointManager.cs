@@ -35,6 +35,17 @@ public class CheckpointManager : MonoBehaviour
         Vector3 spawnPos = lastCheckpointPos ?? (defaultSpawnPoint ? defaultSpawnPoint.position : morphManager.transform.position);
         GameObject form = respawnFormOverride ? respawnFormOverride : morphManager.defaultForm;
 
+        // Respawn the player
         morphManager.ForceRespawn(form, spawnPos, refillHealthOnRespawn);
+
+        // 🔔 Tell anything listening (e.g., FallingPlatform) to reset
+        // Fire it next frame to ensure the new player is fully spawned.
+        StartCoroutine(FireRespawnEventNextFrame());
+    }
+
+    private System.Collections.IEnumerator FireRespawnEventNextFrame()
+    {
+        yield return null; // wait one frame
+        CheckpointEvents.FirePlayerRespawned();
     }
 }
