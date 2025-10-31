@@ -178,6 +178,12 @@ MonoBehaviour:
   pickupRadius: 2
   returnToPickupPosition: 0
   placeForwardDistance: 3
+  pushBlockLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  pushCheckSize: {x: 1.7, y: 0.8}
+  pushCheckDistance: 1.3
+  inputThreshold: 0.2
   visualToFlip: {fileID: 4645466042867423055}
   animator: {fileID: 3108639388479839592}
   spawnLockDuration: 0.6

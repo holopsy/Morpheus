@@ -14,7 +14,7 @@ public class PowerFormController : MonoBehaviour
 
     [Header("Carrying System")]
     public Transform carryPoint;                // where the block sits while held
-    public LayerMask blockLayer;                // layer of movable blocks
+    public LayerMask blockLayer;                // layer of SMALL movable blocks (pickup)
     public float pickupRadius = 1f;             // how far to search for a block
 
     [Tooltip("If true, drop returns the block to the exact position it was picked from. If false, drops at your feet snapped to ground.")]
@@ -26,6 +26,16 @@ public class PowerFormController : MonoBehaviour
     private GameObject carriedObject;
     private Vector3 pickedWorldPosition;
     private Transform pickedOriginalParent;
+
+    [Header("Push Detection")]
+    [Tooltip("Layer for LARGE push-only blocks.")]
+    public LayerMask pushBlockLayer;            // set this to your LARGE push-only blocks
+    [Tooltip("Box cast size (width x height) used to sense a block in front.")]
+    public Vector2 pushCheckSize = new Vector2(0.45f, 0.8f);
+    [Tooltip("Distance from the player center to check in front.")]
+    public float pushCheckDistance = 0.35f;
+    [Tooltip("Only consider pushing if you're actually pressing in that direction.")]
+    public float inputThreshold = 0.2f;
 
     [Header("Visuals / Animator")]
     public Transform visualToFlip;              // "Visual" child
@@ -42,6 +52,9 @@ public class PowerFormController : MonoBehaviour
     private bool isGrounded;
     private bool inSpawn;
     private float spawnUnlockTime;
+
+    // Push state
+    private bool isPushing;
 
     // --- Carry collision bookkeeping ---
     private Collider2D[] playerColliders;                                   // all colliders on player (root + children)
@@ -91,10 +104,13 @@ public class PowerFormController : MonoBehaviour
 
         ApplyFacingVisual();
 
+        // Animator params common to all states
         if (animator)
         {
             animator.SetBool("IsRunning", !inSpawn && Mathf.Abs(moveInput) > 0.01f);
             animator.SetBool("IsCarrying", carriedObject != null);
+            animator.SetBool("IsPushing", isPushing); // << NEW
+            // You already have "Die"/"Attack"/"Speed" if needed elsewhere
         }
     }
 
@@ -106,12 +122,49 @@ public class PowerFormController : MonoBehaviour
 
         float x = inSpawn ? 0f : moveInput * moveSpeed;
         rb.linearVelocity = new Vector2(x, rb.linearVelocity.y);
+
+        // --- PUSH DETECTION ---
+        isPushing = ComputeIsPushing();
+    }
+
+    // Checks if we are in front of a pushable block and pressing into it (while grounded and not carrying)
+    bool ComputeIsPushing()
+    {
+        if (carriedObject != null)
+            return false;
+        if (!isGrounded)
+            return false;
+
+        // Must be pressing some direction
+        if (Mathf.Abs(moveInput) < inputThreshold)
+            return false;
+
+        // Cast a small box in front of us to see if there's a pushable block
+        Vector2 center = (Vector2)transform.position + new Vector2(facing * pushCheckDistance, 0f);
+        var hit = Physics2D.OverlapBox(center, pushCheckSize, 0f, pushBlockLayer);
+
+        // Debug: show what it hits
+        if (hit)
+        {
+            Debug.DrawLine(center, hit.transform.position, Color.magenta);
+            Debug.Log($"Push hit {hit.name}, facing {facing}, moveInput {moveInput}");
+        }
+
+        if (!hit)
+            return false;
+
+        // Pressing toward the block (we can relax this check)
+        bool pressingTowardBlock = Mathf.Sign(moveInput) == Mathf.Sign(facing);
+        if (!pressingTowardBlock)
+            return false;
+
+        return true;
     }
 
     // ---------------- Carry System ----------------
     void TryPickup()
     {
-        // Find nearest block in radius on blockLayer
+        // Find nearest SMALL block in radius on blockLayer
         var hits = Physics2D.OverlapCircleAll(transform.position, pickupRadius, blockLayer);
         if (hits == null || hits.Length == 0) return;
 
@@ -144,13 +197,12 @@ public class PowerFormController : MonoBehaviour
             }
         }
 
-        // 2) Disable physics simulation on the BLOCK while carried (prevents solver from pushing the player)
+        // 2) Disable physics simulation on the BLOCK while carried
         if (blockRb)
         {
             blockRb.linearVelocity = Vector2.zero;
             blockRb.angularVelocity = 0f;
-            blockRb.simulated = false;               // << key line (safer than only Kinematic)
-            // (No need to change bodyType when simulated=false)
+            blockRb.simulated = false;
         }
 
         // 3) Parent to carry point
@@ -199,9 +251,8 @@ public class PowerFormController : MonoBehaviour
         // 1) Re-enable physics on the BLOCK
         if (blockRb)
         {
-            blockRb.simulated = true;                 // back to physics
+            blockRb.simulated = true;
             blockRb.linearVelocity = Vector2.zero;
-            // small downward nudge so it settles
             blockRb.AddForce(Vector2.down * 0.1f, ForceMode2D.Impulse);
         }
 
@@ -245,5 +296,10 @@ public class PowerFormController : MonoBehaviour
             Vector3 p = transform.position + new Vector3(facing * placeForwardDistance, 0f, 0f);
             Gizmos.DrawWireSphere(p, 0.08f);
         }
+
+        // Push check box
+        Gizmos.color = Color.magenta;
+        Vector3 center = transform.position + new Vector3(Mathf.Sign(facing) * pushCheckDistance, 0f, 0f);
+        Gizmos.DrawWireCube(center, new Vector3(pushCheckSize.x, pushCheckSize.y, 0.01f));
     }
 }
