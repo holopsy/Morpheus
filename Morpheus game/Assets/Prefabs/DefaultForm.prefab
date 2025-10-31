@@ -277,7 +277,7 @@ MonoBehaviour:
   groundRadius: 0.15
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 520
   attackCooldown: 0.5
   enemyLayer:
     serializedVersion: 2

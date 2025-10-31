@@ -7,8 +7,8 @@ public class FinishAreaTrigger : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] CollectibleManager collectibleManager; // optional; will fallback to Instance
-    [SerializeField] SlowMoPopupAny popup;                  // your TMP/3D popup
-    [SerializeField] GameEndUI endUI;                       // <<< drag your Win Panel’s GameEndUI here
+    [SerializeField] SlowMoPopupAny popup;                  // TMP/3D popup
+    [SerializeField] GameEndUI endUI;                       // Win panel
     [SerializeField] string playerTag = "Player";
 
     [Header("Popup")]
@@ -31,10 +31,8 @@ public class FinishAreaTrigger : MonoBehaviour
         if (!collectibleManager)
             collectibleManager = CollectibleManager.Instance ? CollectibleManager.Instance
                                                              : FindFirstObjectByType<CollectibleManager>();
-
         if (!popup)
             popup = FindFirstObjectByType<SlowMoPopupAny>(FindObjectsInactive.Include);
-
         if (!endUI)
             endUI = FindFirstObjectByType<GameEndUI>(FindObjectsInactive.Include);
     }
@@ -50,8 +48,8 @@ public class FinishAreaTrigger : MonoBehaviour
             return;
         }
 
-        int total = mgr.Total;
-        int got   = mgr.Collected;
+        int total = mgr.LevelTotal;       // <<< renamed
+        int got   = mgr.LevelCollected;   // <<< renamed
 
         if (total <= 0 || got >= total)
         {
@@ -73,16 +71,8 @@ public class FinishAreaTrigger : MonoBehaviour
 
     void Complete()
     {
-        // Prefer UI win panel if present
-        if (endUI)
-        {
-            endUI.ShowWin("Level Complete!");
-        }
-        else if (!string.IsNullOrEmpty(nextSceneName))
-        {
-            StartCoroutine(LoadNextFrame());
-        }
-
+        if (endUI) endUI.ShowWin("Level Complete!");
+        else if (!string.IsNullOrEmpty(nextSceneName)) StartCoroutine(LoadNextFrame());
         OnAllCollected?.Invoke();
     }
 

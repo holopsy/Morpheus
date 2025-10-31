@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerFormPusher
   strength: 20
-  animator: {fileID: 0}
+  animator: {fileID: 3108639388479839592}
   pushingBool: IsPushing
 --- !u!114 &4935642549591274591
 MonoBehaviour:

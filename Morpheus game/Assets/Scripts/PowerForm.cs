@@ -40,6 +40,8 @@ public class PowerFormController : MonoBehaviour
     [Header("Visuals / Animator")]
     public Transform visualToFlip;              // "Visual" child
     public Animator animator;                   // Animator on Visual
+    [Tooltip("Animator bool used to drive push animation.")]
+    public string pushingBool = "IsPushing";
 
     [Header("Spawn")]
     public float spawnLockDuration = 0.6f;
@@ -109,8 +111,10 @@ public class PowerFormController : MonoBehaviour
         {
             animator.SetBool("IsRunning", !inSpawn && Mathf.Abs(moveInput) > 0.01f);
             animator.SetBool("IsCarrying", carriedObject != null);
-            animator.SetBool("IsPushing", isPushing); // << NEW
-            // You already have "Die"/"Attack"/"Speed" if needed elsewhere
+
+            // 👇 single source of truth for push animation
+            if (!string.IsNullOrEmpty(pushingBool))
+                animator.SetBool(pushingBool, isPushing);
         }
     }
 
@@ -130,33 +134,26 @@ public class PowerFormController : MonoBehaviour
     // Checks if we are in front of a pushable block and pressing into it (while grounded and not carrying)
     bool ComputeIsPushing()
     {
-        if (carriedObject != null)
-            return false;
-        if (!isGrounded)
-            return false;
+        if (carriedObject != null) return false;
+        if (!isGrounded) return false;
 
         // Must be pressing some direction
-        if (Mathf.Abs(moveInput) < inputThreshold)
-            return false;
+        if (Mathf.Abs(moveInput) < inputThreshold) return false;
 
         // Cast a small box in front of us to see if there's a pushable block
         Vector2 center = (Vector2)transform.position + new Vector2(facing * pushCheckDistance, 0f);
+
+        // Limit by layer, then additionally verify the hit is actually a PushableBlock
         var hit = Physics2D.OverlapBox(center, pushCheckSize, 0f, pushBlockLayer);
+        if (!hit) return false;
 
-        // Debug: show what it hits
-        if (hit)
-        {
-            Debug.DrawLine(center, hit.transform.position, Color.magenta);
-            Debug.Log($"Push hit {hit.name}, facing {facing}, moveInput {moveInput}");
-        }
+        // Ensure the collider belongs to a PushableBlock (prevents false positives)
+        var pushable = hit.GetComponentInParent<PushableBlock>();
+        if (!pushable) return false;
 
-        if (!hit)
-            return false;
-
-        // Pressing toward the block (we can relax this check)
+        // Must be pressing toward the block
         bool pressingTowardBlock = Mathf.Sign(moveInput) == Mathf.Sign(facing);
-        if (!pressingTowardBlock)
-            return false;
+        if (!pressingTowardBlock) return false;
 
         return true;
     }

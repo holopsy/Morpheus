@@ -1,31 +1,67 @@
 using UnityEngine;
 using TMPro;
 
-public class CollectibleUI : MonoBehaviour
+public class CollectibleText : MonoBehaviour
 {
-    public TMP_Text counterText;
+    [Header("Refs")]
+    [SerializeField] CollectibleManager manager;     // optional, auto-fills
+    [SerializeField] TMP_Text label;                 // assign your TMP Text; auto-fills from self if null
+
+    [Header("Display")]
+    [Tooltip("If ON: shows (remaining). If OFF: shows collected/total.")]
+    public bool showRemaining = false;
+
+    [Tooltip("Optional prefix, e.g., \"Coins: \". Leave empty for none.")]
+    public string prefix = "";
+
+    void Awake()
+    {
+        if (!manager)
+            manager = CollectibleManager.Instance ?? FindFirstObjectByType<CollectibleManager>();
+        if (!label)
+            label = GetComponent<TMP_Text>();
+    }
 
     void OnEnable()
     {
-        if (CollectibleManager.Instance != null)
-            CollectibleManager.Instance.OnCountChanged += UpdateCounter;
+        if (!manager)
+            manager = CollectibleManager.Instance ?? FindFirstObjectByType<CollectibleManager>();
+
+        if (manager != null)
+            manager.OnLevelCountChanged += HandleLevelCountChanged;
+
+        // initial paint
+        Refresh();
     }
 
     void OnDisable()
     {
-        if (CollectibleManager.Instance != null)
-            CollectibleManager.Instance.OnCountChanged -= UpdateCounter;
+        if (manager != null)
+            manager.OnLevelCountChanged -= HandleLevelCountChanged;
     }
 
-    void Start()
+    void Start() => Refresh();
+
+    void HandleLevelCountChanged(int collected, int total) => SetText(collected, total);
+
+    void Refresh()
     {
-        // Initialize immediately
-        if (CollectibleManager.Instance != null)
-            UpdateCounter(CollectibleManager.Instance.Collected, CollectibleManager.Instance.Total);
+        if (manager == null || label == null) return;
+        SetText(manager.LevelCollected, manager.LevelTotal);
     }
 
-    void UpdateCounter(int collected, int total)
+    void SetText(int collected, int total)
     {
-        if (counterText) counterText.text = $"{collected} / {total}";
+        if (!label) return;
+
+        if (showRemaining)
+        {
+            int remaining = Mathf.Max(0, total - collected);
+            label.text = string.IsNullOrEmpty(prefix) ? $"{remaining}" : $"{prefix}{remaining}";
+        }
+        else
+        {
+            label.text = string.IsNullOrEmpty(prefix) ? $"{collected}/{total}" : $"{prefix}{collected}/{total}";
+        }
     }
 }

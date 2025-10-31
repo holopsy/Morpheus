@@ -311,7 +311,7 @@ MonoBehaviour:
   playerHealth: {fileID: 0}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 328
+    m_Bits: 840
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -322,6 +322,7 @@ MonoBehaviour:
   wallStickTime: 2
   wallJumpForceX: 14
   wallJumpForceY: 12
+  postWallJumpNoSlideTime: 0.12
   groundRadius: 0.16
   wallCheckRadius: 0.12
   pSpeed: Speed
@@ -330,6 +331,7 @@ MonoBehaviour:
   pYVel: YVel
   tSpawn: Spawn
   tDie: Die
+  tJump: Jump
 --- !u!114 &9102194008609695928
 MonoBehaviour:
   m_ObjectHideFlags: 0

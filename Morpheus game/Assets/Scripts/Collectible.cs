@@ -3,7 +3,18 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class Collectible : MonoBehaviour
 {
+    [Header("Type")]
+    [Tooltip("If true, this counts toward 'All collectibles collected' for the level. " +
+             "If false (loot), it will NOT affect level completion totals.")]
+    public bool countsTowardCompletion = true;
+
+    [Header("Value")]
+    [Tooltip("How many currency points this is worth (Loot), or 1 for level items.")]
     public int value = 1;
+
+    // ✅ New flag: if true, skip registration during OnEnable (used for enemy drops)
+    [HideInInspector] public bool skipRegisterOnEnable = false;
+
     private bool _picked;
 
     void Reset()
@@ -14,13 +25,19 @@ public class Collectible : MonoBehaviour
 
     void OnEnable()
     {
-        // Ensure the manager exists; if not yet, attempt to find it
+        // Skip automatic registration if requested (e.g., for enemy drops)
+        if (skipRegisterOnEnable) return;
+
+        // Make sure manager exists
         if (CollectibleManager.Instance == null)
         {
             var mgr = FindFirstObjectByType<CollectibleManager>();
             if (mgr != null) CollectibleManager.Instance = mgr;
         }
-        CollectibleManager.Instance?.RegisterCollectible(this);
+
+        // Register only if it affects completion
+        if (countsTowardCompletion)
+            CollectibleManager.Instance?.RegisterLevelCollectible(this);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -29,7 +46,12 @@ public class Collectible : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         _picked = true;
-        CollectibleManager.Instance?.NotifyPicked(value, this);
+
+        if (countsTowardCompletion)
+            CollectibleManager.Instance?.NotifyLevelPicked(this);
+        else
+            CollectibleManager.Instance?.NotifyLootGained(value);
+
         Destroy(gameObject);
     }
 }
