@@ -123,8 +123,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.004965304, y: -0.017178299}
-  m_Size: {x: 2.2974415, y: 2.2175992}
+  m_Offset: {x: -0.0006201283, y: -0.012675406}
+  m_Size: {x: 3.494533, y: 3.2779691}
   m_Direction: 1
 --- !u!50 &3701659482561625258
 Rigidbody2D:
@@ -175,17 +175,18 @@ MonoBehaviour:
   blockLayer:
     serializedVersion: 2
     m_Bits: 256
-  pickupRadius: 2
+  pickupRadius: 2.08
   returnToPickupPosition: 0
   placeForwardDistance: 3
   pushBlockLayer:
     serializedVersion: 2
     m_Bits: 512
-  pushCheckSize: {x: 1.7, y: 0.8}
-  pushCheckDistance: 1.3
+  pushCheckSize: {x: 2.3, y: 1.49}
+  pushCheckDistance: 2.44
   inputThreshold: 0.2
   visualToFlip: {fileID: 4645466042867423055}
   animator: {fileID: 3108639388479839592}
+  pushingBool: IsPushing
   spawnLockDuration: 0.6
   spawnStateName: Spawn_Powerform
 --- !u!114 &767150308374918257
@@ -219,8 +220,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerFormPusher
   strength: 20
-  animator: {fileID: 3108639388479839592}
-  pushingBool: IsPushing
 --- !u!114 &4935642549591274591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,7 +398,7 @@ Transform:
   m_GameObject: {fileID: 3851122997907591291}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -1.2, z: 0}
+  m_LocalPosition: {x: -0, y: -1.726, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

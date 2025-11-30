@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 24889599572968161}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.019, y: -0.678, z: 0}
+  m_LocalPosition: {x: -0.019, y: -0.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -282,8 +282,8 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
-  attackBoxOffset: {x: 0.9, y: 0}
-  attackBoxSize: {x: 1.23, y: 1}
+  attackBoxOffset: {x: 1.02, y: 0}
+  attackBoxSize: {x: 2.18, y: 1}
   attackDamage: 1
   visualToFlip: {fileID: 2687742780694654434}
   animator: {fileID: 777456734886825305}
@@ -358,8 +358,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.039907575, y: -0.010709763}
-  m_Size: {x: 0.9174948, y: 1.2608652}
+  m_Offset: {x: -0.06432545, y: -0.003379047}
+  m_Size: {x: 1.4133701, y: 1.9035169}
   m_Direction: 0
 --- !u!114 &7980968037690916014
 MonoBehaviour:

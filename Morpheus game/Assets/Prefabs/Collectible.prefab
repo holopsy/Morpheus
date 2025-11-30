@@ -132,7 +132,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.5, y: 2.5}
+    oldSize: {x: 3.75, y: 3.75}
     newSize: {x: 1, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -152,7 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b921c7e1afe0364a9263ca15fa6f3a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectible
+  countsTowardCompletion: 1
   value: 1
+  skipRegisterOnEnable: 0
 --- !u!70 &7264519302946218035
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -187,8 +189,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0037701924, y: -0.011317332}
-  m_Size: {x: 2.386818, y: 2.3868234}
+  m_Offset: {x: -0.015411377, y: 0.006141861}
+  m_Size: {x: 3.5740407, y: 3.5740407}
   m_Direction: 0
 --- !u!95 &8204165508810900623
 Animator:
