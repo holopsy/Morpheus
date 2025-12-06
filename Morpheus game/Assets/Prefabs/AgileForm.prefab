@@ -323,6 +323,7 @@ MonoBehaviour:
   wallJumpForceX: 14
   wallJumpForceY: 12
   postWallJumpNoSlideTime: 0.12
+  wallCoyoteTime: 0.06
   groundRadius: 0.16
   wallCheckRadius: 0.12
   pSpeed: Speed

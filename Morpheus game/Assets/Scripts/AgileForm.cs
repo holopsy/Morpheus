@@ -7,13 +7,13 @@ public class AgileFormController : MonoBehaviour
     public Transform groundCheck;
     public Transform wallCheckLeft;
     public Transform wallCheckRight;
-    public Transform visualToFlip;     // Sprite root (your "Visual" child)
-    public Animator animator;          // Animator on "Visual"
-    public PlayerHealth playerHealth;  // optional; used for Death trigger
+    public Transform visualToFlip;
+    public Animator animator;
+    public PlayerHealth playerHealth;
 
     [Header("Layers")]
     public LayerMask groundLayer;
-    public LayerMask wallLayer; // set = groundLayer if you don’t use a separate wall layer
+    public LayerMask wallLayer;
 
     [Header("Balance")]
     public float moveSpeed = 8f;
@@ -21,44 +21,44 @@ public class AgileFormController : MonoBehaviour
     public float gravityScale = 2.5f;
 
     [Header("Wall")]
-    public float wallSlideSpeed = 2f;     // max downward speed while sliding
-    public float wallStickTime = 1f;      // how long we clamp vertical speed when sliding
-    public float wallJumpForceX = 6f;     // horizontal push away from wall
-    public float wallJumpForceY = 7f;     // vertical push on wall jump
-    [Tooltip("Small delay after wall-jump before sliding can start again (lets Jump anim show).")]
+    public float wallSlideSpeed = 2f;
+    public float wallStickTime = 1f;
+    public float wallJumpForceX = 6f;
+    public float wallJumpForceY = 7f;
     public float postWallJumpNoSlideTime = 0.12f;
+
+    [Header("Wall Coyote")]
+    public float wallCoyoteTime = 0.12f;
 
     [Header("Checks")]
     public float groundRadius = 0.15f;
     public float wallCheckRadius = 0.15f;
 
     [Header("Animator Param Names")]
-    public string pSpeed = "Speed";         // float 0..1
-    public string pGrounded = "Grounded";   // bool
-    public string pWallSlide = "WallSlide"; // bool
-    public string pYVel = "YVel";           // float
-    public string tSpawn = "Spawn";         // trigger
-    public string tDie = "Die";             // trigger
-    public string tJump = "Jump";           // trigger  << NEW
+    public string pSpeed = "Speed";
+    public string pGrounded = "Grounded";
+    public string pWallSlide = "WallSlide";
+    public string pYVel = "YVel";
+    public string tSpawn = "Spawn";
+    public string tDie = "Die";
+    public string tJump = "Jump";
 
-    // --- internal ---
+    // Internal
     Rigidbody2D rb;
     float moveInput;
     bool grounded;
     bool onLeftWall, onRightWall;
     bool wallSliding;
     float wallStickTimer;
-    float wallRegrabUntil;                  // time until sliding allowed again after wall-jump
-    int lastFacing = 1;                     // 1 right, -1 left
-    int lastWallJumpDir = 0;                // -1 left, +1 right
+    float wallRegrabUntil;
+    int lastFacing = 1;
 
-    void Reset()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        if (!animator) animator = GetComponentInChildren<Animator>();
-        if (!visualToFlip && animator) visualToFlip = animator.transform;
-        if (!playerHealth) playerHealth = GetComponent<PlayerHealth>();
-    }
+    // Prevent infinite same-wall jumps
+    int lastWallJumpDir = 0;
+
+    // Coyote tracking
+    float wallCoyoteTimer = 0f;
+    int lastWallSide = 0;
 
     void Awake()
     {
@@ -83,10 +83,9 @@ public class AgileFormController : MonoBehaviour
 
     void Update()
     {
-        // --- Input ---
         moveInput = Input.GetAxisRaw("Horizontal");
 
-        // --- Facing & flip ---
+        // Facing
         if (moveInput > 0.01f) lastFacing = 1;
         else if (moveInput < -0.01f) lastFacing = -1;
 
@@ -97,15 +96,13 @@ public class AgileFormController : MonoBehaviour
             visualToFlip.localScale = s;
         }
 
-        // --- Jump ---
+        // Jump
         if (Input.GetKeyDown(KeyCode.Space))
             TryJump();
 
-        // --- Animator params (mirrored again in FixedUpdate) ---
         if (animator)
         {
-            float speed01 = Mathf.Clamp01(Mathf.Abs(rb.linearVelocity.x) / Mathf.Max(0.001f, moveSpeed));
-            SafeSetFloat(animator, pSpeed, speed01);
+            SafeSetFloat(animator, pSpeed, Mathf.Clamp01(Mathf.Abs(rb.linearVelocity.x) / moveSpeed));
             SafeSetBool(animator, pGrounded, grounded);
             SafeSetBool(animator, pWallSlide, wallSliding);
             SafeSetFloat(animator, pYVel, rb.linearVelocity.y);
@@ -114,24 +111,29 @@ public class AgileFormController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // --- Horizontal move ---
+        // Horizontal movement
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
-        // --- Checks ---
+        // Checks
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
-        onLeftWall  = Physics2D.OverlapCircle(wallCheckLeft.position,  wallCheckRadius, wallLayer);
+        onLeftWall = Physics2D.OverlapCircle(wallCheckLeft.position, wallCheckRadius, wallLayer);
         onRightWall = Physics2D.OverlapCircle(wallCheckRight.position, wallCheckRadius, wallLayer);
 
-        // --- Wall slide conditions ---
         bool touchingWall = onLeftWall || onRightWall;
-        bool holdingTowardLeft  = onLeftWall  && moveInput < 0;
-        bool holdingTowardRight = onRightWall && moveInput > 0;
-        bool holdingTowardWall  = holdingTowardLeft || holdingTowardRight;
+        int wallSide = onLeftWall ? -1 : (onRightWall ? 1 : 0);
 
-        // Only slide if airborne, touching a wall, pressing INTO that wall, and the post-jump lock has expired
-        bool allowSlideNow = Time.time >= wallRegrabUntil;
-        wallSliding = !grounded && touchingWall && holdingTowardWall && allowSlideNow;
+        // --- Wall Coyote update ---
+        if (touchingWall)
+        {
+            wallCoyoteTimer = wallCoyoteTime;
+            lastWallSide = wallSide;
+        }
+        else
+        {
+            wallCoyoteTimer -= Time.fixedDeltaTime;
+        }
 
+        // Reset jump lock on ground
         if (grounded)
         {
             lastWallJumpDir = 0;
@@ -139,11 +141,21 @@ public class AgileFormController : MonoBehaviour
             wallStickTimer = 0f;
         }
 
+        bool allowSlideNow = Time.time >= wallRegrabUntil;
+
+        bool holdingTowardWall =
+            (onLeftWall && moveInput < 0) ||
+            (onRightWall && moveInput > 0);
+
+        // Wall slide is ONLY when pushing toward the wall
+        wallSliding = !grounded && touchingWall && holdingTowardWall && allowSlideNow;
+
         if (wallSliding)
         {
-            if (wallStickTimer <= 0f) wallStickTimer = wallStickTime;
+            if (wallStickTimer <= 0f)
+                wallStickTimer = wallStickTime;
 
-            if (wallStickTimer > 0f)
+            if (wallStickTimer > 0)
             {
                 if (rb.linearVelocity.y < -wallSlideSpeed)
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, -wallSlideSpeed);
@@ -156,48 +168,67 @@ public class AgileFormController : MonoBehaviour
             wallStickTimer = 0f;
         }
 
-        // Reflect latest states to animator
+        // Animator sync
         if (animator)
         {
-            float speed01 = Mathf.Clamp01(Mathf.Abs(rb.linearVelocity.x) / Mathf.Max(0.001f, moveSpeed));
-            SafeSetFloat(animator, pSpeed, speed01);
+            SafeSetFloat(animator, pSpeed, Mathf.Clamp01(Mathf.Abs(rb.linearVelocity.x) / moveSpeed));
             SafeSetBool(animator, pGrounded, grounded);
             SafeSetBool(animator, pWallSlide, wallSliding);
             SafeSetFloat(animator, pYVel, rb.linearVelocity.y);
         }
     }
 
+    // ---------------------------------------------------------
+    // JUMP LOGIC (UPDATED)
+    // ---------------------------------------------------------
     void TryJump()
     {
-        // Ground jump
+        // Normal jump
         if (grounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            SafeSetTrigger(animator, tJump);              // << play Jump
+            SafeSetTrigger(animator, tJump);
             return;
         }
 
-        // Wall jump
-        int currentWallDir = onLeftWall ? -1 : (onRightWall ? 1 : 0);
-        bool holdingTowardWall = (onLeftWall && moveInput < 0) || (onRightWall && moveInput > 0);
+        // --- Direct Wall Jump ---
+        int wallSide = onLeftWall ? -1 : (onRightWall ? 1 : 0);
 
-        if (currentWallDir != 0 && holdingTowardWall && wallSliding)
+        if (wallSide != 0)
         {
-            if (currentWallDir == lastWallJumpDir) return;
+            // ❗ NO LONGER REQUIRE holdingTowardWall
+            // ❗ NO LONGER REQUIRE wallSliding
+            // Just check the wall detector.
 
-            Vector2 v = new Vector2(-currentWallDir * wallJumpForceX, wallJumpForceY);
-            rb.linearVelocity = v;
+            if (wallSide == lastWallJumpDir) return; // prevent infinite climbing
 
-            lastWallJumpDir = currentWallDir;
-
-            // stop sliding and lock re-grab briefly so Jump anim can show
-            wallSliding = false;
-            wallStickTimer = 0f;
-            wallRegrabUntil = Time.time + postWallJumpNoSlideTime;
-
-            SafeSetTrigger(animator, tJump);              // << play Jump
+            DoWallJump(wallSide);
+            return;
         }
+
+        // --- Wall Coyote Jump ---
+        if (wallCoyoteTimer > 0f)
+        {
+            if (lastWallSide != 0 && lastWallSide != lastWallJumpDir)
+            {
+                DoWallJump(lastWallSide);
+                return;
+            }
+        }
+    }
+
+    void DoWallJump(int wallDir)
+    {
+        rb.linearVelocity = new Vector2(-wallDir * wallJumpForceX, wallJumpForceY);
+
+        lastWallJumpDir = wallDir;      // lock wall
+        wallSliding = false;
+        wallStickTimer = 0f;
+
+        wallRegrabUntil = Time.time + postWallJumpNoSlideTime;
+
+        SafeSetTrigger(animator, tJump);
     }
 
     void OnDied()
