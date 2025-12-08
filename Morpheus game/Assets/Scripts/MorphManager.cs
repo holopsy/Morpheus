@@ -16,6 +16,21 @@ public class MorphManager : MonoBehaviour
     private GameObject currentFormPrefab; // track which prefab is active
     private int lastFacingDir = 1; // 1 = right, -1 = left
     private FormHealthMemory healthMemory; // remembers HP for each form
+    
+    [Header("Unlock States")]
+    public bool defaultUnlocked = true;
+    public bool agileUnlocked = false;
+    public bool powerUnlocked = false;
+    public bool flyingUnlocked = false;
+    
+    public enum MorphType
+    {
+        Default,
+        Agile,
+        Power,
+        Flying
+    }
+
 
     void Awake()
     {
@@ -37,11 +52,31 @@ public class MorphManager : MonoBehaviour
         if (inputX > 0.01f) lastFacingDir = 1;
         else if (inputX < -0.01f) lastFacingDir = -1;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) MorphTo(defaultForm);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) MorphTo(agileForm);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) MorphTo(powerForm);
-        if (Input.GetKeyDown(KeyCode.Alpha4)) MorphTo(flyingForm);
+        if (Input.GetKeyDown(KeyCode.Alpha1) && defaultUnlocked)
+            MorphTo(defaultForm);
+
+        if (Input.GetKeyDown(KeyCode.Alpha2) && agileUnlocked)
+            MorphTo(agileForm);
+
+        if (Input.GetKeyDown(KeyCode.Alpha3) && powerUnlocked)
+            MorphTo(powerForm);
+
+        if (Input.GetKeyDown(KeyCode.Alpha4) && flyingUnlocked)
+            MorphTo(flyingForm);
     }
+    public void UnlockForm(MorphType type)
+    {
+        switch (type)
+        {
+            case MorphType.Default: defaultUnlocked = true; break;
+            case MorphType.Agile: agileUnlocked = true; break;
+            case MorphType.Power: powerUnlocked = true; break;
+            case MorphType.Flying: flyingUnlocked = true; break;
+        }
+
+        Debug.Log(type + " form unlocked!");
+    }
+
 
     // ---------------- MORPHING ----------------
     public void MorphTo(GameObject formPrefab)
