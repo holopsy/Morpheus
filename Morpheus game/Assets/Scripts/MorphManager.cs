@@ -13,7 +13,7 @@ public class MorphManager : MonoBehaviour
     public CameraFollow cameraFollow; // reference to camera follow script
 
     private GameObject currentForm;
-    private GameObject currentFormPrefab; // track which prefab is active
+    public GameObject currentFormPrefab { get; private set; }
     private int lastFacingDir = 1; // 1 = right, -1 = left
     private FormHealthMemory healthMemory; // remembers HP for each form
     
