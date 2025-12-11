@@ -181,8 +181,8 @@ MonoBehaviour:
   pushBlockLayer:
     serializedVersion: 2
     m_Bits: 512
-  pushCheckSize: {x: 2.3, y: 1.49}
-  pushCheckDistance: 2.44
+  pushCheckSize: {x: 1.78, y: 1.51}
+  pushCheckDistance: 1.76
   inputThreshold: 0.2
   visualToFlip: {fileID: 4645466042867423055}
   animator: {fileID: 3108639388479839592}

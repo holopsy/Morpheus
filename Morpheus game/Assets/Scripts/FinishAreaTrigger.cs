@@ -6,20 +6,24 @@ using UnityEngine.SceneManagement;
 public class FinishAreaTrigger : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] CollectibleManager collectibleManager; // optional; will fallback to Instance
-    [SerializeField] SlowMoPopupAny popup;                  // TMP/3D popup
-    [SerializeField] GameEndUI endUI;                       // Win panel
+    [SerializeField] CollectibleManager collectibleManager; 
+    [SerializeField] SlowMoPopupAny popup;                  
+    [SerializeField] GameEndUI endUI;                       
     [SerializeField] string playerTag = "Player";
+
+    [Header("Required Collectibles")]
+    [Tooltip("If -1, player must collect ALL collectibles. If a positive number, only that many are required.")]
+    public int requiredCollectibles = -1;
 
     [Header("Popup")]
     [Range(0.01f, 0.5f)] public float popupTimeScale = 0.1f;
     [TextArea(2, 4)]
     public string messageTemplate =
-        "You’re missing <b>{MISSING}</b> of <b>{TOTAL}</b> collectibles!\n\nPress <b>Space</b> to keep searching.";
+        "You’re missing <b>{MISSING}</b> of <b>{REQUIRED}</b> collectibles!\n\nPress <b>Space</b> to keep searching.";
 
     [Header("On Complete")]
-    public UnityEvent OnAllCollected;   // optional hooks
-    public string nextSceneName = "";   // leave empty to use endUI
+    public UnityEvent OnAllCollected;
+    public string nextSceneName = "";
 
     Collider2D _col;
 
@@ -31,8 +35,10 @@ public class FinishAreaTrigger : MonoBehaviour
         if (!collectibleManager)
             collectibleManager = CollectibleManager.Instance ? CollectibleManager.Instance
                                                              : FindFirstObjectByType<CollectibleManager>();
+
         if (!popup)
             popup = FindFirstObjectByType<SlowMoPopupAny>(FindObjectsInactive.Include);
+
         if (!endUI)
             endUI = FindFirstObjectByType<GameEndUI>(FindObjectsInactive.Include);
     }
@@ -48,23 +54,30 @@ public class FinishAreaTrigger : MonoBehaviour
             return;
         }
 
-        int total = mgr.LevelTotal;       // <<< renamed
-        int got   = mgr.LevelCollected;   // <<< renamed
+        int total     = mgr.LevelTotal;
+        int collected = mgr.LevelCollected;
 
-        if (total <= 0 || got >= total)
+        // Determine required amount
+        int required = (requiredCollectibles <= 0) ? total : requiredCollectibles;
+
+        if (collected >= required)
         {
+            // Completed
             Complete();
         }
         else
         {
+            // Not enough → show popup
             if (!popup)
             {
                 Debug.LogWarning("FinishAreaTrigger: No SlowMoPopupAny assigned/found.");
                 return;
             }
+
             string msg = messageTemplate
-                .Replace("{MISSING}", (total - got).ToString())
-                .Replace("{TOTAL}", total.ToString());
+                .Replace("{MISSING}", (required - collected).ToString())
+                .Replace("{REQUIRED}", required.ToString());
+
             popup.Show(msg, popupTimeScale, onDismiss: null);
         }
     }
@@ -73,6 +86,7 @@ public class FinishAreaTrigger : MonoBehaviour
     {
         if (endUI) endUI.ShowWin("Level Complete!");
         else if (!string.IsNullOrEmpty(nextSceneName)) StartCoroutine(LoadNextFrame());
+
         OnAllCollected?.Invoke();
     }
 
