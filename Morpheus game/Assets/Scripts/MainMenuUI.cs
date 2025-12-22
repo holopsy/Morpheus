@@ -1,18 +1,24 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuUI : MonoBehaviour
 {
-    [Header("First Game Scene")]
-    [SerializeField] string firstGameSceneName = "VerticalSlice"; // <-- change to your gameplay scene name
+    public string gameSceneName = "Level1"; // change to your first level
 
-    void Awake()
+    public void PlayGame()
     {
-        // Provide the name to SceneLoader
-        SceneLoader.FirstGameSceneName = firstGameSceneName;
-        Time.timeScale = 1f; // safety reset
+        SceneManager.LoadScene(gameSceneName);
     }
 
-    // Hook these from Button OnClick
-    public void OnStartGame() => SceneLoader.LoadFirstGameScene();
-    public void OnExit()      => SceneLoader.QuitGame();
+    public void OpenOptions()
+    {
+        Debug.Log("Options clicked");
+        // later: open options panel
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+        Debug.Log("Quit"); // works only in build
+    }
 }
