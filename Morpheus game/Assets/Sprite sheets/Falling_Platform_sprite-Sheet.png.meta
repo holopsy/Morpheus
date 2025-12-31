@@ -169,11 +169,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 21
-        width: 33
-        height: 13
+        y: 22
+        width: 32
+        height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -190,12 +190,12 @@ TextureImporter:
       name: Falling_Platform_sprite-Sheet_1
       rect:
         serializedVersion: 2
-        x: 33
-        y: 20
-        width: 34
-        height: 14
+        x: 34
+        y: 21
+        width: 32
+        height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -212,12 +212,12 @@ TextureImporter:
       name: Falling_Platform_sprite-Sheet_2
       rect:
         serializedVersion: 2
-        x: 67
-        y: 21
-        width: 34
-        height: 13
+        x: 68
+        y: 22
+        width: 32
+        height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -234,12 +234,12 @@ TextureImporter:
       name: Falling_Platform_sprite-Sheet_3
       rect:
         serializedVersion: 2
-        x: 101
-        y: 21
-        width: 34
-        height: 13
+        x: 102
+        y: 22
+        width: 32
+        height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -256,12 +256,12 @@ TextureImporter:
       name: Falling_Platform_sprite-Sheet_4
       rect:
         serializedVersion: 2
-        x: 135
-        y: 21
-        width: 34
-        height: 13
+        x: 136
+        y: 22
+        width: 32
+        height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -278,12 +278,12 @@ TextureImporter:
       name: Falling_Platform_sprite-Sheet_5
       rect:
         serializedVersion: 2
-        x: 169
-        y: 21
-        width: 34
-        height: 13
+        x: 170
+        y: 22
+        width: 32
+        height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -300,12 +300,12 @@ TextureImporter:
       name: Falling_Platform_sprite-Sheet_6
       rect:
         serializedVersion: 2
-        x: 203
-        y: 21
-        width: 33
-        height: 13
+        x: 204
+        y: 22
+        width: 32
+        height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -323,11 +323,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 3
-        width: 33
-        height: 14
+        y: 4
+        width: 32
+        height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -344,12 +344,12 @@ TextureImporter:
       name: Falling_Platform_sprite-Sheet_8
       rect:
         serializedVersion: 2
-        x: 33
-        y: 3
-        width: 34
-        height: 14
+        x: 34
+        y: 4
+        width: 32
+        height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -366,12 +366,12 @@ TextureImporter:
       name: Falling_Platform_sprite-Sheet_9
       rect:
         serializedVersion: 2
-        x: 67
-        y: 0
-        width: 34
-        height: 15
+        x: 68
+        y: 1
+        width: 32
+        height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -388,12 +388,12 @@ TextureImporter:
       name: Falling_Platform_sprite-Sheet_10
       rect:
         serializedVersion: 2
-        x: 101
-        y: 0
-        width: 34
-        height: 15
+        x: 102
+        y: 1
+        width: 32
+        height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -410,12 +410,12 @@ TextureImporter:
       name: Falling_Platform_sprite-Sheet_11
       rect:
         serializedVersion: 2
-        x: 135
+        x: 136
         y: 0
-        width: 34
-        height: 13
+        width: 32
+        height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -432,12 +432,12 @@ TextureImporter:
       name: Falling_Platform_sprite-Sheet_12
       rect:
         serializedVersion: 2
-        x: 177
+        x: 178
         y: 0
-        width: 10
-        height: 13
+        width: 8
+        height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -454,12 +454,12 @@ TextureImporter:
       name: Falling_Platform_sprite-Sheet_13
       rect:
         serializedVersion: 2
-        x: 193
+        x: 194
         y: 0
-        width: 10
-        height: 11
+        width: 8
+        height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -476,7 +476,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4946a3a247b8f9f44ac4ddcb3ade6fbc
     internalID: 0
     vertices: []
     indices: 
@@ -484,7 +484,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Falling_Platform_sprite-Sheet_0: 9142076762641421603
       Falling_Platform_sprite-Sheet_1: -997221513531035413

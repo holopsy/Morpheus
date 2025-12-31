@@ -384,10 +384,10 @@ TextureImporter:
       name: tileset-environment_0
       rect:
         serializedVersion: 2
-        x: 12
+        x: 9
         y: 90
-        width: 4
-        height: 7
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -408,8 +408,8 @@ TextureImporter:
         serializedVersion: 2
         x: 18
         y: 90
-        width: 4
-        height: 4
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -450,10 +450,10 @@ TextureImporter:
       name: tileset-environment_3
       rect:
         serializedVersion: 2
-        x: 28
+        x: 27
         y: 90
-        width: 4
-        height: 4
+        width: 6
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -472,10 +472,10 @@ TextureImporter:
       name: tileset-environment_4
       rect:
         serializedVersion: 2
-        x: 39
+        x: 37
         y: 90
-        width: 4
-        height: 7
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1751,7 +1751,7 @@ TextureImporter:
         x: 0
         y: 36
         width: 8
-        height: 5
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1773,7 +1773,7 @@ TextureImporter:
         x: 9
         y: 36
         width: 8
-        height: 5
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1794,8 +1794,8 @@ TextureImporter:
         serializedVersion: 2
         x: 18
         y: 36
-        width: 7
-        height: 5
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1814,10 +1814,10 @@ TextureImporter:
       name: tileset-environment_65
       rect:
         serializedVersion: 2
-        x: 28
+        x: 27
         y: 36
-        width: 7
-        height: 5
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2255,9 +2255,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 54
-        y: 22
+        y: 18
         width: 7
-        height: 4
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2278,8 +2278,8 @@ TextureImporter:
         serializedVersion: 2
         x: 9
         y: 54
-        width: 2
-        height: 3
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2300,8 +2300,8 @@ TextureImporter:
         serializedVersion: 2
         x: 27
         y: 54
-        width: 2
-        height: 4
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2342,10 +2342,10 @@ TextureImporter:
       name: tileset-environment_89
       rect:
         serializedVersion: 2
-        x: 96
+        x: 90
         y: 63
-        width: 2
-        height: 4
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
