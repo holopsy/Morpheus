@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 4935642549591274591}
   - component: {fileID: -3101697230402581222}
   - component: {fileID: -8724151121092938319}
+  - component: {fileID: 562516165453700215}
   m_Layer: 0
   m_Name: PowerForm
   m_TagString: Player
@@ -41,6 +42,8 @@ Transform:
   - {fileID: 4645466042867423055}
   - {fileID: 2759955243278666883}
   - {fileID: 2956285162309455173}
+  - {fileID: 6007186925323798231}
+  - {fileID: 2464030201668423052}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &8310072844467306933
@@ -171,16 +174,30 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  wallCheckLeft: {fileID: 2464030201668423052}
+  wallCheckRight: {fileID: 6007186925323798231}
+  wallCheckRadius: 0.15
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 64
   carryPoint: {fileID: 2759955243278666883}
   blockLayer:
     serializedVersion: 2
     m_Bits: 256
   pickupRadius: 2.08
+  requireSupportUnderBlock: 0
+  supportCheckDepth: 0.25
+  supportLayers:
+    serializedVersion: 2
+    m_Bits: 72
   returnToPickupPosition: 0
   placeForwardDistance: 3
+  placementPadding: 0.02
+  previewLineWidth: 0.04
+  maxPreviewUp: 1.2
   pushBlockLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 768
   pushCheckSize: {x: 1.78, y: 1.51}
   pushCheckDistance: 1.76
   inputThreshold: 0.2
@@ -260,6 +277,34 @@ MonoBehaviour:
   dieTriggerName: Die
   deathAnimDuration: 0.9
   freezeDuringDeath: 1
+--- !u!114 &562516165453700215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603284063832582206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f39296a4ca422ac4c8e1cd409c568049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FallDamage2D
+  groundCheck: {fileID: 2956285162309455173}
+  groundRadius: 0.15
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  wallCheckLeft: {fileID: 0}
+  wallCheckRight: {fileID: 0}
+  wallCheckRadius: 0.15
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  resetFallWhileTouchingWall: 1
+  safeFallDistance: 10
+  damageStepDistance: 4
+  maxDamagePerLanding: 3
+  requiredMinFallSpeedY: -12
 --- !u!1 &3804163022236716994
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,6 +444,68 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: -1.726, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4839132868059329333}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4915404573937759221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2464030201668423052}
+  m_Layer: 0
+  m_Name: WallCheckLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2464030201668423052
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4915404573937759221}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.807, y: -0.266, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4839132868059329333}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6359697035677318243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6007186925323798231}
+  m_Layer: 0
+  m_Name: WallCheckRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6007186925323798231
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6359697035677318243}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.775, y: -0.266, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

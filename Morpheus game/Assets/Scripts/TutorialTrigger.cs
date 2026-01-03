@@ -11,11 +11,21 @@ public class TutorialTrigger : MonoBehaviour
     public bool oneShot = true;
     private bool used;
 
-    // 🆕 Per-trigger text layout
     [Header("Text Layout (Per Trigger)")]
     public Vector2 textOffset = Vector2.zero;
     public float textScale = 1f;
     public float baseFontSize = 36f;
+
+    [Header("Behavior (Per Trigger)")]
+    [Tooltip("If OFF: just show the text while inside the trigger, hide on exit (no key, no input blocking).")]
+    public bool requireKeyToDismiss = true;
+
+    [Header("Time Effect (Per Trigger)")]
+    public TutorialManager.TimeEffect timeEffect = TutorialManager.TimeEffect.Freeze;
+
+    [Tooltip("Used only if TimeEffect = Slow")]
+    [Range(0.05f, 1f)]
+    public float slowTimeScaleOverride = 0.2f;
 
     void Reset()
     {
@@ -31,7 +41,14 @@ public class TutorialTrigger : MonoBehaviour
 
         used = true;
 
-        // Build accepted-keys list (required + extras)
+        // If no key required -> show-only mode
+        if (!requireKeyToDismiss)
+        {
+            TutorialManager.Instance.ShowOnly(message, textOffset, textScale, baseFontSize, timeEffect, slowTimeScaleOverride);
+            return;
+        }
+
+        // Key-required mode (existing behavior)
         if (extraAcceptedKeys != null && extraAcceptedKeys.Length > 0)
         {
             var keys = new KeyCode[1 + extraAcceptedKeys.Length];
@@ -39,11 +56,21 @@ public class TutorialTrigger : MonoBehaviour
             for (int i = 0; i < extraAcceptedKeys.Length; i++)
                 keys[i + 1] = extraAcceptedKeys[i];
 
-            TutorialManager.Instance.StartStep(keys, message, textOffset, textScale, baseFontSize);
+            TutorialManager.Instance.StartStep(keys, message, textOffset, textScale, baseFontSize, timeEffect, slowTimeScaleOverride);
         }
         else
         {
-            TutorialManager.Instance.StartStep(requiredKey, message, textOffset, textScale, baseFontSize);
+            TutorialManager.Instance.StartStep(requiredKey, message, textOffset, textScale, baseFontSize, timeEffect, slowTimeScaleOverride);
         }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (oneShot) return;
+        if (!other.CompareTag("Player")) return;
+        if (TutorialManager.Instance == null) return;
+
+        // Hide prompt and restore time/freeze (works for both modes)
+        TutorialManager.Instance.EndStep();
     }
 }

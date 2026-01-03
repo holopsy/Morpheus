@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 24889599572968161}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.019, y: -0.99, z: 0}
+  m_LocalPosition: {x: -0.038, y: -0.995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -144,6 +144,68 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &903710326105332478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2729498666089387547}
+  m_Layer: 0
+  m_Name: WallCheckRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2729498666089387547
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903710326105332478}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.691, y: -0.072, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1904003094154607238}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2710775749326750743
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3763204505342820341}
+  m_Layer: 0
+  m_Name: WallCheckLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3763204505342820341
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2710775749326750743}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.823, y: -0.072, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1904003094154607238}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5800484490117455257
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,6 +219,7 @@ GameObject:
   - component: {fileID: 175913185948021406}
   - component: {fileID: 8574724753654708539}
   - component: {fileID: -1180387489963889396}
+  - component: {fileID: 2743275513242817047}
   - component: {fileID: -1251001454106828432}
   - component: {fileID: 493752488685336851}
   - component: {fileID: 7980968037690916014}
@@ -183,6 +246,8 @@ Transform:
   m_Children:
   - {fileID: 2687742780694654434}
   - {fileID: 2259386199480350931}
+  - {fileID: 3763204505342820341}
+  - {fileID: 2729498666089387547}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &5021384497050957409
@@ -278,6 +343,13 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 520
+  wallCheckLeft: {fileID: 3763204505342820341}
+  wallCheckRight: {fileID: 2729498666089387547}
+  wallCheckRadius: 0.15
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  attackKey: 102
   attackCooldown: 0.5
   enemyLayer:
     serializedVersion: 2
@@ -306,6 +378,34 @@ MonoBehaviour:
   dieTriggerName: Die
   deathAnimDuration: 0.9
   freezeDuringDeath: 1
+--- !u!114 &2743275513242817047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800484490117455257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f39296a4ca422ac4c8e1cd409c568049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FallDamage2D
+  groundCheck: {fileID: 2259386199480350931}
+  groundRadius: 0.15
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 520
+  wallCheckLeft: {fileID: 0}
+  wallCheckRight: {fileID: 0}
+  wallCheckRadius: 0.15
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  resetFallWhileTouchingWall: 1
+  safeFallDistance: 6
+  damageStepDistance: 3
+  maxDamagePerLanding: 3
+  requiredMinFallSpeedY: -8
 --- !u!114 &-1251001454106828432
 MonoBehaviour:
   m_ObjectHideFlags: 0

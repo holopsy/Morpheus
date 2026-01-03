@@ -11,10 +11,11 @@ public class TutorialManager : MonoBehaviour
     public GameObject promptPanel;
     public TMP_Text promptText;
 
-    [Header("Timing")]
-    [Range(0.05f, 1f)] public float slowTimeScale = 0.2f;
+    [Header("Defaults")]
+    [Range(0.05f, 1f)] public float defaultSlowTimeScale = 0.2f;
 
-    private bool stepActive;
+    private bool stepActive;      // key-required mode only
+    private bool showOnlyActive;  // show-only mode
     private KeyCode waitingFor;
     private KeyCode[] waitingForMultiple;
     private bool multiMode;
@@ -25,6 +26,8 @@ public class TutorialManager : MonoBehaviour
     private readonly List<Rigidbody2D> frozenRBs = new List<Rigidbody2D>();
     private readonly Dictionary<Rigidbody2D, RigidbodyConstraints2D> rbPrevConstraints =
         new Dictionary<Rigidbody2D, RigidbodyConstraints2D>();
+
+    public enum TimeEffect { None, Slow, Freeze }
 
     void Awake()
     {
@@ -40,6 +43,7 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
+        // ✅ Only block input / listen for keys in key-required mode
         if (!stepActive) return;
 
         if (multiMode)
@@ -62,80 +66,103 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
+        // Prevent buffered input while a modal tutorial is active
         Input.ResetInputAxes();
     }
 
-    // === Single-key trigger (no custom layout) ===
-    public void StartStep(KeyCode requiredKey, string message)
+    // ---------------- SHOW-ONLY MODE (no key, no input blocking) ----------------
+    public void ShowOnly(string message, Vector2 offset, float scale, float baseSize,
+                         TimeEffect timeEffect, float slowScaleOverride = -1f)
     {
-        StartStep(requiredKey, message, Vector2.zero, 1f, 36f);
-    }
+        if (stepActive || showOnlyActive) return;
+        showOnlyActive = true;
 
-    // === Single-key trigger (with layout) ===
-    public void StartStep(KeyCode requiredKey, string message, Vector2 offset, float scale, float baseSize)
-    {
-        if (stepActive) return;
-        multiMode = false;
-        waitingFor = requiredKey;
-        StartStepCommon(message, offset, scale, baseSize);
-    }
-
-    // === Multi-key trigger (no custom layout) ===
-    public void StartStep(KeyCode[] acceptedKeys, string message)
-    {
-        StartStep(acceptedKeys, message, Vector2.zero, 1f, 36f);
-    }
-
-    // === Multi-key trigger (with layout) ===
-    public void StartStep(KeyCode[] acceptedKeys, string message, Vector2 offset, float scale, float baseSize)
-    {
-        if (stepActive) return;
-        multiMode = true;
-        waitingForMultiple = acceptedKeys;
-        StartStepCommon(message, offset, scale, baseSize);
-    }
-
-    // === Shared setup logic for all versions ===
-    // === Shared setup logic for all versions ===
-    private void StartStepCommon(string message, Vector2 offset, float scale, float baseSize)
-    {
-        stepActive = true;
-
-        // slow motion setup
+        // Save time state
         prevTimeScale = Time.timeScale;
         prevFixedDelta = Time.fixedDeltaTime;
-        Time.timeScale = slowTimeScale;
-        Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
-        // setup text layout and content
-        if (promptText)
-        {
-            // 1) Set text
-            promptText.text = message;
+        ApplyTimeEffect(timeEffect, slowScaleOverride);
 
-            // 2) Make sure TMP obeys font size
-            // (Auto Size will override fontSize—turn it OFF)
-            var tmp = promptText; // TMP_Text
-            tmp.enableAutoSizing = false;
-            tmp.fontSize = baseSize * scale;
-
-            // 3) Position: force center anchors so anchoredPosition works
-            var rt = promptText.rectTransform; // RectTransform on the TMP object
-            if (rt)
-            {
-                rt.anchorMin = new Vector2(0.5f, 0.5f);
-                rt.anchorMax = new Vector2(0.5f, 0.5f);
-                rt.pivot     = new Vector2(0.5f, 0.5f);
-                rt.anchoredPosition = offset; // per-trigger position
-            }
-        }
-
-        // show the panel
+        SetupPrompt(message, offset, scale, baseSize);
         if (promptPanel) promptPanel.SetActive(true);
+    }
 
-        // freeze all player rigidbodies (unchanged)
+    // ---------------- KEY-REQUIRED MODE ----------------
+    public void StartStep(KeyCode requiredKey, string message, Vector2 offset, float scale, float baseSize,
+                          TimeEffect timeEffect, float slowScaleOverride = -1f)
+    {
+        if (stepActive || showOnlyActive) return;
+        multiMode = false;
+        waitingFor = requiredKey;
+
+        stepActive = true;
+
+        prevTimeScale = Time.timeScale;
+        prevFixedDelta = Time.fixedDeltaTime;
+
+        ApplyTimeEffect(timeEffect, slowScaleOverride);
+
+        SetupPrompt(message, offset, scale, baseSize);
+        if (promptPanel) promptPanel.SetActive(true);
+    }
+
+    public void StartStep(KeyCode[] acceptedKeys, string message, Vector2 offset, float scale, float baseSize,
+                          TimeEffect timeEffect, float slowScaleOverride = -1f)
+    {
+        if (stepActive || showOnlyActive) return;
+        multiMode = true;
+        waitingForMultiple = acceptedKeys;
+
+        stepActive = true;
+
+        prevTimeScale = Time.timeScale;
+        prevFixedDelta = Time.fixedDeltaTime;
+
+        ApplyTimeEffect(timeEffect, slowScaleOverride);
+
+        SetupPrompt(message, offset, scale, baseSize);
+        if (promptPanel) promptPanel.SetActive(true);
+    }
+
+    void SetupPrompt(string message, Vector2 offset, float scale, float baseSize)
+    {
+        if (!promptText) return;
+
+        promptText.text = message;
+        promptText.enableAutoSizing = false;
+        promptText.fontSize = baseSize * scale;
+
+        var rt = promptText.rectTransform;
+        if (rt)
+        {
+            rt.anchorMin = new Vector2(0.5f, 0.5f);
+            rt.anchorMax = new Vector2(0.5f, 0.5f);
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.anchoredPosition = offset;
+        }
+    }
+
+    private void ApplyTimeEffect(TimeEffect mode, float slowScaleOverride)
+    {
         frozenRBs.Clear();
         rbPrevConstraints.Clear();
+
+        if (mode == TimeEffect.None)
+        {
+            return;
+        }
+
+        if (mode == TimeEffect.Slow)
+        {
+            float slow = (slowScaleOverride > 0f) ? slowScaleOverride : defaultSlowTimeScale;
+            Time.timeScale = slow;
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            return;
+        }
+
+        // Freeze mode
+        Time.timeScale = 0f;
+
         var players = GameObject.FindGameObjectsWithTag("Player");
         foreach (var p in players)
         {
@@ -153,11 +180,17 @@ public class TutorialManager : MonoBehaviour
 
     private void CompleteStep()
     {
-        // restore time
+        EndStep();
+    }
+
+    // ✅ Works for BOTH modes (show-only + key-required)
+    public void EndStep()
+    {
+        if (!stepActive && !showOnlyActive) return;
+
         Time.timeScale = prevTimeScale;
         Time.fixedDeltaTime = prevFixedDelta;
 
-        // unfreeze rigidbodies
         foreach (var rb in frozenRBs)
         {
             if (rb && rbPrevConstraints.TryGetValue(rb, out var prev))
@@ -166,9 +199,11 @@ public class TutorialManager : MonoBehaviour
         frozenRBs.Clear();
         rbPrevConstraints.Clear();
 
-        // hide UI
         if (promptPanel) promptPanel.SetActive(false);
 
         stepActive = false;
+        showOnlyActive = false;
+        multiMode = false;
+        waitingForMultiple = null;
     }
 }

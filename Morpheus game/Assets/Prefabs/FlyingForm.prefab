@@ -251,8 +251,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13dc56888953104bb3fb278dd035f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlyingMovement
-  moveSpeed: 7
+  walkSpeed: 2.2
+  flyMoveSpeed: 8
   flapForce: 7.5
+  flapKey: 32
+  safeGroundLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  speedParam: Speed
+  isFlyingParam: IsFlying
   visualToFlip: {fileID: 0}
   useSpriteFlipX: 1
 --- !u!114 &-1329634725417627971

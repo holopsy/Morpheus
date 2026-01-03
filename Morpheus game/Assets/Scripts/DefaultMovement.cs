@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class DefaultMovement : MonoBehaviour
@@ -8,22 +7,26 @@ public class DefaultMovement : MonoBehaviour
     public float moveSpeed = 5f;
 
     [Header("Tiny Jump")]
-    [Tooltip("Very small hop so Default doesn’t overlap Agile’s big jump.")]
     public float jumpForceSmall = 3f;
     public KeyCode jumpKey = KeyCode.Space;
 
     [Header("Ground Check")]
-    public Transform groundCheck;                 
+    public Transform groundCheck;
     public float groundRadius = 0.15f;
     public LayerMask groundLayer = ~0;
 
+    [Header("Wall Check (prevents sticking)")]
+    public Transform wallCheckLeft;
+    public Transform wallCheckRight;
+    public float wallCheckRadius = 0.15f;
+    public LayerMask wallLayer;
+
     [Header("Attack")]
-    public KeyCode attackKey = KeyCode.F;          // <<< ATTACK KEY (F)
+    public KeyCode attackKey = KeyCode.F;
     public float attackCooldown = 0.35f;
     public LayerMask enemyLayer;
-    [Tooltip("Center of the attack box relative to the player root when facing RIGHT.")]
     public Vector2 attackBoxOffset = new Vector2(0.8f, 0f);
-    public Vector2 attackBoxSize   = new Vector2(1.2f, 1.0f);
+    public Vector2 attackBoxSize = new Vector2(1.2f, 1.0f);
     public int attackDamage = 1;
 
     [Header("Visuals / Animator")]
@@ -44,9 +47,12 @@ public class DefaultMovement : MonoBehaviour
     private bool inSpawn = false;
     private bool grounded = false;
 
+    bool onLeftWall, onRightWall;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        if (!animator) animator = GetComponentInChildren<Animator>();
     }
 
     void OnEnable()
@@ -55,9 +61,8 @@ public class DefaultMovement : MonoBehaviour
 
         inSpawn = true;
         if (animator && !string.IsNullOrEmpty(spawnStateName))
-        {
             animator.Play(spawnStateName, 0, 0f);
-        }
+
         spawnUnlockTime = (spawnLockDuration > 0f) ? Time.time + spawnLockDuration : 0f;
     }
 
@@ -77,10 +82,7 @@ public class DefaultMovement : MonoBehaviour
         }
     }
 
-    public void EndSpawn()
-    {
-        inSpawn = false;
-    }
+    public void EndSpawn() => inSpawn = false;
 
     void Update()
     {
@@ -110,7 +112,6 @@ public class DefaultMovement : MonoBehaviour
             TrySetBool(animator, onGroundBoolName, grounded);
         }
 
-        // >>> ATTACK WITH KEYBOARD (F)
         if (!inSpawn && Input.GetKeyDown(attackKey) && Time.time >= lastAttackTime + attackCooldown)
         {
             DoAttackNow();
@@ -124,7 +125,16 @@ public class DefaultMovement : MonoBehaviour
             ? Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer)
             : false;
 
+        // wall checks
+        onLeftWall = wallCheckLeft && Physics2D.OverlapCircle(wallCheckLeft.position, wallCheckRadius, wallLayer);
+        onRightWall = wallCheckRight && Physics2D.OverlapCircle(wallCheckRight.position, wallCheckRadius, wallLayer);
+
         float x = inSpawn ? 0f : moveInput * moveSpeed;
+
+        // ✅ prevent pushing INTO wall (this removes "sticking")
+        if ((onLeftWall && x < 0f) || (onRightWall && x > 0f))
+            x = 0f;
+
         rb.linearVelocity = new Vector2(x, rb.linearVelocity.y);
     }
 
@@ -161,15 +171,20 @@ public class DefaultMovement : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
-        int f = Application.isPlaying ? facing : 1;
-        Vector2 center = (Vector2)transform.position + new Vector2(attackBoxOffset.x * f, attackBoxOffset.y);
-        Gizmos.DrawWireCube(center, attackBoxSize);
-
         if (groundCheck)
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
+        }
+        if (wallCheckLeft)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(wallCheckLeft.position, wallCheckRadius);
+        }
+        if (wallCheckRight)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(wallCheckRight.position, wallCheckRadius);
         }
     }
 }

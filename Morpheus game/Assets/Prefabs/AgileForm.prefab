@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 3765911829061155506}
   - component: {fileID: -2894193016795773484}
   - component: {fileID: 19016476910092784}
+  - component: {fileID: 4319484673094775270}
   m_Layer: 0
   m_Name: AgileForm
   m_TagString: Player
@@ -428,6 +429,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VisualReactivator
   visualChildName: Visual
+--- !u!114 &4319484673094775270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3288355765436532145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f39296a4ca422ac4c8e1cd409c568049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FallDamage2D
+  groundCheck: {fileID: 4719056739072069065}
+  groundRadius: 0.15
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 840
+  wallCheckLeft: {fileID: 3589530392180437673}
+  wallCheckRight: {fileID: 4718383708854129927}
+  wallCheckRadius: 0.15
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  resetFallWhileTouchingWall: 1
+  safeFallDistance: 6
+  damageStepDistance: 3
+  maxDamagePerLanding: 3
+  requiredMinFallSpeedY: -10
 --- !u!1 &4569421126363374621
 GameObject:
   m_ObjectHideFlags: 0

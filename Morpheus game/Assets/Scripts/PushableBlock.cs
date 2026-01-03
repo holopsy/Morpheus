@@ -4,77 +4,82 @@ using UnityEngine;
 public class PushableBlock : MonoBehaviour
 {
     [Header("Push Tuning")]
-    [Tooltip("Minimum strength a pusher must have to move this block.")]
     public float requiredStrength = 10f;
-
-    [Tooltip("How hard the block is pushed each physics step when authorized.")]
     public float pushForce = 60f;
-
-    [Tooltip("Horizontal speed cap while being pushed.")]
     public float maxPushSpeed = 2.5f;
 
-    [Tooltip("Velocities smaller than this are snapped to 0 when not pushed (X only).")]
-    public float snapDeadzoneX = 0.01f;
+    [Header("X Lock")]
+    [Tooltip("How long (seconds) X stays unlocked after the last valid Power push contact.")]
+    public float unlockXGraceTime = 0.25f;
 
     Rigidbody2D rb;
-    bool pushedThisStep;
+    float unlockTimer;
+
+    // Keep whatever constraints you set in Inspector (ex: Freeze Rotation Z),
+    // and we’ll add/remove FreezePositionX on top.
+    RigidbodyConstraints2D baseConstraints;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        // Inspector for this block:
-        // - Rigidbody2D: Body Type = Dynamic
-        // - Constraints: Freeze Rotation Z (ON)   <-- let the inspector handle this
-        // - Gravity Scale: as you like (falls into holes as usual)
+        baseConstraints = rb.constraints;
     }
 
     void FixedUpdate()
     {
-        if (!pushedThisStep)
+        // Count down the unlock timer
+        if (unlockTimer > 0f)
+            unlockTimer -= Time.fixedDeltaTime;
+
+        bool allowX = unlockTimer > 0f;
+
+        if (!allowX)
         {
-            // Nobody valid pushing -> kill X drift so other forms can't nudge it.
-            float vx = Mathf.Abs(rb.linearVelocity.x) <= snapDeadzoneX ? 0f : 0f;
-            rb.linearVelocity = new Vector2(vx, rb.linearVelocity.y);
-            // Y is untouched so it can fall into holes.
+            // Lock X so non-Power forms physically cannot shove it sideways
+            rb.constraints = baseConstraints | RigidbodyConstraints2D.FreezePositionX;
+
+            // Also kill any leftover X velocity (keeps it stable)
+            rb.linearVelocity = new Vector2(
+                Mathf.MoveTowards(rb.linearVelocity.x, 0f, 10f * Time.fixedDeltaTime),
+                rb.linearVelocity.y
+            );
+
         }
         else
         {
-            // Clamp horizontal speed when being pushed
+            // Unlock X while Power is pushing
+            rb.constraints = baseConstraints;
+
+            // Clamp horizontal speed while being pushed
             float vx = Mathf.Clamp(rb.linearVelocity.x, -maxPushSpeed, maxPushSpeed);
             rb.linearVelocity = new Vector2(vx, rb.linearVelocity.y);
         }
-
-        pushedThisStep = false;
     }
 
     void OnCollisionStay2D(Collision2D col)
     {
-        // 1) The collider we’re touching must belong to the *active* Power form.
-        //    We detect that by requiring a PowerFormController in its parents that is active+enabled.
+        // Must be the active Power form
         var powerController = col.collider.GetComponentInParent<PowerFormController>();
-        if (powerController == null) return;                     // Not the Power form
-        if (!powerController.isActiveAndEnabled) return;         // Power form not the active form right now
+        if (powerController == null) return;
+        if (!powerController.isActiveAndEnabled) return;
 
-        // 2) That same hierarchy must have a PowerFormPusher (the component that knows input/strength).
+        // Must have pusher component
         var pusher = col.collider.GetComponentInParent<PowerFormPusher>();
         if (pusher == null) return;
         if (!pusher.isActiveAndEnabled) return;
-        if (pusher.strength < requiredStrength) return;          // Not strong enough
+        if (pusher.strength < requiredStrength) return;
 
-        // 3) Player must be pressing INTO the block on at least one contact.
+        // Require push intent into the block
         foreach (var contact in col.contacts)
         {
-            // contact.normal points from THIS block toward the player's collider
             int intent = pusher.GetPushIntent(contact.normal);
             if (intent == 0) continue;
 
-            // Apply horizontal push force
+            // Unlock X for a short moment so force can move it
+            unlockTimer = unlockXGraceTime;
+
             rb.AddForce(new Vector2(intent * pushForce, 0f), ForceMode2D.Force);
-
-            // Mark as valid push this step so FixedUpdate doesn't zero X
-            pushedThisStep = true;
-
-            break; // one good push per step is enough
+            break;
         }
     }
 }

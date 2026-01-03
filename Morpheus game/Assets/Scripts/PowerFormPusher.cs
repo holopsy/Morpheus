@@ -17,16 +17,22 @@ public class PowerFormPusher : MonoBehaviour
     /// 'contactNormalFromBlock' points from the BLOCK toward the PLAYER collider.
     public int GetPushIntent(Vector2 contactNormalFromBlock)
     {
+        // contactNormalFromBlock points from BLOCK -> PLAYER
+        // If player is on the RIGHT of the block, normal.x will be +.
+        // To push the block to the RIGHT, player must press RIGHT (inputX > 0).
+        // To push the block to the LEFT, player must press LEFT (inputX < 0).
+
         if (contactNormalFromBlock.x > 0.5f)
         {
-            // player is to the RIGHT of the block -> must press LEFT
-            if (inputX < -0.1f) return -1;
+            // Player is to the RIGHT of the block
+            if (inputX > 0.1f) return +1;   // push block RIGHT
         }
         else if (contactNormalFromBlock.x < -0.5f)
         {
-            // player is to the LEFT of the block -> must press RIGHT
-            if (inputX > 0.1f) return +1;
+            // Player is to the LEFT of the block
+            if (inputX < -0.1f) return -1;  // push block LEFT
         }
+
         return 0;
     }
 }

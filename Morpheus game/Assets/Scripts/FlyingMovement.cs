@@ -3,9 +3,21 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class FlyingFormController : MonoBehaviour
 {
-    [Header("Movement")]
-    public float moveSpeed = 5f;   // horizontal speed once active
-    public float flapForce = 6f;   // upward flap strength
+    [Header("Walk (before flying)")]
+    public float walkSpeed = 2.2f;
+
+    [Header("Fly (after takeoff)")]
+    public float flyMoveSpeed = 5f;   // constant horizontal speed once flying
+    public float flapForce = 6f;      // upward flap strength
+    public KeyCode flapKey = KeyCode.Space;
+
+    [Header("Safe Ground (what you're allowed to land on)")]
+    [Tooltip("Layers that are allowed to be 'safe' to land on from above. Usually Ground only (not Walls/Pillars).")]
+    public LayerMask safeGroundLayers;
+
+    [Header("Animator Params")]
+    public string speedParam = "Speed";
+    public string isFlyingParam = "IsFlying";
 
     [Header("Visual flip")]
     [Tooltip("Assign the 'Visual' child (with Animator/SpriteRenderers). If left null, tries to find child named 'Visual'.")]
@@ -16,9 +28,11 @@ public class FlyingFormController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
-    private int facingDir = 1;     
+    private int facingDir = 1;
     private bool initialized = false;
-    private bool canMove = false;  // becomes true after spawn finishes
+    private bool canMove = false;
+    private bool isFlying = false;
+
     private float originalGravity = 1f;
 
     void Awake()
@@ -37,6 +51,11 @@ public class FlyingFormController : MonoBehaviour
         rb.gravityScale = 0f;
         rb.linearVelocity = Vector2.zero;
         canMove = false;
+        isFlying = false;
+
+        // init animator values
+        SetAnimBool(isFlyingParam, false);
+        SetAnimFloat(speedParam, 0f);
     }
 
     // Called by MorphManager right after instantiate
@@ -59,16 +78,50 @@ public class FlyingFormController : MonoBehaviour
     {
         if (!canMove)
         {
-            // hard-freeze while spawning
             rb.linearVelocity = Vector2.zero;
+            SetAnimFloat(speedParam, 0f);
             return;
         }
 
-        // constant horizontal speed while active
-        rb.linearVelocity = new Vector2(facingDir * moveSpeed, rb.linearVelocity.y);
+        if (!isFlying)
+        {
+            // === WALK MODE ===
+            float inputX = Input.GetAxisRaw("Horizontal");
 
-        // flap
-        if (Input.GetKeyDown(KeyCode.Space))
+            // aim facing direction (direction lock is only for flying mode)
+            if (inputX > 0.1f) facingDir = 1;
+            else if (inputX < -0.1f) facingDir = -1;
+
+            ApplyFacingVisual();
+
+            // walk slowly
+            rb.linearVelocity = new Vector2(inputX * walkSpeed, rb.linearVelocity.y);
+
+            // drive anims
+            SetAnimBool(isFlyingParam, false);
+            SetAnimFloat(speedParam, Mathf.Abs(inputX));
+
+            // takeoff on Space (direction becomes locked from this moment)
+            if (Input.GetKeyDown(flapKey))
+            {
+                isFlying = true;
+
+                SetAnimBool(isFlyingParam, true);
+
+                // start moving in chosen direction + initial lift
+                rb.linearVelocity = new Vector2(facingDir * flyMoveSpeed, flapForce);
+            }
+
+            return;
+        }
+
+        // === FLY MODE (direction locked) ===
+        SetAnimBool(isFlyingParam, true);
+        SetAnimFloat(speedParam, 1f); // always "moving" while flying
+
+        rb.linearVelocity = new Vector2(facingDir * flyMoveSpeed, rb.linearVelocity.y);
+
+        if (Input.GetKeyDown(flapKey))
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, flapForce);
     }
 
@@ -77,35 +130,33 @@ public class FlyingFormController : MonoBehaviour
     {
         canMove = true;
         rb.gravityScale = originalGravity;
-        rb.linearVelocity = new Vector2(facingDir * moveSpeed, 0f);
+
+        // Start in WALK mode: no forced horizontal speed
+        rb.linearVelocity = new Vector2(0f, 0f);
+
+        isFlying = false;
+        SetAnimBool(isFlyingParam, false);
+        SetAnimFloat(speedParam, 0f);
 
         ApplyFacingVisual();
-
-        if (anim)
-        {
-            // blend into the fly loop
-            anim.CrossFade("Fly_Flyingform", 0.05f, 0);
-        }
     }
 
-    // === Die on side or ceiling impact ===
+    // === Die on ANY collision, except landing on safe ground from above ===
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (!canMove) return; // ignore during spawn freeze
+        if (!canMove) return;
 
         foreach (var c in col.contacts)
         {
-            // Side hit (walls) => |normal.x| > 0.5
-            // Ceiling hit (top) => normal.y < -0.5
-            if (Mathf.Abs(c.normal.x) > 0.5f || c.normal.y < -0.5f)
-            {
-                var death = GetComponent<PlayerDeath>();
-                if (death != null)
-                {
-                    death.Die();
-                    break;
-                }
-            }
+            bool hitFromAbove = c.normal.y > 0.6f;
+            bool isSafeLayer = (safeGroundLayers.value & (1 << col.gameObject.layer)) != 0;
+
+            if (hitFromAbove && isSafeLayer)
+                return; // allowed landing
+
+            var death = GetComponent<PlayerDeath>();
+            if (death != null) death.Die();
+            return;
         }
     }
 
@@ -126,5 +177,17 @@ public class FlyingFormController : MonoBehaviour
             s.x = Mathf.Abs(s.x) * (flipLeft ? -1f : 1f);
             visualToFlip.localScale = s;
         }
+    }
+
+    private void SetAnimFloat(string param, float value)
+    {
+        if (!anim || string.IsNullOrEmpty(param)) return;
+        anim.SetFloat(param, value);
+    }
+
+    private void SetAnimBool(string param, bool value)
+    {
+        if (!anim || string.IsNullOrEmpty(param)) return;
+        anim.SetBool(param, value);
     }
 }
