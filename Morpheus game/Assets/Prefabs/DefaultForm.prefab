@@ -311,7 +311,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.032336503, y: -0.001709938}
+  m_Offset: {x: -0.063165665, y: 0.0000028014183}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -321,7 +321,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.935327, y: 1.2532465}
+  m_Size: {x: 1.3874881, y: 1.8801063}
   m_EdgeRadius: 0
 --- !u!114 &8574724753654708539
 MonoBehaviour:
@@ -402,7 +402,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   resetFallWhileTouchingWall: 1
-  safeFallDistance: 6
+  safeFallDistance: 12
   damageStepDistance: 3
   maxDamagePerLanding: 3
   requiredMinFallSpeedY: -8
@@ -458,8 +458,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.06432545, y: -0.003379047}
-  m_Size: {x: 1.4133701, y: 1.9035169}
+  m_Offset: {x: -0.06312299, y: 0.00042444468}
+  m_Size: {x: 1.3917251, y: 1.8910998}
   m_Direction: 0
 --- !u!114 &7980968037690916014
 MonoBehaviour:

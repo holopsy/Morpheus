@@ -1,0 +1,1203 @@
+fileFormatVersion: 2
+guid: bbc1e55f85a000049b5dd9692747c58f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 904862435925856017
+    second: puzzle-environment-sprites 1_0
+  - first:
+      213: -7992451090422957568
+    second: puzzle-environment-sprites 1_1
+  - first:
+      213: 8693285346400888115
+    second: puzzle-environment-sprites 1_2
+  - first:
+      213: -6832153572173646989
+    second: puzzle-environment-sprites 1_3
+  - first:
+      213: 8104522364591589916
+    second: puzzle-environment-sprites 1_4
+  - first:
+      213: 1750104574223121241
+    second: puzzle-environment-sprites 1_5
+  - first:
+      213: -4533206384666477067
+    second: puzzle-environment-sprites 1_6
+  - first:
+      213: 3191849121835015532
+    second: puzzle-environment-sprites 1_7
+  - first:
+      213: 939564014558335739
+    second: puzzle-environment-sprites 1_8
+  - first:
+      213: -2887922020627956400
+    second: puzzle-environment-sprites 1_9
+  - first:
+      213: 7383012543135517307
+    second: puzzle-environment-sprites 1_10
+  - first:
+      213: -8164894640050008111
+    second: puzzle-environment-sprites 1_11
+  - first:
+      213: -6075989566804021521
+    second: puzzle-environment-sprites 1_12
+  - first:
+      213: -8672195438520167958
+    second: puzzle-environment-sprites 1_13
+  - first:
+      213: 4797327938413772020
+    second: puzzle-environment-sprites 1_14
+  - first:
+      213: 1035093488548215105
+    second: puzzle-environment-sprites 1_15
+  - first:
+      213: 1023784197162023786
+    second: puzzle-environment-sprites 1_16
+  - first:
+      213: 1675417340563433792
+    second: puzzle-environment-sprites 1_17
+  - first:
+      213: 3327103677617205045
+    second: puzzle-environment-sprites 1_18
+  - first:
+      213: 4216716775638283252
+    second: puzzle-environment-sprites 1_19
+  - first:
+      213: -409730119175231774
+    second: puzzle-environment-sprites 1_20
+  - first:
+      213: 3158753095095255223
+    second: puzzle-environment-sprites 1_21
+  - first:
+      213: 9002012111495584905
+    second: puzzle-environment-sprites 1_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 8
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 137
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11f84ff5797be8c00800000000000000
+      internalID: 904862435925856017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_1
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 137
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00af7ae341c151190800000000000000
+      internalID: -7992451090422957568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_2
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 137
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 335655ba6f0c4a870800000000000000
+      internalID: 8693285346400888115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_3
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 137
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3737caf36805f21a0800000000000000
+      internalID: -6832153572173646989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_4
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 137
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1ac0b7a62c097070800000000000000
+      internalID: 8104522364591589916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_5
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 137
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95bfa5a76de994810800000000000000
+      internalID: 1750104574223121241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_6
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 137
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fdfb64afc0d611c0800000000000000
+      internalID: -4533206384666477067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_7
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 113
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6d5e9b7dd9bb4c20800000000000000
+      internalID: 3191849121835015532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_8
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 97
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf25d734e700a0d00800000000000000
+      internalID: 939564014558335739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_9
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 97
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05d317d193a0ce7d0800000000000000
+      internalID: -2887922020627956400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_10
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 89
+        width: 16
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7a88d58acab57660800000000000000
+      internalID: 7383012543135517307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_11
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 89
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1df0457959770be80800000000000000
+      internalID: -8164894640050008111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_12
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 81
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: feeaaa35eafbdaba0800000000000000
+      internalID: -6075989566804021521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_13
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 73
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae11e38223c26a780800000000000000
+      internalID: -8672195438520167958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_14
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 65
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fcb538b758839240800000000000000
+      internalID: 4797327938413772020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_15
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 65
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1497c3e2b046d5e00800000000000000
+      internalID: 1035093488548215105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_16
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 49
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6b30869d46353e00800000000000000
+      internalID: 1023784197162023786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_17
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 57
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04920dac137404710800000000000000
+      internalID: 1675417340563433792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_18
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 49
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53fe443ca2f3c2e20800000000000000
+      internalID: 3327103677617205045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_19
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 41
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f3b95af099c48a30800000000000000
+      internalID: 4216716775638283252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_20
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 33
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e628c0a0a8505af0800000000000000
+      internalID: -409730119175231774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_21
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 17
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b08156443526db20800000000000000
+      internalID: 3158753095095255223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_22
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 1
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98c557912529dec70800000000000000
+      internalID: 9002012111495584905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_23
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 81
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca99ba9103d3af2478388e82d447f836
+      internalID: -487988206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_24
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 73
+        width: 16
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c63b1c9b8f8ff04468534c9cc344c11d
+      internalID: 1182643382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_25
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 57
+        width: 16
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7df7b60f51b81314f9980da775615eaf
+      internalID: 20674418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_26
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 41
+        width: 16
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13d60bf3fc0430a4a93b3d2124a5dec4
+      internalID: -1191851886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_27
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 25
+        width: 16
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3778a444debd9044ca73dffc41686b09
+      internalID: -1398305966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_28
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 17
+        width: 16
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 495ce6a0bb6275b4592d1ecab73f9803
+      internalID: 1020551829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_29
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 33
+        width: 16
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8320fddb7a5cff44c9618be4381b8bfd
+      internalID: -855604576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_30
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 49
+        width: 16
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb58522c149e49a4e93cf112410e705e
+      internalID: 113882316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_31
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 65
+        width: 16
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2317b8b894d98aa4a8beba933df848c8
+      internalID: 128415322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_32
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 81
+        width: 16
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1790950e86b15ae4bb376d7ee2becdcb
+      internalID: 1191104076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_33
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 97
+        width: 8
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2e5149100b1d214095ac3e34a0b93c7
+      internalID: -2146388920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_34
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 81
+        width: 8
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4bbd52b09ca80c418b3c9472669f00f
+      internalID: -782910392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_35
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 65
+        width: 8
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1ae7544970092c429824cb870e04035
+      internalID: 133791648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_36
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 49
+        width: 8
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c76f4bbe8329a804b9d7dc8240b2b30c
+      internalID: 1650034167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_37
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 33
+        width: 8
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11c7299e42121c241834b60992f8a2ae
+      internalID: 990889981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_38
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 25
+        width: 8
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9accbd5b95052434581c9ca35fd31173
+      internalID: -484209168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_39
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 41
+        width: 8
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ec179f13001fc04c81428f495852f5b
+      internalID: -1527110494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_40
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 57
+        width: 8
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d683fd15b4557c24e91ccb9eec61f6f1
+      internalID: -882079686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_41
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 73
+        width: 8
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25cf0283a5d13f24b8592733e3637427
+      internalID: -1299556543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: puzzle-environment-sprites 1_42
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 89
+        width: 8
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3160957d128676248aaba5a0138930c1
+      internalID: -1637252273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 95beca33b014ac64ba93728dbc0eb1e2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      puzzle-environment-sprites 1_0: 904862435925856017
+      puzzle-environment-sprites 1_1: -7992451090422957568
+      puzzle-environment-sprites 1_10: 7383012543135517307
+      puzzle-environment-sprites 1_11: -8164894640050008111
+      puzzle-environment-sprites 1_12: -6075989566804021521
+      puzzle-environment-sprites 1_13: -8672195438520167958
+      puzzle-environment-sprites 1_14: 4797327938413772020
+      puzzle-environment-sprites 1_15: 1035093488548215105
+      puzzle-environment-sprites 1_16: 1023784197162023786
+      puzzle-environment-sprites 1_17: 1675417340563433792
+      puzzle-environment-sprites 1_18: 3327103677617205045
+      puzzle-environment-sprites 1_19: 4216716775638283252
+      puzzle-environment-sprites 1_2: 8693285346400888115
+      puzzle-environment-sprites 1_20: -409730119175231774
+      puzzle-environment-sprites 1_21: 3158753095095255223
+      puzzle-environment-sprites 1_22: 9002012111495584905
+      puzzle-environment-sprites 1_23: -487988206
+      puzzle-environment-sprites 1_24: 1182643382
+      puzzle-environment-sprites 1_25: 20674418
+      puzzle-environment-sprites 1_26: -1191851886
+      puzzle-environment-sprites 1_27: -1398305966
+      puzzle-environment-sprites 1_28: 1020551829
+      puzzle-environment-sprites 1_29: -855604576
+      puzzle-environment-sprites 1_3: -6832153572173646989
+      puzzle-environment-sprites 1_30: 113882316
+      puzzle-environment-sprites 1_31: 128415322
+      puzzle-environment-sprites 1_32: 1191104076
+      puzzle-environment-sprites 1_33: -2146388920
+      puzzle-environment-sprites 1_34: -782910392
+      puzzle-environment-sprites 1_35: 133791648
+      puzzle-environment-sprites 1_36: 1650034167
+      puzzle-environment-sprites 1_37: 990889981
+      puzzle-environment-sprites 1_38: -484209168
+      puzzle-environment-sprites 1_39: -1527110494
+      puzzle-environment-sprites 1_4: 8104522364591589916
+      puzzle-environment-sprites 1_40: -882079686
+      puzzle-environment-sprites 1_41: -1299556543
+      puzzle-environment-sprites 1_42: -1637252273
+      puzzle-environment-sprites 1_5: 1750104574223121241
+      puzzle-environment-sprites 1_6: -4533206384666477067
+      puzzle-environment-sprites 1_7: 3191849121835015532
+      puzzle-environment-sprites 1_8: 939564014558335739
+      puzzle-environment-sprites 1_9: -2887922020627956400
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlyingMovement
   walkSpeed: 2.2
-  flyMoveSpeed: 8
+  flyMoveSpeed: 6
   flapForce: 7.5
   flapKey: 32
   safeGroundLayers:

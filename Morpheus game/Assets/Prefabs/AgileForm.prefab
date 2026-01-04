@@ -280,7 +280,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0012061298, y: -0.0017478466}
+  m_Offset: {x: 0.0005800128, y: -0.05148849}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -290,7 +290,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8088576, y: 0.8036144}
+  m_Size: {x: 1.6197585, y: 1.3042419}
   m_EdgeRadius: 0
 --- !u!114 &2441871291401647809
 MonoBehaviour:
@@ -317,7 +317,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   moveSpeed: 10
-  jumpForce: 11
+  jumpForce: 13
   gravityScale: 2.5
   wallSlideSpeed: 3.13
   wallStickTime: 2
@@ -401,8 +401,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0020205376, y: -0.0037897832}
-  m_Size: {x: 1.6456069, y: 1.3354465}
+  m_Offset: {x: 0.002020532, y: -0.050019808}
+  m_Size: {x: 1.6456074, y: 1.3079604}
   m_Direction: 1
 --- !u!114 &-2894193016795773484
 MonoBehaviour:
@@ -453,7 +453,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   resetFallWhileTouchingWall: 1
-  safeFallDistance: 6
+  safeFallDistance: 12
   damageStepDistance: 3
   maxDamagePerLanding: 3
   requiredMinFallSpeedY: -10
