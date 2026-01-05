@@ -1,0 +1,505 @@
+fileFormatVersion: 2
+guid: 78f7948cbc8de8542a281cadfc76b6fb
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2431183253876712776
+    second: pause-screen-ui-v2_0
+  - first:
+      213: -2759061960335600858
+    second: pause-screen-ui-v2_1
+  - first:
+      213: 4448842561908267443
+    second: pause-screen-ui-v2_2
+  - first:
+      213: -1863565883968314645
+    second: pause-screen-ui-v2_3
+  - first:
+      213: -5775000096983547729
+    second: pause-screen-ui-v2_4
+  - first:
+      213: 4900186972946187214
+    second: pause-screen-ui-v2_5
+  - first:
+      213: -177228089692385954
+    second: pause-screen-ui-v2_6
+  - first:
+      213: 3615199834065778812
+    second: pause-screen-ui-v2_7
+  - first:
+      213: -1866603363078468783
+    second: pause-screen-ui-v2_8
+  - first:
+      213: 7390905418496974811
+    second: pause-screen-ui-v2_9
+  - first:
+      213: 3821051529291754386
+    second: pause-screen-ui-v2_10
+  - first:
+      213: 8921950589610541376
+    second: pause-screen-ui-v2_11
+  - first:
+      213: -8039661692685222469
+    second: pause-screen-ui-v2_12
+  - first:
+      213: 6174244526235696825
+    second: pause-screen-ui-v2_13
+  - first:
+      213: -4928382048034033775
+    second: pause-screen-ui-v2_14
+  - first:
+      213: -1020229019824062528
+    second: pause-screen-ui-v2_15
+  - first:
+      213: 3917425431561252580
+    second: pause-screen-ui-v2_16
+  - first:
+      213: -900658491683691766
+    second: pause-screen-ui-v2_17
+  - first:
+      213: 7485656491146028127
+    second: pause-screen-ui-v2_18
+  - first:
+      213: 5772441702091242812
+    second: pause-screen-ui-v2_19
+  - first:
+      213: -213365767843277643
+    second: pause-screen-ui-v2_20
+  - first:
+      213: 133534813252336314
+    second: pause-screen-ui-v2_21
+  - first:
+      213: -6959945278555925631
+    second: pause-screen-ui-v2_22
+  - first:
+      213: -6201286906650899594
+    second: pause-screen-ui-v2_23
+  - first:
+      213: 3761461592667131268
+    second: pause-screen-ui-v2_24
+  - first:
+      213: -5407868886535855251
+    second: pause-screen-ui-v2_25
+  - first:
+      213: 4410279904990320023
+    second: pause-screen-ui-v2_26
+  - first:
+      213: -1810894243254370410
+    second: pause-screen-ui-v2_27
+  - first:
+      213: 7734910188631946218
+    second: pause-screen-ui-v2_28
+  - first:
+      213: -3683237531775386843
+    second: pause-screen-ui-v2_29
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: pause-screen-ui-v2_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1019
+        width: 948
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8452337d94c4db120800000000000000
+      internalID: 2431183253876712776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pause-screen-ui-v2_2
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 949
+        width: 57
+        height: 57
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b95e243db67dbd30800000000000000
+      internalID: 4448842561908267443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pause-screen-ui-v2_3
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 837
+        width: 656
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be2288eb3b84326e0800000000000000
+      internalID: -1863565883968314645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pause-screen-ui-v2_4
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 725
+        width: 656
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa0037152041bdfa0800000000000000
+      internalID: -5775000096983547729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pause-screen-ui-v2_5
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 643
+        width: 567
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec3447fe616f00440800000000000000
+      internalID: 4900186972946187214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pause-screen-ui-v2_13
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 527
+        width: 656
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bebdae1fa25fa550800000000000000
+      internalID: 6174244526235696825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pause-screen-ui-v2_14
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 415
+        width: 656
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19fe48593aeda9bb0800000000000000
+      internalID: -4928382048034033775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pause-screen-ui-v2_15
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 329
+        width: 444
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cf77d3ac1b67d1f0800000000000000
+      internalID: -1020229019824062528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pause-screen-ui-v2_22
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 219
+        width: 656
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 183548ff4ae496f90800000000000000
+      internalID: -6959945278555925631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pause-screen-ui-v2_23
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 107
+        width: 656
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67bcaca0a6a90f9a0800000000000000
+      internalID: -6201286906650899594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pause-screen-ui-v2_24
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 5
+        width: 402
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48d0333b365633430800000000000000
+      internalID: 3761461592667131268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c394e96b428113f41a1722a6c9b53678
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      pause-screen-ui-v2_0: 2431183253876712776
+      pause-screen-ui-v2_1: -2759061960335600858
+      pause-screen-ui-v2_10: 3821051529291754386
+      pause-screen-ui-v2_11: 8921950589610541376
+      pause-screen-ui-v2_12: -8039661692685222469
+      pause-screen-ui-v2_13: 6174244526235696825
+      pause-screen-ui-v2_14: -4928382048034033775
+      pause-screen-ui-v2_15: -1020229019824062528
+      pause-screen-ui-v2_16: 3917425431561252580
+      pause-screen-ui-v2_17: -900658491683691766
+      pause-screen-ui-v2_18: 7485656491146028127
+      pause-screen-ui-v2_19: 5772441702091242812
+      pause-screen-ui-v2_2: 4448842561908267443
+      pause-screen-ui-v2_20: -213365767843277643
+      pause-screen-ui-v2_21: 133534813252336314
+      pause-screen-ui-v2_22: -6959945278555925631
+      pause-screen-ui-v2_23: -6201286906650899594
+      pause-screen-ui-v2_24: 3761461592667131268
+      pause-screen-ui-v2_25: -5407868886535855251
+      pause-screen-ui-v2_26: 4410279904990320023
+      pause-screen-ui-v2_27: -1810894243254370410
+      pause-screen-ui-v2_28: 7734910188631946218
+      pause-screen-ui-v2_29: -3683237531775386843
+      pause-screen-ui-v2_3: -1863565883968314645
+      pause-screen-ui-v2_4: -5775000096983547729
+      pause-screen-ui-v2_5: 4900186972946187214
+      pause-screen-ui-v2_6: -177228089692385954
+      pause-screen-ui-v2_7: 3615199834065778812
+      pause-screen-ui-v2_8: -1866603363078468783
+      pause-screen-ui-v2_9: 7390905418496974811
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

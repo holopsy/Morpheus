@@ -224,7 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPatrol
   mode: 1
   speed: 2
-  halfRange: 3
+  halfRange: 3.1
   leftBound: {fileID: 0}
   rightBound: {fileID: 0}
   animator: {fileID: 0}

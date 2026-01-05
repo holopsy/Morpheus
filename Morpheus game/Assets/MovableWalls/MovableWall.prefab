@@ -114,9 +114,10 @@ MonoBehaviour:
     bottom: {fileID: -667221198, guid: 06cd1e9dd4b5c434abedad325e584714, type: 3}
   heightSegments: 7
   visualOffset: {x: 0, y: 0}
-  startRaised: 0
+  moveAxis: 0
   moveDistanceSegments: 4
-  moveSpeed: 4
+  moveSpeed: 9
+  startRaised: 0
   crushKillsPlayer: 1
   crushOnlyWhileMoving: 1
   crushTags:

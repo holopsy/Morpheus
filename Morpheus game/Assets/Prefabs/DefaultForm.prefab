@@ -342,7 +342,7 @@ MonoBehaviour:
   groundRadius: 0.15
   groundLayer:
     serializedVersion: 2
-    m_Bits: 520
+    m_Bits: 521
   wallCheckLeft: {fileID: 3763204505342820341}
   wallCheckRight: {fileID: 2729498666089387547}
   wallCheckRadius: 0.15
