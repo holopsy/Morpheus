@@ -3418,6 +3418,7 @@ GameObject:
   m_Component:
   - component: {fileID: 342393942}
   - component: {fileID: 342393943}
+  - component: {fileID: 342393944}
   m_Layer: 5
   m_Name: Finishpopup
   m_TagString: Untagged
@@ -3458,6 +3459,29 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &342393944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342393941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1ae8e5b314c00e41a6cbfc3c7d254f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FinishPopupUI
+  rootGroup: {fileID: 342393943}
+  rootObject: {fileID: 342393941}
+  titleText: {fileID: 824157577}
+  bodyText: {fileID: 1502018054}
+  buttonsRow: {fileID: 0}
+  btnMainMenu: {fileID: 0}
+  btnRestart: {fileID: 0}
+  btnContinue: {fileID: 0}
+  btnOk: {fileID: 0}
+  mainMenuSceneName: MainMenu
+  nextLevelSceneName: 
 --- !u!1 &344265223
 GameObject:
   m_ObjectHideFlags: 0
