@@ -1637,7 +1637,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7060749312706676836, guid: c87500bb0671c9241a9566cae890ec1c, type: 3}
+  m_Sprite: {fileID: 2233736019075512498, guid: 51f494fe167e0e94094539b51a6f10c0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3285,7 +3285,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FallingPlatform
   fallDelay: 1
   disableDelay: 1
+  playerTag: Player
+  surfaceZoneHeight: 0.06
+  sideInset: 0.08
+  surfaceZoneOffset: 0.01
+  fallGravity: 2
   respawnOnCheckpoint: 1
+  timedRespawn: 0
+  respawnTime: 2
 --- !u!50 &333018388
 Rigidbody2D:
   serializedVersion: 5
@@ -4910,7 +4917,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FallingPlatform
   fallDelay: 1
   disableDelay: 1
+  playerTag: Player
+  surfaceZoneHeight: 0.06
+  sideInset: 0.08
+  surfaceZoneOffset: 0.01
+  fallGravity: 2
   respawnOnCheckpoint: 1
+  timedRespawn: 0
+  respawnTime: 2
 --- !u!61 &431662850
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6121,7 +6135,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7060749312706676836, guid: c87500bb0671c9241a9566cae890ec1c, type: 3}
+  m_Sprite: {fileID: 2233736019075512498, guid: 51f494fe167e0e94094539b51a6f10c0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12128,7 +12142,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7060749312706676836, guid: c87500bb0671c9241a9566cae890ec1c, type: 3}
+  m_Sprite: {fileID: 2233736019075512498, guid: 51f494fe167e0e94094539b51a6f10c0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15107,7 +15121,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FallingPlatform
   fallDelay: 1
   disableDelay: 1
+  playerTag: Player
+  surfaceZoneHeight: 0.06
+  sideInset: 0.08
+  surfaceZoneOffset: 0.01
+  fallGravity: 2
   respawnOnCheckpoint: 1
+  timedRespawn: 0
+  respawnTime: 2
 --- !u!61 &1373592879
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -138059,7 +138080,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FallingPlatform
   fallDelay: 1
   disableDelay: 1
+  playerTag: Player
+  surfaceZoneHeight: 0.06
+  sideInset: 0.08
+  surfaceZoneOffset: 0.01
+  fallGravity: 2
   respawnOnCheckpoint: 1
+  timedRespawn: 0
+  respawnTime: 2
 --- !u!50 &1595364048
 Rigidbody2D:
   serializedVersion: 5
@@ -144233,7 +144261,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FallingPlatform
   fallDelay: 1
   disableDelay: 1
+  playerTag: Player
+  surfaceZoneHeight: 0.06
+  sideInset: 0.08
+  surfaceZoneOffset: 0.01
+  fallGravity: 2
   respawnOnCheckpoint: 1
+  timedRespawn: 0
+  respawnTime: 2
 --- !u!50 &1785458803
 Rigidbody2D:
   serializedVersion: 5
@@ -146162,7 +146197,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FallingPlatform
   fallDelay: 1
   disableDelay: 1
+  playerTag: Player
+  surfaceZoneHeight: 0.06
+  sideInset: 0.08
+  surfaceZoneOffset: 0.01
+  fallGravity: 2
   respawnOnCheckpoint: 1
+  timedRespawn: 0
+  respawnTime: 2
 --- !u!61 &1904773183
 BoxCollider2D:
   m_ObjectHideFlags: 0

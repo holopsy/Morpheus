@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 051cf0498031f634099dfc2508698dae
+guid: 51f494fe167e0e94094539b51a6f10c0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4800279507731777116
-    second: Enviroenment_Tilesheet5_0
+      213: 2233736019075512498
+    second: health-ui-elements-spritesheet_0
+  - first:
+      213: -2199717828957322006
+    second: health-ui-elements-spritesheet_1
+  - first:
+      213: 4351332970583095838
+    second: health-ui-elements-spritesheet_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,7 +54,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 8
@@ -126,13 +132,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enviroenment_Tilesheet5_0
+      name: health-ui-elements-spritesheet_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 13
+        x: 6
+        y: 12
+        width: 99
+        height: 99
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +147,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c5680f087c40e9240800000000000000
-      internalID: 4800279507731777116
+      spriteID: 2b8bdf21313dffe10800000000000000
+      internalID: 2233736019075512498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: health-ui-elements-spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 15
+        width: 109
+        height: 94
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae4c7e60a480971e0800000000000000
+      internalID: -2199717828957322006
       vertices: []
       indices: 
       edges: []
@@ -151,7 +179,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c2cdf851cfc29bb4497dac024dfca944
+    spriteID: f512f98b24e52604a873e6a0c9626b83
     internalID: 0
     vertices: []
     indices: 
@@ -159,14 +187,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":10.0,"y":3.0},"gridSpriteSize":{"x":8.0,"y":8.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      Enviroenment_Tilesheet5_0: 4800279507731777116
-      Enviroenment_Tilesheet5_1: 1960454351
-      Enviroenment_Tilesheet5_2: -291403257
-      Enviroenment_Tilesheet5_3: 184222977
+      health-ui-elements-spritesheet_0: 2233736019075512498
+      health-ui-elements-spritesheet_1: -2199717828957322006
+      health-ui-elements-spritesheet_2: 4351332970583095838
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

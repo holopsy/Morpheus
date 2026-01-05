@@ -178,11 +178,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8eb6cd63b073c441a54853075d53671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FallingPlatform
-  fallDelay: 1
-  disableDelay: 1
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  topContactEpsilon: 0.05
-  respawnOnCheckpoint: 1
+  fallDelay: 0.4
+  disableDelay: 0.6
+  playerTag: Player
+  surfaceZoneHeight: 0.06
+  sideInset: -0.01
+  surfaceZoneOffset: 0.01
   fallGravity: 2
+  respawnOnCheckpoint: 1
+  timedRespawn: 0
+  respawnTime: 3.5
