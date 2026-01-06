@@ -5,78 +5,99 @@ using TMPro;
 
 public class FinishPopupUI : MonoBehaviour
 {
+    public enum ResultType
+    {
+        NotEnough,
+        EnoughButNotAll,
+        AllCollected
+    }
+
     [Header("Root")]
-    [SerializeField] private CanvasGroup rootGroup;
-    [SerializeField] private GameObject rootObject; // usually the same object this script is on
+    [SerializeField] private GameObject rootObject;   // set this to FinishPopupRoot
+    [SerializeField] private CanvasGroup rootGroup;   // CanvasGroup on FinishPopupRoot
 
     [Header("Text")]
     [SerializeField] private TMP_Text titleText;
     [SerializeField] private TMP_Text bodyText;
 
-    [Header("Buttons")]
-    [SerializeField] private GameObject buttonsRow; // MainMenu/Restart/Continue row parent
-    [SerializeField] private Button btnMainMenu;
-    [SerializeField] private Button btnRestart;
-    [SerializeField] private Button btnContinue;
+    [Header("Buttons Group")]
+    [SerializeField] private GameObject buttonsGroup;
 
-    [SerializeField] private Button btnOk; // single OK button for "not enough" popup
+    [Header("Buttons")]
+    [SerializeField] private Button btnResume;     // ALWAYS closes popup
+    [SerializeField] private Button btnRestart;    // restart level
+    [SerializeField] private Button btnMainMenu;   // main menu
+    [SerializeField] private Button btnNext;       // optional: next level (only when enough)
 
     [Header("Scene Names")]
-    [Tooltip("Scene name for main menu (must be added to Build Settings).")]
     public string mainMenuSceneName = "MainMenu";
-
-    [Tooltip("If empty, Continue loads next scene by build index (+1). If set, Continue loads this scene.")]
     public string nextLevelSceneName = "";
 
     private bool isOpen;
 
-    private void Reset()
-    {
-        rootGroup = GetComponentInChildren<CanvasGroup>();
-        rootObject = gameObject;
-    }
-
     private void Awake()
     {
-        if (rootObject == null) rootObject = gameObject;
+        if (!rootObject) rootObject = gameObject;
 
-        // Wire buttons safely
-        if (btnMainMenu != null) btnMainMenu.onClick.AddListener(GoMainMenu);
-        if (btnRestart != null) btnRestart.onClick.AddListener(RestartLevel);
-        if (btnContinue != null) btnContinue.onClick.AddListener(ContinueNext);
-        if (btnOk != null) btnOk.onClick.AddListener(Close);
+        EnsureRefs();
+        WireButtons();
+        HideInstant(); // hidden at start (but object stays enabled)
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        CloseImmediate();
+        // If you copied UI, refs may be missing until runtime.
+        EnsureRefs();
+        WireButtons();
+
+        if (!isOpen)
+            HideInstant();
     }
 
-    // ---------- Public API ----------
+    // ---------------- PUBLIC ----------------
 
-    public void ShowNotEnough(int have, int need)
+    public void Show(ResultType result, int collected, int totalInLevel, int requiredToFinish)
     {
+        EnsureRefs();
+
+        // IMPORTANT: if the root was disabled in the hierarchy, force it on
+        if (rootObject && !rootObject.activeInHierarchy)
+            rootObject.SetActive(true);
+
         OpenBase();
 
-        titleText.text = "NOT ENOUGH ESSENCES";
-        bodyText.text = $"You have {have}/{need}.\nFind the rest and come back!";
+        if (titleText)
+            titleText.text = "You have completed the level!";
 
-        SetMode(notEnoughMode: true);
-    }
+        if (bodyText)
+        {
+            switch (result)
+            {
+                case ResultType.NotEnough:
+                    bodyText.text =
+                        $"You don’t have enough essences.\n\n" +
+                        $"Collected: {collected}/{totalInLevel}\n" +
+                        $"Required: {requiredToFinish}\n\n" +
+                        $"Press RESUME to keep searching.";
+                    break;
 
-    public void ShowWin(int have, int needOrTotal, bool allowContinue = true)
-    {
-        OpenBase();
+                case ResultType.EnoughButNotAll:
+                    bodyText.text =
+                        $"You collected enough essences to finish.\n\n" +
+                        $"Collected: {collected}/{totalInLevel}\n\n" +
+                        $"Press NEXT to move on, or RESTART to collect them all.";
+                    break;
 
-        titleText.text = "LEVEL COMPLETE";
-        bodyText.text = (needOrTotal <= 0)
-            ? $"Collected: {have}"
-            : $"Collected: {have}/{needOrTotal}";
+                case ResultType.AllCollected:
+                    bodyText.text =
+                        $"Perfect!\nYou collected ALL essences!\n\n" +
+                        $"Collected: {collected}/{totalInLevel}\n\n" +
+                        $"Press NEXT to move on.";
+                    break;
+            }
+        }
 
-        SetMode(notEnoughMode: false);
-
-        if (btnContinue != null)
-            btnContinue.interactable = allowContinue;
+        ApplyButtonMode(result);
     }
 
     public void Close()
@@ -84,63 +105,102 @@ public class FinishPopupUI : MonoBehaviour
         if (!isOpen) return;
         isOpen = false;
 
-        // Resume game
         Time.timeScale = 1f;
 
-        if (rootGroup != null)
+        if (rootGroup)
         {
             rootGroup.alpha = 0f;
             rootGroup.interactable = false;
             rootGroup.blocksRaycasts = false;
         }
-
-        if (rootObject != null)
-            rootObject.SetActive(false);
     }
 
-    // ---------- Internals ----------
+    // ---------------- INTERNAL ----------------
 
     private void OpenBase()
     {
         isOpen = true;
 
-        if (rootObject != null)
-            rootObject.SetActive(true);
+        // Freeze the game
+        Time.timeScale = 0f;
 
-        if (rootGroup != null)
+        if (!rootGroup)
         {
-            rootGroup.alpha = 1f;
-            rootGroup.interactable = true;
-            rootGroup.blocksRaycasts = true;
+            Debug.LogWarning("FinishPopupUI: No CanvasGroup found. Add one to the popup root.");
+            return;
         }
 
-        // Pause game (UI still works)
-        Time.timeScale = 0f;
+        rootGroup.alpha = 1f;
+        rootGroup.interactable = true;
+        rootGroup.blocksRaycasts = true;
     }
 
-    private void CloseImmediate()
+    private void HideInstant()
     {
         isOpen = false;
         Time.timeScale = 1f;
 
-        if (rootGroup != null)
+        EnsureRefs();
+
+        if (rootGroup)
         {
             rootGroup.alpha = 0f;
             rootGroup.interactable = false;
             rootGroup.blocksRaycasts = false;
         }
-
-        if (rootObject != null)
-            rootObject.SetActive(false);
     }
 
-    private void SetMode(bool notEnoughMode)
+    private void ApplyButtonMode(ResultType result)
     {
-        if (buttonsRow != null) buttonsRow.SetActive(!notEnoughMode);
-        if (btnOk != null) btnOk.gameObject.SetActive(notEnoughMode);
+        if (buttonsGroup) buttonsGroup.SetActive(true);
+
+        bool canGoNext = (result == ResultType.EnoughButNotAll || result == ResultType.AllCollected);
+
+        if (btnNext)
+            btnNext.gameObject.SetActive(canGoNext);
     }
 
-    // ---------- Button Actions ----------
+    private void WireButtons()
+    {
+        if (btnResume)
+        {
+            btnResume.onClick.RemoveAllListeners();
+            btnResume.onClick.AddListener(Close);
+        }
+
+        if (btnRestart)
+        {
+            btnRestart.onClick.RemoveAllListeners();
+            btnRestart.onClick.AddListener(RestartLevel);
+        }
+
+        if (btnMainMenu)
+        {
+            btnMainMenu.onClick.RemoveAllListeners();
+            btnMainMenu.onClick.AddListener(GoMainMenu);
+        }
+
+        if (btnNext)
+        {
+            btnNext.onClick.RemoveAllListeners();
+            btnNext.onClick.AddListener(LoadNextLevel);
+        }
+    }
+
+    private void EnsureRefs()
+    {
+        if (!rootObject) rootObject = gameObject;
+
+        // Find/add CanvasGroup on the root
+        if (!rootGroup)
+        {
+            rootGroup = rootObject.GetComponent<CanvasGroup>();
+            if (!rootGroup)
+                rootGroup = rootObject.AddComponent<CanvasGroup>();
+        }
+    }
+
+    // ---------------- BUTTON ACTIONS ----------------
 
     private void RestartLevel()
     {
@@ -154,7 +214,7 @@ public class FinishPopupUI : MonoBehaviour
         SceneManager.LoadScene(mainMenuSceneName);
     }
 
-    private void ContinueNext()
+    private void LoadNextLevel()
     {
         Time.timeScale = 1f;
 
@@ -167,14 +227,9 @@ public class FinishPopupUI : MonoBehaviour
         int current = SceneManager.GetActiveScene().buildIndex;
         int next = current + 1;
 
-        // If next scene doesn't exist, go main menu
         if (next >= SceneManager.sceneCountInBuildSettings)
-        {
             SceneManager.LoadScene(mainMenuSceneName);
-        }
         else
-        {
             SceneManager.LoadScene(next);
-        }
     }
 }

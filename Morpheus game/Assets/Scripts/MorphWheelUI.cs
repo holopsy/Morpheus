@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MorphWheelUI : MonoBehaviour
 {
@@ -7,10 +6,10 @@ public class MorphWheelUI : MonoBehaviour
     public MorphManager morphManager;
 
     [Header("Slots")]
-    public MorphSlotUI defaultSlot;   // MorphWheel
-    public MorphSlotUI agileSlot;     // Slot_Agile
-    public MorphSlotUI powerSlot;     // Slot_Power
-    public MorphSlotUI flyingSlot;    // Slot_Flying
+    public MorphSlotUI defaultSlot;
+    public MorphSlotUI agileSlot;
+    public MorphSlotUI powerSlot;
+    public MorphSlotUI flyingSlot;
 
     [Header("Sprites - Silhouettes")]
     public Sprite defaultSilhouette;
@@ -24,19 +23,35 @@ public class MorphWheelUI : MonoBehaviour
     public Sprite powerFull;
     public Sprite flyingFull;
 
-    void Start()
+    private void Awake()
     {
+        // Auto-find in the scene if not assigned
+        if (!morphManager)
+            morphManager = FindFirstObjectByType<MorphManager>(FindObjectsInactive.Include);
+    }
+
+    private void OnEnable()
+    {
+        if (!morphManager) return;
+
+        morphManager.OnUnlockStateChanged += RefreshAll;
+        morphManager.OnFormChanged += RefreshAll;
+
         RefreshAll();
     }
 
-    void Update()
+    private void OnDisable()
     {
-        RefreshAll();
+        if (!morphManager) return;
+
+        morphManager.OnUnlockStateChanged -= RefreshAll;
+        morphManager.OnFormChanged -= RefreshAll;
     }
 
     public void RefreshAll()
     {
-        // ---------- DEFAULT ----------
+        if (!morphManager) return;
+
         defaultSlot.SetState(
             isUnlocked: morphManager.defaultUnlocked,
             isActive: morphManager.currentFormPrefab == morphManager.defaultForm,
@@ -44,7 +59,6 @@ public class MorphWheelUI : MonoBehaviour
             fullIcon: defaultFull
         );
 
-        // ---------- AGILE ----------
         agileSlot.SetState(
             isUnlocked: morphManager.agileUnlocked,
             isActive: morphManager.currentFormPrefab == morphManager.agileForm,
@@ -52,7 +66,6 @@ public class MorphWheelUI : MonoBehaviour
             fullIcon: agileFull
         );
 
-        // ---------- POWER ----------
         powerSlot.SetState(
             isUnlocked: morphManager.powerUnlocked,
             isActive: morphManager.currentFormPrefab == morphManager.powerForm,
@@ -60,7 +73,6 @@ public class MorphWheelUI : MonoBehaviour
             fullIcon: powerFull
         );
 
-        // ---------- FLYING ----------
         flyingSlot.SetState(
             isUnlocked: morphManager.flyingUnlocked,
             isActive: morphManager.currentFormPrefab == morphManager.flyingForm,

@@ -16,13 +16,21 @@ public class MorphManager : MonoBehaviour
     public GameObject currentFormPrefab { get; private set; }
     private int lastFacingDir = 1; // 1 = right, -1 = left
     private FormHealthMemory healthMemory; // remembers HP for each form
-    
+
     [Header("Unlock States")]
     public bool defaultUnlocked = true;
     public bool agileUnlocked = false;
     public bool powerUnlocked = false;
     public bool flyingUnlocked = false;
-    
+
+    [Header("Level Overrides")]
+    [Tooltip("If enabled, all forms become unlocked on Start (good for Level 1+).")]
+    public bool unlockAllFormsOnStart = false;
+
+    // Events so UI can refresh immediately
+    public event Action OnUnlockStateChanged;
+    public event Action OnFormChanged;
+
     public enum MorphType
     {
         Default,
@@ -31,18 +39,30 @@ public class MorphManager : MonoBehaviour
         Flying
     }
 
-
     void Awake()
     {
         // Ensure we have a memory component available
         healthMemory = GetComponent<FormHealthMemory>();
         if (!healthMemory)
             healthMemory = gameObject.AddComponent<FormHealthMemory>();
+
+        // Optional: force-unlock everything for this level
+        if (unlockAllFormsOnStart)
+        {
+            defaultUnlocked = true;
+            agileUnlocked = true;
+            powerUnlocked = true;
+            flyingUnlocked = true;
+        }
     }
 
     void Start()
     {
         MorphTo(defaultForm);
+
+        // Make sure UI gets a refresh at scene start
+        OnUnlockStateChanged?.Invoke();
+        OnFormChanged?.Invoke();
     }
 
     void Update()
@@ -64,6 +84,7 @@ public class MorphManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4) && flyingUnlocked)
             MorphTo(flyingForm);
     }
+
     public void UnlockForm(MorphType type)
     {
         switch (type)
@@ -75,8 +96,18 @@ public class MorphManager : MonoBehaviour
         }
 
         Debug.Log(type + " form unlocked!");
+        OnUnlockStateChanged?.Invoke();
     }
 
+    // Optional helper if you ever want to toggle all quickly
+    public void SetAllUnlocked(bool unlocked)
+    {
+        defaultUnlocked = true; // default should always be true
+        agileUnlocked = unlocked;
+        powerUnlocked = unlocked;
+        flyingUnlocked = unlocked;
+        OnUnlockStateChanged?.Invoke();
+    }
 
     // ---------------- MORPHING ----------------
     public void MorphTo(GameObject formPrefab)
@@ -101,6 +132,8 @@ public class MorphManager : MonoBehaviour
 
         // Do NOT refill HP on regular morphs
         SpawnFormInternal(formPrefab, spawnPos, playSpawnAnim: true, refillHealth: false);
+
+        OnFormChanged?.Invoke();
     }
 
     // ---------------- RESPAWN (from checkpoints) ----------------
@@ -112,6 +145,8 @@ public class MorphManager : MonoBehaviour
 
         if (currentForm) Destroy(currentForm);
         SpawnFormInternal(formPrefab, position, playSpawnAnim: true, refillHealth: refillHealth);
+
+        OnFormChanged?.Invoke();
     }
 
     // ---------------- INTERNAL SPAWNER ----------------
