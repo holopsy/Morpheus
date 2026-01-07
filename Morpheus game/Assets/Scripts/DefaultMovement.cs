@@ -146,10 +146,19 @@ public class DefaultMovement : MonoBehaviour
         Vector2 center = (Vector2)transform.position + localOffset;
 
         Collider2D[] hits = Physics2D.OverlapBoxAll(center, attackBoxSize, 0f, enemyLayer);
+
+        // ✅ Prevent multi-hit on same enemy/boss due to multiple colliders
+        var damaged = new System.Collections.Generic.HashSet<IDamageable>();
+
         for (int i = 0; i < hits.Length; i++)
         {
-            var eh = hits[i].GetComponentInParent<EnemyHealth>();
-            if (eh != null) eh.TakeDamage(attackDamage);
+            var dmg = hits[i].GetComponentInParent<IDamageable>();
+            if (dmg == null) continue;
+
+            if (damaged.Contains(dmg)) continue;
+            damaged.Add(dmg);
+
+            dmg.TakeDamage(attackDamage);
         }
     }
 

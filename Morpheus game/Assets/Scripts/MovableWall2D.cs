@@ -3,6 +3,7 @@ using UnityEngine;
 
 public enum WallChannel { Red, Purple, Cyan, Blue, Yellow }
 public enum WallMoveAxis { Vertical, Horizontal }
+public enum WallMoveDirection { Positive, Negative } // Positive = Up/Right, Negative = Down/Left
 
 [Serializable]
 public class WallVisualSet
@@ -19,22 +20,27 @@ public class WallVisualSet
 public class MovableWall2D : MonoBehaviour
 {
     [Header("Visuals")]
-    public Transform visualRoot;                 // empty child transform
+    public Transform visualRoot;
     public WallChannel channel = WallChannel.Red;
-    public WallVisualSet[] visualSets;           // assign sets in inspector
+    public WallVisualSet[] visualSets;
 
     [Header("Build")]
-    [Min(2)] public int heightSegments = 4;      // bottom + middles + top
+    [Min(2)] public int heightSegments = 4; // bottom + middles + top
     public Vector2 visualOffset = Vector2.zero;
 
     [Header("Movement")]
     public WallMoveAxis moveAxis = WallMoveAxis.Vertical;
 
-    [Tooltip("If Vertical: how many segments UP to move when opened.\nIf Horizontal: how many segments RIGHT to move when opened.")]
+    [Tooltip("Positive = Up (Vertical) / Right (Horizontal). Negative = Down (Vertical) / Left (Horizontal).")]
+    public WallMoveDirection moveDirection = WallMoveDirection.Positive;
+
+    [Tooltip("How many segments to move when opened.")]
     [Min(0)] public int moveDistanceSegments = 4;
 
     public float moveSpeed = 4f;
-    public bool startRaised = false;             // raised=open (vertical) OR moved-right=open (horizontal)
+
+    [Tooltip("Closed=false. Open=true (moves along axis + direction).")]
+    public bool startRaised = false;
 
     [Header("Crush")]
     public bool crushKillsPlayer = true;
@@ -142,9 +148,9 @@ public class MovableWall2D : MonoBehaviour
         }
 
         segmentHeight = set.middle.bounds.size.y;
-        segmentWidth  = set.middle.bounds.size.x;
+        segmentWidth = set.middle.bounds.size.x;
 
-        // Build vertical segments (same as before)
+        // Build vertical stack visuals (wall stays vertical visually even if it moves horizontally)
         for (int i = 0; i < heightSegments; i++)
         {
             Sprite s = (i == 0) ? set.bottom : (i == heightSegments - 1) ? set.top : set.middle;
@@ -167,12 +173,12 @@ public class MovableWall2D : MonoBehaviour
     {
         closedPos = transform.position;
 
-        Vector3 delta;
-        if (moveAxis == WallMoveAxis.Vertical)
-            delta = Vector3.up * (moveDistanceSegments * segmentHeight);
-        else
-            delta = Vector3.right * (moveDistanceSegments * segmentWidth);
+        int sign = (moveDirection == WallMoveDirection.Positive) ? 1 : -1;
 
+        Vector3 axisDir = (moveAxis == WallMoveAxis.Vertical) ? Vector3.up : Vector3.right;
+        float step = (moveAxis == WallMoveAxis.Vertical) ? segmentHeight : segmentWidth;
+
+        Vector3 delta = axisDir * (sign * moveDistanceSegments * step);
         openPos = closedPos + delta;
     }
 
@@ -182,7 +188,7 @@ public class MovableWall2D : MonoBehaviour
         rb.position = isOpen ? (Vector2)openPos : (Vector2)closedPos;
     }
 
-    // Open/close API (keeps your existing button/plate scripts working)
+    // Keeps your existing button/plate scripts working
     public void SetRaised(bool raised)
     {
         if (!Application.isPlaying)

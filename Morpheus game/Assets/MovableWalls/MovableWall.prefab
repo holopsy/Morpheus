@@ -112,14 +112,18 @@ MonoBehaviour:
     top: {fileID: -1040907819, guid: 06cd1e9dd4b5c434abedad325e584714, type: 3}
     middle: {fileID: -1998916937, guid: 06cd1e9dd4b5c434abedad325e584714, type: 3}
     bottom: {fileID: -667221198, guid: 06cd1e9dd4b5c434abedad325e584714, type: 3}
+  - channel: 4
+    top: {fileID: 1750104574223121241, guid: bbc1e55f85a000049b5dd9692747c58f, type: 3}
+    middle: {fileID: 8104522364591589916, guid: bbc1e55f85a000049b5dd9692747c58f, type: 3}
+    bottom: {fileID: -4533206384666477067, guid: bbc1e55f85a000049b5dd9692747c58f, type: 3}
   heightSegments: 7
   visualOffset: {x: 0, y: 0}
   moveAxis: 0
   moveDistanceSegments: 4
   moveSpeed: 9
   startRaised: 0
-  crushKillsPlayer: 1
-  crushOnlyWhileMoving: 1
+  crushKillsPlayer: 0
+  crushOnlyWhileMoving: 0
   crushTags:
   - Player
   crushPadding: {x: 0.02, y: 0.02}

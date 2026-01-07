@@ -7,9 +7,23 @@ public class FlyingFormController : MonoBehaviour
     public float walkSpeed = 2.2f;
 
     [Header("Fly (after takeoff)")]
-    public float flyMoveSpeed = 5f;   // constant horizontal speed once flying
+    public float flyMoveSpeed = 5f;   // base horizontal speed once flying
     public float flapForce = 6f;      // upward flap strength
     public KeyCode flapKey = KeyCode.Space;
+
+    [Header("Speed Ramp (optional)")]
+    [Tooltip("If ON: while flying, horizontal speed slowly increases over time.")]
+    public bool enableSpeedRamp = true;
+    [Tooltip("How much speed you gain per second while flying. Keep small for subtle effect.")]
+    public float speedRampPerSecond = 0.15f;
+    [Tooltip("Max extra speed added on top of flyMoveSpeed.")]
+    public float maxRampBonus = 2.0f;
+
+    [Header("Colliders (Option A)")]
+    [Tooltip("Square / normal collider used while walking (before takeoff).")]
+    public Collider2D walkCollider;
+    [Tooltip("Long / slim collider used while flying (after takeoff).")]
+    public Collider2D flyCollider;
 
     [Header("Safe Ground (what you're allowed to land on)")]
     [Tooltip("Layers that are allowed to be 'safe' to land on from above. Usually Ground only (not Walls/Pillars).")]
@@ -35,6 +49,9 @@ public class FlyingFormController : MonoBehaviour
 
     private float originalGravity = 1f;
 
+    // Speed ramp state
+    private float rampBonus = 0f;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -52,6 +69,11 @@ public class FlyingFormController : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         canMove = false;
         isFlying = false;
+
+        rampBonus = 0f;
+
+        // Start in WALK collider mode by default
+        SetColliderMode(flying: false);
 
         // init animator values
         SetAnimBool(isFlyingParam, false);
@@ -94,6 +116,9 @@ public class FlyingFormController : MonoBehaviour
 
             ApplyFacingVisual();
 
+            // ensure colliders are correct in walk mode
+            SetColliderMode(flying: false);
+
             // walk slowly
             rb.linearVelocity = new Vector2(inputX * walkSpeed, rb.linearVelocity.y);
 
@@ -105,11 +130,15 @@ public class FlyingFormController : MonoBehaviour
             if (Input.GetKeyDown(flapKey))
             {
                 isFlying = true;
+                rampBonus = 0f; // reset ramp on takeoff
 
                 SetAnimBool(isFlyingParam, true);
 
-                // start moving in chosen direction + initial lift
-                rb.linearVelocity = new Vector2(facingDir * flyMoveSpeed, flapForce);
+                // switch to flying collider immediately
+                SetColliderMode(flying: true);
+
+                float speedNow = GetFlySpeed();
+                rb.linearVelocity = new Vector2(facingDir * speedNow, flapForce);
             }
 
             return;
@@ -117,15 +146,34 @@ public class FlyingFormController : MonoBehaviour
 
         // === FLY MODE (direction locked) ===
         SetAnimBool(isFlyingParam, true);
-        SetAnimFloat(speedParam, 1f); // always "moving" while flying
+        SetAnimFloat(speedParam, 1f);
 
-        rb.linearVelocity = new Vector2(facingDir * flyMoveSpeed, rb.linearVelocity.y);
+        // colliders correct in fly mode
+        SetColliderMode(flying: true);
+
+        // slowly build speed the longer you keep flying
+        if (enableSpeedRamp)
+            rampBonus = Mathf.Min(maxRampBonus, rampBonus + speedRampPerSecond * Time.deltaTime);
+
+        float flySpeedNow = GetFlySpeed();
+        rb.linearVelocity = new Vector2(facingDir * flySpeedNow, rb.linearVelocity.y);
 
         if (Input.GetKeyDown(flapKey))
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, flapForce);
     }
 
-    // === Called by Animation Event at end of Spawn_Flyingform ===
+    private float GetFlySpeed()
+    {
+        return flyMoveSpeed + (enableSpeedRamp ? rampBonus : 0f);
+    }
+
+    private void SetColliderMode(bool flying)
+    {
+        if (walkCollider) walkCollider.enabled = !flying;
+        if (flyCollider)  flyCollider.enabled  = flying;
+    }
+
+    // Called by Animation Event at end of Spawn_Flyingform
     public void OnSpawnComplete()
     {
         canMove = true;
@@ -135,13 +183,17 @@ public class FlyingFormController : MonoBehaviour
         rb.linearVelocity = new Vector2(0f, 0f);
 
         isFlying = false;
+        rampBonus = 0f;
+
+        SetColliderMode(flying: false);
+
         SetAnimBool(isFlyingParam, false);
         SetAnimFloat(speedParam, 0f);
 
         ApplyFacingVisual();
     }
 
-    // === Die on ANY collision, except landing on safe ground from above ===
+    // Die on ANY collision, except landing on safe ground from above
     void OnCollisionEnter2D(Collision2D col)
     {
         if (!canMove) return;

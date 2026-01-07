@@ -13,8 +13,8 @@ public class FinishPopupUI : MonoBehaviour
     }
 
     [Header("Root")]
-    [SerializeField] private GameObject rootObject;   // set this to FinishPopupRoot
-    [SerializeField] private CanvasGroup rootGroup;   // CanvasGroup on FinishPopupRoot
+    [SerializeField] private GameObject rootObject;
+    [SerializeField] private CanvasGroup rootGroup;
 
     [Header("Text")]
     [SerializeField] private TMP_Text titleText;
@@ -23,15 +23,30 @@ public class FinishPopupUI : MonoBehaviour
     [Header("Buttons Group")]
     [SerializeField] private GameObject buttonsGroup;
 
-    [Header("Buttons")]
-    [SerializeField] private Button btnResume;     // ALWAYS closes popup
+    [Header("Buttons (Main)")]
+    [SerializeField] private Button btnResume;     // closes popup
     [SerializeField] private Button btnRestart;    // restart level
     [SerializeField] private Button btnMainMenu;   // main menu
-    [SerializeField] private Button btnNext;       // optional: next level (only when enough)
+    [SerializeField] private Button btnNext;       // next level (optional)
+
+    [Header("Temporary Jump Buttons (Top Row)")]
+    [Tooltip("Turn ON to show 3 quick-jump buttons at the top of the popup.")]
+    public bool showJumpButtons = true;
+
+    [SerializeField] private GameObject jumpButtonsRow; // parent object for the 3 buttons
+    [SerializeField] private Button btnJumpTutorial;
+    [SerializeField] private Button btnJumpLevel1;
+    [SerializeField] private Button btnJumpLevel2;
+
+    [Tooltip("Exact scene names from Build Settings.")]
+    public string tutorialSceneName = "Tutorial";
+    public string level1SceneName = "Level1";
+    public string level2SceneName = "Level2";
 
     [Header("Scene Names")]
     public string mainMenuSceneName = "MainMenu";
-    public string nextLevelSceneName = "";
+    public string nextLevelSceneName = "Level2";
+    public bool useBuildIndexIfNextEmpty = true;
 
     private bool isOpen;
 
@@ -41,12 +56,11 @@ public class FinishPopupUI : MonoBehaviour
 
         EnsureRefs();
         WireButtons();
-        HideInstant(); // hidden at start (but object stays enabled)
+        HideInstant();
     }
 
     private void OnEnable()
     {
-        // If you copied UI, refs may be missing until runtime.
         EnsureRefs();
         WireButtons();
 
@@ -56,11 +70,16 @@ public class FinishPopupUI : MonoBehaviour
 
     // ---------------- PUBLIC ----------------
 
+    public void SetCustomText(string title, string body)
+    {
+        if (titleText) titleText.text = title;
+        if (bodyText) bodyText.text = body;
+    }
+
     public void Show(ResultType result, int collected, int totalInLevel, int requiredToFinish)
     {
         EnsureRefs();
 
-        // IMPORTANT: if the root was disabled in the hierarchy, force it on
         if (rootObject && !rootObject.activeInHierarchy)
             rootObject.SetActive(true);
 
@@ -98,6 +117,7 @@ public class FinishPopupUI : MonoBehaviour
         }
 
         ApplyButtonMode(result);
+        ApplyJumpButtonsVisibility();
     }
 
     public void Close()
@@ -120,13 +140,11 @@ public class FinishPopupUI : MonoBehaviour
     private void OpenBase()
     {
         isOpen = true;
-
-        // Freeze the game
         Time.timeScale = 0f;
 
         if (!rootGroup)
         {
-            Debug.LogWarning("FinishPopupUI: No CanvasGroup found. Add one to the popup root.");
+            Debug.LogWarning("FinishPopupUI: No CanvasGroup found on popup root.");
             return;
         }
 
@@ -160,8 +178,15 @@ public class FinishPopupUI : MonoBehaviour
             btnNext.gameObject.SetActive(canGoNext);
     }
 
+    private void ApplyJumpButtonsVisibility()
+    {
+        if (jumpButtonsRow)
+            jumpButtonsRow.SetActive(showJumpButtons);
+    }
+
     private void WireButtons()
     {
+        // Main buttons
         if (btnResume)
         {
             btnResume.onClick.RemoveAllListeners();
@@ -185,13 +210,31 @@ public class FinishPopupUI : MonoBehaviour
             btnNext.onClick.RemoveAllListeners();
             btnNext.onClick.AddListener(LoadNextLevel);
         }
+
+        // Jump buttons (temporary)
+        if (btnJumpTutorial)
+        {
+            btnJumpTutorial.onClick.RemoveAllListeners();
+            btnJumpTutorial.onClick.AddListener(() => JumpToScene(tutorialSceneName));
+        }
+
+        if (btnJumpLevel1)
+        {
+            btnJumpLevel1.onClick.RemoveAllListeners();
+            btnJumpLevel1.onClick.AddListener(() => JumpToScene(level1SceneName));
+        }
+
+        if (btnJumpLevel2)
+        {
+            btnJumpLevel2.onClick.RemoveAllListeners();
+            btnJumpLevel2.onClick.AddListener(() => JumpToScene(level2SceneName));
+        }
     }
 
     private void EnsureRefs()
     {
         if (!rootObject) rootObject = gameObject;
 
-        // Find/add CanvasGroup on the root
         if (!rootGroup)
         {
             rootGroup = rootObject.GetComponent<CanvasGroup>();
@@ -224,12 +267,35 @@ public class FinishPopupUI : MonoBehaviour
             return;
         }
 
-        int current = SceneManager.GetActiveScene().buildIndex;
-        int next = current + 1;
+        if (useBuildIndexIfNextEmpty)
+        {
+            int current = SceneManager.GetActiveScene().buildIndex;
+            int next = current + 1;
 
-        if (next >= SceneManager.sceneCountInBuildSettings)
-            SceneManager.LoadScene(mainMenuSceneName);
+            if (next >= SceneManager.sceneCountInBuildSettings)
+                SceneManager.LoadScene(mainMenuSceneName);
+            else
+                SceneManager.LoadScene(next);
+        }
         else
-            SceneManager.LoadScene(next);
+        {
+            SceneManager.LoadScene(mainMenuSceneName);
+        }
+    }
+
+    private void JumpToScene(string sceneName)
+    {
+        Time.timeScale = 1f;
+
+        if (string.IsNullOrEmpty(sceneName))
+        {
+            Debug.LogWarning("FinishPopupUI: Jump scene name is empty.");
+            return;
+        }
+
+        if (!Application.CanStreamedLevelBeLoaded(sceneName))
+            Debug.LogWarning($"FinishPopupUI: Scene '{sceneName}' not found in Build Settings or name is wrong.");
+
+        SceneManager.LoadScene(sceneName);
     }
 }

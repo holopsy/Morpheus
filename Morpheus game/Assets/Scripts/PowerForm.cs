@@ -90,7 +90,10 @@ public class PowerFormController : MonoBehaviour
 
     // Placement info for carried block
     private Vector2 carriedCheckSize;     // world size for overlap box
-    private Vector2 carriedOffsetWorld;   // IMPORTANT: collider offset in world units
+    private Vector2 carriedOffsetWorld;   // collider offset in world units
+
+    // NEW: prevent double-drop during disable/destroy
+    private bool droppingBecauseDisabled;
 
     void Awake()
     {
@@ -98,6 +101,129 @@ public class PowerFormController : MonoBehaviour
         playerColliders = GetComponentsInChildren<Collider2D>(includeInactive: true);
         EnsurePreview();
         SetPreviewVisible(false);
+    }
+
+    void OnEnable()
+    {
+        droppingBecauseDisabled = false;
+
+        ApplyFacingVisual();
+
+        inSpawn = true;
+        if (animator && !string.IsNullOrEmpty(spawnStateName))
+            animator.Play(spawnStateName, 0, 0f);
+
+        spawnUnlockTime = (spawnLockDuration > 0f) ? Time.time + spawnLockDuration : 0f;
+    }
+
+    // NEW: When morphing away, this form gets disabled/destroyed -> drop the carried block safely.
+    void OnDisable()
+    {
+        AutoDropIfCarrying();
+    }
+
+    void OnDestroy()
+    {
+        AutoDropIfCarrying();
+    }
+
+    void AutoDropIfCarrying()
+    {
+        if (droppingBecauseDisabled) return;
+        if (carriedObject == null) return;
+
+        droppingBecauseDisabled = true;
+
+        // Try to find a valid nearby position (same rules as preview)
+        Vector2 desired = (Vector2)transform.position + new Vector2(facing * placeForwardDistance, 0f);
+
+        // First try the standard preview search
+        bool found = FindBestDropPosition(desired, carriedCheckSize, out Vector2 best);
+
+        // If not found, expand search a bit (more forgiving)
+        if (!found)
+            found = FindEmergencyDropPosition(desired, carriedCheckSize, out best);
+
+        // If still not found, fall back to last picked position (better than deleting it)
+        if (!found)
+            best = (Vector2)pickedWorldPosition;
+
+        ForceDropAt(best);
+    }
+
+    void ForceDropAt(Vector2 worldPos)
+    {
+        if (carriedObject == null) return;
+
+        var blockRb = carriedObject.GetComponent<Rigidbody2D>();
+
+        // Detach first so it doesn't get destroyed with this form
+        carriedObject.transform.SetParent(null, true);
+        carriedObject.transform.position = worldPos;
+
+        // Restore physics
+        if (blockRb)
+        {
+            blockRb.simulated = true;
+            blockRb.bodyType = RigidbodyType2D.Dynamic;
+            if (blockRb.gravityScale <= 0f) blockRb.gravityScale = 1f;
+            blockRb.linearVelocity = Vector2.zero;
+            blockRb.angularVelocity = 0f;
+        }
+
+        // Restore collisions
+        foreach (var pair in ignoredPairs)
+            if (pair.a && pair.b) Physics2D.IgnoreCollision(pair.a, pair.b, false);
+        ignoredPairs.Clear();
+
+        // Restore original parent if needed (optional)
+        if (pickedOriginalParent != null)
+            carriedObject.transform.SetParent(pickedOriginalParent, true);
+
+        carriedObject = null;
+        pickedOriginalParent = null;
+
+        SetPreviewVisible(false);
+    }
+
+    bool FindEmergencyDropPosition(Vector2 desired, Vector2 checkSize, out Vector2 bestPos)
+    {
+        // Larger search: fan out around desired in a few rings
+        Vector2[] offsets =
+        {
+            Vector2.zero,
+            new Vector2(0f, 0.25f),
+            new Vector2(0f, 0.5f),
+            new Vector2(0f, 0.75f),
+            new Vector2(0f, Mathf.Min(maxPreviewUp, 1.2f)),
+
+            new Vector2(-facing * 0.6f, 0f),
+            new Vector2(-facing * 1.2f, 0f),
+            new Vector2(-facing * 1.8f, 0f),
+
+            new Vector2(facing * 0.6f, 0f),
+            new Vector2(facing * 1.2f, 0f),
+            new Vector2(facing * 1.8f, 0f),
+
+            new Vector2(-facing * 0.6f, 0.5f),
+            new Vector2(facing * 0.6f, 0.5f),
+
+            new Vector2(-facing * 1.2f, 0.75f),
+            new Vector2(facing * 1.2f, 0.75f),
+        };
+
+        for (int i = 0; i < offsets.Length; i++)
+        {
+            Vector2 p = desired + offsets[i];
+            if (!IsBlockedAt(p, checkSize))
+            {
+                bestPos = p;
+                return true;
+            }
+        }
+
+        bestPos = desired;
+        return false;
     }
 
     void EnsurePreview()
@@ -122,17 +248,6 @@ public class PowerFormController : MonoBehaviour
     void SetPreviewVisible(bool on)
     {
         if (previewLine) previewLine.enabled = on;
-    }
-
-    void OnEnable()
-    {
-        ApplyFacingVisual();
-
-        inSpawn = true;
-        if (animator && !string.IsNullOrEmpty(spawnStateName))
-            animator.Play(spawnStateName, 0, 0f);
-
-        spawnUnlockTime = (spawnLockDuration > 0f) ? Time.time + spawnLockDuration : 0f;
     }
 
     public void InitializeFacing(int dir)
@@ -236,7 +351,7 @@ public class PowerFormController : MonoBehaviour
         pickedWorldPosition = carriedObject.transform.position;
         pickedOriginalParent = carriedObject.transform.parent;
 
-        // ✅ Get size + offset correctly (fixes composite edge false-green)
+        // Get size + offset correctly
         GetWorldBoxInfo(carriedObject, out Vector2 wSize, out Vector2 wOffset);
         carriedCheckSize = wSize + Vector2.one * placementPadding;
         carriedOffsetWorld = wOffset;
@@ -303,32 +418,7 @@ public class PowerFormController : MonoBehaviour
         // Use the same result as preview
         if (!previewValid) return;
 
-        var blockRb = carriedObject.GetComponent<Rigidbody2D>();
-
-        carriedObject.transform.SetParent(null);
-        carriedObject.transform.position = previewPos;
-
-        if (blockRb)
-        {
-            blockRb.simulated = true;
-            blockRb.bodyType = RigidbodyType2D.Dynamic;
-            if (blockRb.gravityScale <= 0f) blockRb.gravityScale = 1f;
-            blockRb.linearVelocity = Vector2.zero;
-            blockRb.angularVelocity = 0f;
-        }
-
-        // Restore collisions
-        foreach (var pair in ignoredPairs)
-            if (pair.a && pair.b) Physics2D.IgnoreCollision(pair.a, pair.b, false);
-        ignoredPairs.Clear();
-
-        if (pickedOriginalParent != null)
-            carriedObject.transform.SetParent(pickedOriginalParent);
-
-        carriedObject = null;
-        pickedOriginalParent = null;
-
-        SetPreviewVisible(false);
+        ForceDropAt(previewPos);
     }
 
     // ---------------- Preview logic ----------------
@@ -352,7 +442,7 @@ public class PowerFormController : MonoBehaviour
 
     void DrawPreviewRect(Vector2 centerPos, Vector2 size)
     {
-        // ✅ draw at TRUE collider center (pos + offset)
+        // draw at TRUE collider center (pos + offset)
         Vector2 center = centerPos + carriedOffsetWorld;
 
         float hx = size.x * 0.5f;
@@ -401,7 +491,7 @@ public class PowerFormController : MonoBehaviour
 
     bool IsBlockedAt(Vector2 pos, Vector2 size)
     {
-        // ✅ use true collider center for overlap checks too
+        // use true collider center for overlap checks too
         Vector2 center = pos + carriedOffsetWorld;
 
         // Any solid collider blocks placement (ignore triggers, ignore player, ignore carried block)
@@ -418,7 +508,7 @@ public class PowerFormController : MonoBehaviour
             return true;
         }
 
-        // ✅ Support check prevents placing into void behind a wall edge
+        // Support check prevents placing into void behind a wall edge
         if (requireSupportUnderBlock)
         {
             float halfY = size.y * 0.5f;
