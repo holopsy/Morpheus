@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public enum WallChannel { Red, Purple, Cyan, Blue, Yellow }
+public enum WallChannel { Red, Purple, Cyan, Blue, Yellow, Green }
 public enum WallMoveAxis { Vertical, Horizontal }
 public enum WallMoveDirection { Positive, Negative } // Positive = Up/Right, Negative = Down/Left
 

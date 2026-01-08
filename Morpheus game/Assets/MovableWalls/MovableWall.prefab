@@ -116,9 +116,14 @@ MonoBehaviour:
     top: {fileID: 1750104574223121241, guid: bbc1e55f85a000049b5dd9692747c58f, type: 3}
     middle: {fileID: 8104522364591589916, guid: bbc1e55f85a000049b5dd9692747c58f, type: 3}
     bottom: {fileID: -4533206384666477067, guid: bbc1e55f85a000049b5dd9692747c58f, type: 3}
+  - channel: 5
+    top: {fileID: -454318941491885707, guid: 3734281518433114f88066f255a10961, type: 3}
+    middle: {fileID: 1530635057148986647, guid: 3734281518433114f88066f255a10961, type: 3}
+    bottom: {fileID: -3677810261808276199, guid: 3734281518433114f88066f255a10961, type: 3}
   heightSegments: 7
   visualOffset: {x: 0, y: 0}
   moveAxis: 0
+  moveDirection: 0
   moveDistanceSegments: 4
   moveSpeed: 9
   startRaised: 0
