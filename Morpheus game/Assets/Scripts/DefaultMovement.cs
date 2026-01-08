@@ -49,6 +49,7 @@ public class DefaultMovement : MonoBehaviour
 
     bool onLeftWall, onRightWall;
 
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -64,6 +65,7 @@ public class DefaultMovement : MonoBehaviour
             animator.Play(spawnStateName, 0, 0f);
 
         spawnUnlockTime = (spawnLockDuration > 0f) ? Time.time + spawnLockDuration : 0f;
+
     }
 
     public void InitializeFacing(int dir)
@@ -86,8 +88,17 @@ public class DefaultMovement : MonoBehaviour
 
     void Update()
     {
+
         if (inSpawn && spawnLockDuration > 0f && Time.time >= spawnUnlockTime)
             inSpawn = false;
+
+        moveInput = inSpawn ? 0f : Input.GetAxisRaw("Horizontal");
+
+// ✅ FOOTSTEPS (correct place)
+        if (grounded && Mathf.Abs(moveInput) > 0.01f)
+            AudioManager.I.StartFootsteps(SoundLibrary.I.walk);
+        else
+            AudioManager.I.StopFootsteps();
 
         moveInput = inSpawn ? 0f : Input.GetAxisRaw("Horizontal");
 
@@ -100,6 +111,9 @@ public class DefaultMovement : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForceSmall, ForceMode2D.Impulse);
+
+            // jump SFX placeholder (you can add a real jump clip later)
+            AudioManager.I?.PlaySFX(SoundLibrary.I?.jump);
 
             TrySetTrigger(animator, jumpTriggerName);
             TrySetBool(animator, onGroundBoolName, false);
@@ -114,6 +128,8 @@ public class DefaultMovement : MonoBehaviour
 
         if (!inSpawn && Input.GetKeyDown(attackKey) && Time.time >= lastAttackTime + attackCooldown)
         {
+            AudioManager.I?.PlaySFX(SoundLibrary.I?.attack);
+
             DoAttackNow();
             if (animator) animator.SetTrigger("Attack");
         }
@@ -125,13 +141,11 @@ public class DefaultMovement : MonoBehaviour
             ? Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer)
             : false;
 
-        // wall checks
         onLeftWall = wallCheckLeft && Physics2D.OverlapCircle(wallCheckLeft.position, wallCheckRadius, wallLayer);
         onRightWall = wallCheckRight && Physics2D.OverlapCircle(wallCheckRight.position, wallCheckRadius, wallLayer);
 
         float x = inSpawn ? 0f : moveInput * moveSpeed;
 
-        // ✅ prevent pushing INTO wall (this removes "sticking")
         if ((onLeftWall && x < 0f) || (onRightWall && x > 0f))
             x = 0f;
 
@@ -147,7 +161,6 @@ public class DefaultMovement : MonoBehaviour
 
         Collider2D[] hits = Physics2D.OverlapBoxAll(center, attackBoxSize, 0f, enemyLayer);
 
-        // ✅ Prevent multi-hit on same enemy/boss due to multiple colliders
         var damaged = new System.Collections.Generic.HashSet<IDamageable>();
 
         for (int i = 0; i < hits.Length; i++)

@@ -25,17 +25,14 @@ public class Collectible : MonoBehaviour
 
     void OnEnable()
     {
-        // Skip automatic registration if requested (e.g., for enemy drops)
         if (skipRegisterOnEnable) return;
 
-        // Make sure manager exists
         if (CollectibleManager.Instance == null)
         {
             var mgr = FindFirstObjectByType<CollectibleManager>();
             if (mgr != null) CollectibleManager.Instance = mgr;
         }
 
-        // Register only if it affects completion
         if (countsTowardCompletion)
             CollectibleManager.Instance?.RegisterLevelCollectible(this);
     }
@@ -47,11 +44,22 @@ public class Collectible : MonoBehaviour
 
         _picked = true;
 
+        // 🔊 COIN / COLLECTIBLE SFX
+        PlayPickupSFX();
+
         if (countsTowardCompletion)
             CollectibleManager.Instance?.NotifyLevelPicked(this);
         else
             CollectibleManager.Instance?.NotifyLootGained(value);
 
         Destroy(gameObject);
+    }
+
+    // 🔊 safe audio helper
+    void PlayPickupSFX()
+    {
+        if (AudioManager.I == null) return;
+        if (SoundLibrary.I == null) return;
+        AudioManager.I?.PlaySFX(SoundLibrary.I?.coin);
     }
 }

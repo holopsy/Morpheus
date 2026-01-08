@@ -78,6 +78,7 @@ public class FlyingFormController : MonoBehaviour
         // init animator values
         SetAnimBool(isFlyingParam, false);
         SetAnimFloat(speedParam, 0f);
+        
     }
 
     // Called by MorphManager right after instantiate
@@ -98,6 +99,7 @@ public class FlyingFormController : MonoBehaviour
 
     void Update()
     {
+
         if (!canMove)
         {
             rb.linearVelocity = Vector2.zero;
@@ -109,8 +111,15 @@ public class FlyingFormController : MonoBehaviour
         {
             // === WALK MODE ===
             float inputX = Input.GetAxisRaw("Horizontal");
+           
+            // ✅ FOOTSTEPS (walk mode only)
+            if (Mathf.Abs(inputX) > 0.1f)
+                AudioManager.I.StartFootsteps(SoundLibrary.I.walk);
+            else
+                AudioManager.I.StopFootsteps();
 
-            // aim facing direction (direction lock is only for flying mode)
+
+            // aim facing direction
             if (inputX > 0.1f) facingDir = 1;
             else if (inputX < -0.1f) facingDir = -1;
 
@@ -126,11 +135,14 @@ public class FlyingFormController : MonoBehaviour
             SetAnimBool(isFlyingParam, false);
             SetAnimFloat(speedParam, Mathf.Abs(inputX));
 
-            // takeoff on Space (direction becomes locked from this moment)
+            // takeoff on Space
             if (Input.GetKeyDown(flapKey))
             {
+                // 🔊 Fly SFX on takeoff (Space)
+                AudioManager.I?.PlaySFX(SoundLibrary.I?.flying);
+
                 isFlying = true;
-                rampBonus = 0f; // reset ramp on takeoff
+                rampBonus = 0f;
 
                 SetAnimBool(isFlyingParam, true);
 
@@ -145,6 +157,7 @@ public class FlyingFormController : MonoBehaviour
         }
 
         // === FLY MODE (direction locked) ===
+        AudioManager.I.StopFootsteps();
         SetAnimBool(isFlyingParam, true);
         SetAnimFloat(speedParam, 1f);
 
@@ -159,7 +172,12 @@ public class FlyingFormController : MonoBehaviour
         rb.linearVelocity = new Vector2(facingDir * flySpeedNow, rb.linearVelocity.y);
 
         if (Input.GetKeyDown(flapKey))
+        {
+            // 🔊 Fly SFX on every flap (Space)
+            AudioManager.I?.PlaySFX(SoundLibrary.I?.flying);
+
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, flapForce);
+        }
     }
 
     private float GetFlySpeed()
@@ -179,7 +197,7 @@ public class FlyingFormController : MonoBehaviour
         canMove = true;
         rb.gravityScale = originalGravity;
 
-        // Start in WALK mode: no forced horizontal speed
+        // Start in WALK mode
         rb.linearVelocity = new Vector2(0f, 0f);
 
         isFlying = false;
@@ -189,6 +207,7 @@ public class FlyingFormController : MonoBehaviour
 
         SetAnimBool(isFlyingParam, false);
         SetAnimFloat(speedParam, 0f);
+        
 
         ApplyFacingVisual();
     }
@@ -242,4 +261,5 @@ public class FlyingFormController : MonoBehaviour
         if (!anim || string.IsNullOrEmpty(param)) return;
         anim.SetBool(param, value);
     }
+
 }

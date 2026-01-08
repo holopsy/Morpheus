@@ -5,12 +5,7 @@ using TMPro;
 
 public class FinishPopupUI : MonoBehaviour
 {
-    public enum ResultType
-    {
-        NotEnough,
-        EnoughButNotAll,
-        AllCollected
-    }
+    public enum ResultType { NotEnough, EnoughButNotAll, AllCollected }
 
     [Header("Root")]
     [SerializeField] private GameObject rootObject;
@@ -24,21 +19,30 @@ public class FinishPopupUI : MonoBehaviour
     [SerializeField] private GameObject buttonsGroup;
 
     [Header("Buttons (Main)")]
-    [SerializeField] private Button btnResume;     // closes popup
-    [SerializeField] private Button btnRestart;    // restart level
-    [SerializeField] private Button btnMainMenu;   // main menu
-    [SerializeField] private Button btnNext;       // next level (optional)
+    [SerializeField] private Button btnResume;
+    [SerializeField] private Button btnRestart;
+    [SerializeField] private Button btnMainMenu;
+    [SerializeField] private Button btnNext;
+
+    [Header("Final Level Mode (Level 2)")]
+    [Tooltip("Turn ON in the last level to show 'YOU WIN' messaging.")]
+    public bool isFinalLevel = false;
+
+    [TextArea(2, 4)]
+    public string finalEnoughText =
+        "You win!\n\nYou collected enough essences to finish the game.";
+
+    [TextArea(2, 4)]
+    public string finalPerfectText =
+        "You win!\n\nPerfect completion!\nYou collected ALL essences!";
 
     [Header("Temporary Jump Buttons (Top Row)")]
-    [Tooltip("Turn ON to show 3 quick-jump buttons at the top of the popup.")]
     public bool showJumpButtons = true;
-
-    [SerializeField] private GameObject jumpButtonsRow; // parent object for the 3 buttons
+    [SerializeField] private GameObject jumpButtonsRow;
     [SerializeField] private Button btnJumpTutorial;
     [SerializeField] private Button btnJumpLevel1;
     [SerializeField] private Button btnJumpLevel2;
 
-    [Tooltip("Exact scene names from Build Settings.")]
     public string tutorialSceneName = "Tutorial";
     public string level1SceneName = "Level1";
     public string level2SceneName = "Level2";
@@ -63,17 +67,7 @@ public class FinishPopupUI : MonoBehaviour
     {
         EnsureRefs();
         WireButtons();
-
-        if (!isOpen)
-            HideInstant();
-    }
-
-    // ---------------- PUBLIC ----------------
-
-    public void SetCustomText(string title, string body)
-    {
-        if (titleText) titleText.text = title;
-        if (bodyText) bodyText.text = body;
+        if (!isOpen) HideInstant();
     }
 
     public void Show(ResultType result, int collected, int totalInLevel, int requiredToFinish)
@@ -85,34 +79,58 @@ public class FinishPopupUI : MonoBehaviour
 
         OpenBase();
 
+        // -------- TITLE --------
         if (titleText)
-            titleText.text = "You have completed the level!";
+        {
+            // Final level uses "YOU WIN" title
+            titleText.text = isFinalLevel ? "YOU WIN!" : "You have completed the level!";
+        }
 
+        // -------- BODY --------
         if (bodyText)
         {
-            switch (result)
+            if (isFinalLevel)
             {
-                case ResultType.NotEnough:
+                // Final level messaging
+                if (result == ResultType.AllCollected)
+                {
                     bodyText.text =
-                        $"You don’t have enough essences.\n\n" +
-                        $"Collected: {collected}/{totalInLevel}\n" +
-                        $"Required: {requiredToFinish}\n\n" +
-                        $"Press RESUME to keep searching.";
-                    break;
+                        $"{finalPerfectText}\n\nCollected: {collected}/{totalInLevel}";
+                }
+                else
+                {
+                    // Enough-but-not-all OR even NotEnough (if you ever allow it)
+                    bodyText.text =
+                        $"{finalEnoughText}\n\nCollected: {collected}/{totalInLevel}\nRequired: {requiredToFinish}";
+                }
+            }
+            else
+            {
+                // Normal levels messaging
+                switch (result)
+                {
+                    case ResultType.NotEnough:
+                        bodyText.text =
+                            $"You don’t have enough essences.\n\n" +
+                            $"Collected: {collected}/{totalInLevel}\n" +
+                            $"Required: {requiredToFinish}\n\n" +
+                            $"Press RESUME to keep searching.";
+                        break;
 
-                case ResultType.EnoughButNotAll:
-                    bodyText.text =
-                        $"You collected enough essences to finish.\n\n" +
-                        $"Collected: {collected}/{totalInLevel}\n\n" +
-                        $"Press NEXT to move on, or RESTART to collect them all.";
-                    break;
+                    case ResultType.EnoughButNotAll:
+                        bodyText.text =
+                            $"You collected enough essences to finish.\n\n" +
+                            $"Collected: {collected}/{totalInLevel}\n\n" +
+                            $"Press NEXT to move on, or RESTART to collect them all.";
+                        break;
 
-                case ResultType.AllCollected:
-                    bodyText.text =
-                        $"Perfect!\nYou collected ALL essences!\n\n" +
-                        $"Collected: {collected}/{totalInLevel}\n\n" +
-                        $"Press NEXT to move on.";
-                    break;
+                    case ResultType.AllCollected:
+                        bodyText.text =
+                            $"Perfect!\nYou collected ALL essences!\n\n" +
+                            $"Collected: {collected}/{totalInLevel}\n\n" +
+                            $"Press NEXT to move on.";
+                        break;
+                }
             }
         }
 
@@ -126,6 +144,7 @@ public class FinishPopupUI : MonoBehaviour
         isOpen = false;
 
         Time.timeScale = 1f;
+        AudioListener.pause = false;  // 🔊 RESUME ALL AUDIO
 
         if (rootGroup)
         {
@@ -135,12 +154,11 @@ public class FinishPopupUI : MonoBehaviour
         }
     }
 
-    // ---------------- INTERNAL ----------------
-
     private void OpenBase()
     {
         isOpen = true;
         Time.timeScale = 0f;
+        AudioListener.pause = true;   // 🔇 PAUSE ALL AUDIO
 
         if (!rootGroup)
         {
@@ -174,6 +192,13 @@ public class FinishPopupUI : MonoBehaviour
 
         bool canGoNext = (result == ResultType.EnoughButNotAll || result == ResultType.AllCollected);
 
+        // Final level: no NEXT (unless you want it to go somewhere)
+        if (isFinalLevel)
+        {
+            if (btnNext) btnNext.gameObject.SetActive(false);
+            return;
+        }
+
         if (btnNext)
             btnNext.gameObject.SetActive(canGoNext);
     }
@@ -186,7 +211,6 @@ public class FinishPopupUI : MonoBehaviour
 
     private void WireButtons()
     {
-        // Main buttons
         if (btnResume)
         {
             btnResume.onClick.RemoveAllListeners();
@@ -211,7 +235,6 @@ public class FinishPopupUI : MonoBehaviour
             btnNext.onClick.AddListener(LoadNextLevel);
         }
 
-        // Jump buttons (temporary)
         if (btnJumpTutorial)
         {
             btnJumpTutorial.onClick.RemoveAllListeners();
@@ -243,23 +266,24 @@ public class FinishPopupUI : MonoBehaviour
         }
     }
 
-    // ---------------- BUTTON ACTIONS ----------------
-
     private void RestartLevel()
     {
         Time.timeScale = 1f;
+        AudioListener.pause = false; // ✅ safety
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void GoMainMenu()
     {
         Time.timeScale = 1f;
+        AudioListener.pause = false; // ✅ safety
         SceneManager.LoadScene(mainMenuSceneName);
     }
 
     private void LoadNextLevel()
     {
         Time.timeScale = 1f;
+        AudioListener.pause = false; // ✅ safety
 
         if (!string.IsNullOrEmpty(nextLevelSceneName))
         {
@@ -282,10 +306,22 @@ public class FinishPopupUI : MonoBehaviour
             SceneManager.LoadScene(mainMenuSceneName);
         }
     }
+    
+    public void SetCustomText(string title, string body)
+    {
+        if (titleText) titleText.text = title;
+        if (bodyText) bodyText.text = body;
+    }
+    
+    public void PlayUIClick()
+    {
+        AudioManager.I.PlaySFX(SoundLibrary.I.uiSelect);
+    }
 
     private void JumpToScene(string sceneName)
     {
         Time.timeScale = 1f;
+        AudioListener.pause = false; // ✅ safety
 
         if (string.IsNullOrEmpty(sceneName))
         {

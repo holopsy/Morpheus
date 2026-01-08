@@ -43,7 +43,6 @@ public class AgileFormController : MonoBehaviour
     public string tDie = "Die";
     public string tJump = "Jump";
 
-    // Internal
     Rigidbody2D rb;
     float moveInput;
     bool grounded;
@@ -53,12 +52,11 @@ public class AgileFormController : MonoBehaviour
     float wallRegrabUntil;
     int lastFacing = 1;
 
-    // Prevent infinite same-wall jumps
     int lastWallJumpDir = 0;
 
-    // Coyote tracking
     float wallCoyoteTimer = 0f;
     int lastWallSide = 0;
+    
 
     void Awake()
     {
@@ -74,6 +72,7 @@ public class AgileFormController : MonoBehaviour
     {
         SafeSetTrigger(animator, tSpawn);
         if (playerHealth) playerHealth.OnDeath += OnDied;
+        
     }
 
     void OnDisable()
@@ -83,7 +82,14 @@ public class AgileFormController : MonoBehaviour
 
     void Update()
     {
+
         moveInput = Input.GetAxisRaw("Horizontal");
+
+// ✅ FOOTSTEPS (correct place)
+        if (grounded && !wallSliding && Mathf.Abs(moveInput) > 0.01f)
+            AudioManager.I.StartFootsteps(SoundLibrary.I.walk);
+        else
+            AudioManager.I.StopFootsteps();
 
         // Facing
         if (moveInput > 0.01f) lastFacing = 1;
@@ -99,6 +105,7 @@ public class AgileFormController : MonoBehaviour
         // Jump
         if (Input.GetKeyDown(KeyCode.Space))
             TryJump();
+
 
         if (animator)
         {
@@ -122,7 +129,7 @@ public class AgileFormController : MonoBehaviour
         bool touchingWall = onLeftWall || onRightWall;
         int wallSide = onLeftWall ? -1 : (onRightWall ? 1 : 0);
 
-        // --- Wall Coyote update ---
+        // Wall coyote update
         if (touchingWall)
         {
             wallCoyoteTimer = wallCoyoteTime;
@@ -178,9 +185,6 @@ public class AgileFormController : MonoBehaviour
         }
     }
 
-    // ---------------------------------------------------------
-    // JUMP LOGIC (UPDATED)
-    // ---------------------------------------------------------
     void TryJump()
     {
         // Normal jump
@@ -188,26 +192,25 @@ public class AgileFormController : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
+            // Jump SFX (placeholder uses walk)
+            AudioManager.I?.PlaySFX(SoundLibrary.I?.jump);
+
             SafeSetTrigger(animator, tJump);
             return;
         }
 
-        // --- Direct Wall Jump ---
+        // Direct wall jump
         int wallSide = onLeftWall ? -1 : (onRightWall ? 1 : 0);
 
         if (wallSide != 0)
         {
-            // ❗ NO LONGER REQUIRE holdingTowardWall
-            // ❗ NO LONGER REQUIRE wallSliding
-            // Just check the wall detector.
-
-            if (wallSide == lastWallJumpDir) return; // prevent infinite climbing
-
+            if (wallSide == lastWallJumpDir) return;
             DoWallJump(wallSide);
             return;
         }
 
-        // --- Wall Coyote Jump ---
+        // Wall coyote jump
         if (wallCoyoteTimer > 0f)
         {
             if (lastWallSide != 0 && lastWallSide != lastWallJumpDir)
@@ -222,14 +225,18 @@ public class AgileFormController : MonoBehaviour
     {
         rb.linearVelocity = new Vector2(-wallDir * wallJumpForceX, wallJumpForceY);
 
-        lastWallJumpDir = wallDir;      // lock wall
+        lastWallJumpDir = wallDir;
         wallSliding = false;
         wallStickTimer = 0f;
 
         wallRegrabUntil = Time.time + postWallJumpNoSlideTime;
 
+        // Jump SFX (wall jump)
+        AudioManager.I?.PlaySFX(SoundLibrary.I?.jump);
+
         SafeSetTrigger(animator, tJump);
     }
+    
 
     void OnDied()
     {

@@ -20,9 +20,12 @@ public class PlayerHealth : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerDeath death;
 
-    // 🩸 NEW — events so UI can listen
+    // 🩸 events so UI can listen
     public System.Action<int, int> OnHealthChanged; // (current, max)
     public System.Action OnDeath;
+
+    // 🔊 prevent double-death SFX if something calls Kill/TakeDamage twice
+    private bool deathHandled = false;
 
     void Awake()
     {
@@ -33,14 +36,20 @@ public class PlayerHealth : MonoBehaviour
 
     void OnEnable()
     {
+        // reset death state on spawn/respawn/morph
+        deathHandled = false;
+
         if (current <= 0 || current > maxHealth) current = maxHealth;
         Debug.Log($"Player HP initialized: {current}/{maxHealth}");
-        OnHealthChanged?.Invoke(current, maxHealth); // notify UI on spawn
+        OnHealthChanged?.Invoke(current, maxHealth);
     }
 
     public void TakeDamage(int amount, Vector2 hitFrom, float knockbackForce = 0f)
     {
+        if (deathHandled) return;
         if (Time.time < invulnUntil) return; // still invulnerable
+
+        int old = current;
 
         current = Mathf.Max(0, current - amount);
         invulnUntil = Time.time + invulnTime;
@@ -58,26 +67,35 @@ public class PlayerHealth : MonoBehaviour
 
         Debug.Log($"Player took {amount} damage. HP: {current}/{maxHealth}");
 
-        // 🩸 NEW — update UI
+        // Update UI
         OnHealthChanged?.Invoke(current, maxHealth);
 
+        // 🔊 SFX: hurt if took damage and still alive, death if reached 0
         if (current <= 0)
         {
             HandleDeath();
         }
+        else if (current < old)
+        {
+            AudioManager.I?.PlaySFX(SoundLibrary.I?.hurt);
+        }
     }
 
-    // 🩸 NEW — allow instant kill (used by Flying form or lethal traps)
+    // allow instant kill (used by Flying form or lethal traps)
     public void Kill()
     {
+        if (deathHandled) return;
+
         current = 0;
         OnHealthChanged?.Invoke(current, maxHealth);
         HandleDeath();
     }
 
-    // 🩸 NEW — allow morph manager to adjust max health
+    // allow morph manager to adjust max health
     public void SetMaxHealth(int newMax, bool refill = true)
     {
+        if (deathHandled) return;
+
         maxHealth = Mathf.Max(1, newMax);
         if (refill) current = maxHealth;
         else current = Mathf.Clamp(current, 0, maxHealth);
@@ -86,13 +104,19 @@ public class PlayerHealth : MonoBehaviour
         if (current <= 0) HandleDeath();
     }
 
-    // 🩸 NEW — shared death handler
+    // shared death handler
     private void HandleDeath()
     {
+        if (deathHandled) return;
+        deathHandled = true;
+
+        // 🔊 Death SFX (play once)
+        AudioManager.I?.PlaySFX(SoundLibrary.I?.death);
+
         TrySetTrigger(animator, dieTrigger);
         OnDeath?.Invoke();
 
-        // 🩸 Save this form’s current HP before it's destroyed
+        // Save this form’s current HP before it's destroyed
         var morph = FindObjectOfType<MorphManager>();
         if (morph != null)
             morph.SaveCurrentFormHealthOnDeath(this);
@@ -114,4 +138,5 @@ public class PlayerHealth : MonoBehaviour
             }
         }
     }
+
 }

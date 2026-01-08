@@ -114,6 +114,10 @@ public class MorphManager : MonoBehaviour
     {
         if (formPrefab == null) return;
         if (currentForm != null && currentFormPrefab == formPrefab) return;
+        
+
+        // 🔊 MORPH SFX (intentional morph only)
+        PlayMorphSFX();
 
         Vector3 spawnPos = currentForm ? currentForm.transform.position : transform.position;
 
@@ -130,7 +134,6 @@ public class MorphManager : MonoBehaviour
 
         if (currentForm) Destroy(currentForm);
 
-        // Do NOT refill HP on regular morphs
         SpawnFormInternal(formPrefab, spawnPos, playSpawnAnim: true, refillHealth: false);
 
         OnFormChanged?.Invoke();
@@ -145,6 +148,9 @@ public class MorphManager : MonoBehaviour
 
         if (currentForm) Destroy(currentForm);
         SpawnFormInternal(formPrefab, position, playSpawnAnim: true, refillHealth: refillHealth);
+
+        // 🔊 RESPAWN SFX
+        AudioManager.I?.PlaySFX(SoundLibrary.I?.respawn);
 
         OnFormChanged?.Invoke();
     }
@@ -297,4 +303,12 @@ public class MorphManager : MonoBehaviour
         string key = GetFormKey(currentFormPrefab);
         healthMemory.Save(key, Mathf.Max(0, hp.current), hp.maxHealth);
     }
+    
+    void PlayMorphSFX()
+    {
+        if (AudioManager.I == null) return;
+        if (SoundLibrary.I == null) return;
+        AudioManager.I.PlaySFX(SoundLibrary.I.morph);
+    }
+
 }

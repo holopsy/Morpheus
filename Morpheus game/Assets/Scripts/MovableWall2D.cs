@@ -209,15 +209,21 @@ public class MovableWall2D : MonoBehaviour
     {
         isMoving = true;
 
+        // Move using FIXED timestep for consistent speed in WebGL/builds
         while (Vector2.Distance(rb.position, (Vector2)target) > 0.001f)
         {
-            Vector2 next = Vector2.MoveTowards(rb.position, (Vector2)target, moveSpeed * Time.deltaTime);
+            Vector2 next = Vector2.MoveTowards(
+                rb.position,
+                (Vector2)target,
+                moveSpeed * Time.fixedDeltaTime
+            );
+
             rb.MovePosition(next);
 
             if (crushKillsPlayer && (!crushOnlyWhileMoving || isMoving))
                 CrushCheckAtPosition(next);
 
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
 
         rb.MovePosition((Vector2)target);
