@@ -190,17 +190,23 @@ public class FinishPopupUI : MonoBehaviour
     {
         if (buttonsGroup) buttonsGroup.SetActive(true);
 
-        bool canGoNext = (result == ResultType.EnoughButNotAll || result == ResultType.AllCollected);
+        // Resume:
+        // - allowed unless PERFECT completion
+        bool showResume = (result != ResultType.AllCollected);
+        if (btnResume) btnResume.gameObject.SetActive(showResume);
 
-        // Final level: no NEXT (unless you want it to go somewhere)
+        // Next:
+        // - allowed if ENOUGH or PERFECT
+        bool showNext = (result == ResultType.EnoughButNotAll || result == ResultType.AllCollected);
+
+        // Final level override: no Next button
         if (isFinalLevel)
         {
             if (btnNext) btnNext.gameObject.SetActive(false);
             return;
         }
 
-        if (btnNext)
-            btnNext.gameObject.SetActive(canGoNext);
+        if (btnNext) btnNext.gameObject.SetActive(showNext);
     }
 
     private void ApplyJumpButtonsVisibility()
